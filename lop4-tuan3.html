@@ -276,8 +276,8 @@
     <p class="q-text">Ghi lại nghĩa của mỗi từ sau (viết ngắn gọn bằng lời của em):</p>
     <div class="fill-group" data-type="short">
       <div class="short-answer"><span class="txt">a) Ăn mặc: có nghĩa là...</span><input type="text" data-key="s1" data-contains="trang phục|quần áo|y phục|mặc"></div>
-      <div class="short-answer"><span class="txt">b) Ăn nói: có nghĩa là...</span><input type="text" data-key="s2" data-contains="nói năng|giao tiếp|lời nói|ăn nói"></div>
-      <div class="short-answer"><span class="txt">c) Ăn ở: có nghĩa là...</span><input type="text" data-key="s3" data-contains="cư xử|đối xử|sinh hoạt|nếp sống"></div>
+      <div class="short-answer"><span class="txt">b) Ăn nói: có nghĩa là...</span><input type="text" data-key="s2" data-contains="nói năng|giao tiếp|lời nói|ăn nói|nói chuyện|cách nói|ăn nói cư xử"></div>
+      <div class="short-answer"><span class="txt">c) Ăn ở: có nghĩa là...</span><input type="text" data-key="s3" data-contains="cư xử|cư sử|đối xử|đối sử|sinh hoạt|nếp sống|ứng xử|ứng sử"></div>
     </div>
     <div class="feedback" data-explain="Gợi ý: Ăn mặc = cách lựa chọn trang phục, quần áo. Ăn nói = cách nói năng, giao tiếp. Ăn ở = cách cư xử, đối xử với mọi người trong sinh hoạt hằng ngày."></div>
   </div>
@@ -303,7 +303,7 @@
 const qCards = Array.from(document.querySelectorAll('.q-card'));
 const totalGroups = qCards.length;
 
-function normalize(s){ return (s||'').trim().toLowerCase().replace(/[.,!?;:"']/g,'').replace(/\s+/g,' '); }
+function normalize(s){ return (s||'').toString().normalize('NFC').trim().toLowerCase().replace(/[.,!?;:"']/g,'').replace(/–/g,'-').replace(/\s*-\s*/g,' - ').replace(/\s+/g,' ').trim(); }
 
 function updateProgress(){
   let answered = 0;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đề khảo sát Lớp 5 — Đề 2</title>
+<title>Đề kiểm tra Toán đầu năm — Vào lớp 4</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -59,7 +59,6 @@
   .q-card{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 22px 24px;border:2px solid transparent;transition:border-color .25s;scroll-margin-top:20px;}
   .q-card.correct{border-color:var(--green) !important;background:#f0faf4;}
   .q-card.incorrect{border-color:var(--coral) !important;background:#fff4f3;}
-  .q-card.neutral{border-color:var(--purple) !important;background:#f7f2ff;}
 
   .q-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
   .q-num{width:38px;height:38px;border-radius:12px;background:var(--orange);color:#fff;font-family:'Baloo 2',sans-serif;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex:none;}
@@ -85,28 +84,12 @@
   .q-card.incorrect .choice-btn.picked{background:#ffe1de;border-color:var(--coral);}
   .q-card.incorrect .choice-btn.correct-answer{background:#dcf5e9;border-color:var(--green);}
 
-  .tf-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px;padding:10px 12px;background:#f9fbff;border-radius:14px;border:2px solid #eef3fb;}
-  .tf-row .tf-text{flex:1;min-width:200px;font-weight:600;font-size:15px;color:var(--ink);}
-  .tf-btns{display:flex;gap:8px;flex:none;}
-  .tf-btn{padding:9px 16px;border-radius:12px;background:#fff;border:2px solid #e2edff;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:14px;cursor:pointer;color:var(--ink);}
-  .tf-btn:hover{background:#e9f1ff;}
-  .tf-btn.picked{background:#fff2d6;border-color:var(--orange-deep);}
-  .tf-row.correct .tf-btn.picked{background:#dcf5e9;border-color:var(--green);}
-  .tf-row.incorrect .tf-btn.picked{background:#ffe1de;border-color:var(--coral);}
-  .tf-row.incorrect .tf-btn.correct-answer{background:#dcf5e9;border-color:var(--green);}
-
-  .match-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
-  .match-left{background:#f4f7fc;border:2px solid #e2edff;border-radius:12px;padding:9px 12px;font-weight:700;min-width:90px;flex:1;}
-  .match-row select{flex:1.4;min-width:150px;padding:9px 10px;border-radius:12px;border:2px solid #e2edff;background:#fff;font-family:'Quicksand',sans-serif;font-weight:600;font-size:14px;color:var(--ink);}
-  .match-row select:focus{outline:2px solid var(--orange-deep);}
-
   .illus-inline{display:flex;justify-content:center;margin-bottom:14px;}
   .illus-inline svg{width:150px;height:100px;}
 
   .feedback{margin-top:14px;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;display:none;line-height:1.6;}
   .q-card.correct .feedback{display:block;background:#e4f7ee;color:#1d7a52;}
   .q-card.incorrect .feedback{display:block;background:#ffe9e6;color:#b3392a;}
-  .q-card.neutral .feedback{display:block;background:#f0e8ff;color:#5f3ea8;}
 
   .submit-zone{position:sticky;bottom:14px;display:flex;justify-content:center;margin-top:6px;z-index:20;}
   .btn-submit{background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border:none;padding:16px 38px;border-radius:999px;font-family:'Baloo 2',sans-serif;font-size:19px;font-weight:700;box-shadow:0 10px 22px rgba(38,98,204,.32);cursor:pointer;transition:transform .15s;}
@@ -128,9 +111,9 @@
 <body>
 
 <div class="hero">
-  <span class="hero-badge">TOÁN · ĐỀ KHẢO SÁT · LỚP 5</span>
-  <h1>Đề khảo sát Lớp 5 — Đề 2</h1>
-  <p class="sub">Bình tĩnh đọc kỹ từng phần rồi làm nhé. Làm xong nhớ bấm "Nộp bài" để xem kết quả!</p>
+  <span class="hero-badge">TOÁN · ĐỀ KIỂM TRA ĐẦU NĂM · VÀO LỚP 4</span>
+  <h1>Chinh phục <span>đề Toán</span> đầu năm</h1>
+  <p class="sub">Bình tĩnh đọc kỹ từng bài rồi làm nhé. Làm xong nhớ bấm "Nộp bài" để xem kết quả!</p>
 
   <div class="chibi-row" aria-hidden="true">
     <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="26" fill="#3d8bff"/><text x="30" y="40" font-family="Baloo 2" font-size="28" fill="#fff" text-anchor="middle" font-weight="700">+</text></svg>
@@ -146,7 +129,6 @@
   <div class="info-two">
     <div class="info-row"><label>🏫 Lớp</label><input type="text" id="studentClass" placeholder="VD: 4A"></div>
   </div>
-  <div class="info-row"><label>📱 PHHS cung cấp số điện thoại để được nhận kết quả đánh giá:</label><input type="tel" id="parentPhone" placeholder="VD: 0912345678"></div>
 </div>
 
 <div class="progress-wrap">
@@ -159,115 +141,103 @@
 
 <div class="wrap">
 
-
-  <div style="text-align:center;"><span class="hero-badge" style="border-color:var(--purple-deep);color:var(--purple-deep);">PHẦN 1 · TRẮC NGHIỆM CHỌN ĐÁP ÁN (2 điểm)</span></div>
-
-  <div class="q-card" data-qid="c1">
-    <div class="q-top"><div class="q-num">1</div><span class="q-tag">Trắc nghiệm</span><span class="q-points">0,5 điểm</span></div>
-    <p class="q-text">Giá trị của chữ số 8 trong số 483 925 là:</p>
-    <div class="options" data-type="mc" data-correct="c">
-      <label class="opt"><input type="radio" name="c1" value="a"> A. 800</label>
-      <label class="opt"><input type="radio" name="c1" value="b"> B. 8 000</label>
-      <label class="opt"><input type="radio" name="c1" value="c"> C. 80 000</label>
-      <label class="opt"><input type="radio" name="c1" value="d"> D. 800 000</label>
-    </div>
-    <div class="feedback" data-explain="Chữ số 8 đứng ở hàng chục nghìn, giá trị 80 000."></div>
-  </div>
-
-  <div class="q-card" data-qid="c2">
-    <div class="q-top"><div class="q-num">2</div><span class="q-tag">Trắc nghiệm</span><span class="q-points">0,5 điểm</span></div>
-    <p class="q-text">Số thích hợp để điền vào chỗ trống: 5 m² 4 dm² = ...... dm²</p>
-    <div class="options" data-type="mc" data-correct="b">
-      <label class="opt"><input type="radio" name="c2" value="a"> A. 54</label>
-      <label class="opt"><input type="radio" name="c2" value="b"> B. 504</label>
-      <label class="opt"><input type="radio" name="c2" value="c"> C. 540</label>
-      <label class="opt"><input type="radio" name="c2" value="d"> D. 5 004</label>
-    </div>
-    <div class="feedback" data-explain="5m²=500dm², cộng 4dm²=504dm²."></div>
-  </div>
-
-  <div class="q-card" data-qid="c3">
-    <div class="q-top"><div class="q-num">3</div><span class="q-tag">Trắc nghiệm</span><span class="q-points">0,5 điểm</span></div>
-    <p class="q-text">Một chú lợn rừng được cân, khi làm tròn đến hàng chục ki-lô-gam thì nặng khoảng 70 kg. Số đo nào dưới đây có thể là cân nặng thực tế?</p>
-    <div class="options" data-type="mc" data-correct="b">
-      <label class="opt"><input type="radio" name="c3" value="a"> A. 6 yến 3 kg</label>
-      <label class="opt"><input type="radio" name="c3" value="b"> B. 7 yến 3 kg</label>
-      <label class="opt"><input type="radio" name="c3" value="c"> C. 7 yến 6 kg</label>
-      <label class="opt"><input type="radio" name="c3" value="d"> D. 8 yến 2 kg</label>
-    </div>
-    <div class="feedback" data-explain="7 yến 3 kg = 73kg, làm tròn đến hàng chục = 70kg. Các đáp án khác làm tròn ra số khác 70."></div>
-  </div>
-
-  <div class="q-card" data-qid="c4">
-    <div class="q-top"><div class="q-num">4</div><span class="q-tag">Trắc nghiệm</span><span class="q-points">0,5 điểm</span></div>
-    <p class="q-text">Kết quả của phép tính: (4/3 − 2/9) : 2/9 là:</p>
-    <div class="options" data-type="mc" data-correct="a">
-      <label class="opt"><input type="radio" name="c4" value="a"> A. 5</label>
-      <label class="opt"><input type="radio" name="c4" value="b"> B. 9</label>
-      <label class="opt"><input type="radio" name="c4" value="c"> C. 10/9</label>
-      <label class="opt"><input type="radio" name="c4" value="d"> D. 20/81</label>
-    </div>
-    <div class="feedback" data-explain="4/3=12/9. 12/9−2/9=10/9. 10/9 : 2/9 = 10/9 × 9/2 = 5."></div>
-  </div>
-
-  <div style="text-align:center;"><span class="hero-badge" style="border-color:var(--purple-deep);color:var(--purple-deep);">PHẦN 2 · TRẮC NGHIỆM ĐÚNG - SAI (1 điểm)</span></div>
-
-  <div class="q-card" data-qid="c5">
-    <div class="q-top"><div class="q-num">5</div><span class="q-tag">Đúng / Sai</span><span class="q-points">1,0 điểm</span></div>
-    <p class="q-text">Một cửa hàng ngày thứ nhất bán được 240 lít dầu. Ngày thứ hai bán được bằng một nửa số dầu của ngày thứ nhất. Người ta đem toàn bộ số dầu bán được trong cả hai ngày chia đều vào 6 thùng như nhau.</p>
-    <div class="tf-row" data-correct="dung"><div class="tf-text">a) Số lít dầu bán được trong ngày thứ hai là 120 lít.</div><div class="tf-btns"><button type="button" class="tf-btn" data-val="dung">Đúng</button><button type="button" class="tf-btn" data-val="sai">Sai</button></div></div>
-    <div class="tf-row" data-correct="sai"><div class="tf-text">b) Cả hai ngày cửa hàng bán được tổng cộng 300 lít dầu.</div><div class="tf-btns"><button type="button" class="tf-btn" data-val="dung">Đúng</button><button type="button" class="tf-btn" data-val="sai">Sai</button></div></div>
-    <div class="tf-row" data-correct="dung"><div class="tf-text">c) Mỗi thùng chứa 60 lít dầu.</div><div class="tf-btns"><button type="button" class="tf-btn" data-val="dung">Đúng</button><button type="button" class="tf-btn" data-val="sai">Sai</button></div></div>
-    <div class="tf-row" data-correct="dung"><div class="tf-text">d) Trung bình mỗi ngày cửa hàng bán được 180 lít dầu.</div><div class="tf-btns"><button type="button" class="tf-btn" data-val="dung">Đúng</button><button type="button" class="tf-btn" data-val="sai">Sai</button></div></div>
-    <div class="feedback" data-explain="Ngày 2=120l. a) Đúng. b) Sai, tổng=240+120=360l (không phải 300). c) Đúng, 360:6=60l. d) Đúng, 360:2=180l."></div>
-  </div>
-
-  <div style="text-align:center;"><span class="hero-badge" style="border-color:var(--purple-deep);color:var(--purple-deep);">PHẦN 3 · ĐIỀN ĐÁP ÁN (1 điểm)</span></div>
-
-  <div class="q-card" data-qid="c6">
-    <div class="q-top"><div class="q-num">6</div><span class="q-tag tag-fill">Điền đáp án</span><span class="q-points">0,5 điểm</span></div>
-    <p class="q-text">Mua 4 cây bút mực hết 32 000 đồng. Hỏi nếu mua 6 cây bút mực như thế thì hết bao nhiêu tiền?</p>
-    <div class="fill-line"><span>Trả lời:</span><input type="text" data-key="a1" data-answers="48000"><span>đồng</span></div>
-    <div class="feedback" data-explain="1 cây bút: 32000:4=8000đ. 6 cây: 8000×6=48000đ."></div>
-  </div>
-
-  <div class="q-card" data-qid="c7">
-    <div class="q-top"><div class="q-num">7</div><span class="q-tag tag-fill">Điền đáp án</span><span class="q-points">0,5 điểm</span></div>
-    <p class="q-text">Một khu đất hình chữ nhật có chiều dài là 600 m, chiều rộng bằng 1/3 chiều dài. Tính diện tích khu đất đó.</p>
-    <div class="fill-line"><span>Trả lời:</span><input type="text" data-key="a2" data-answers="120000"><span>m²</span></div>
-    <div class="feedback" data-explain="Rộng=600×1/3=200m. Diện tích=600×200=120000m²."></div>
-  </div>
-
-  <div style="text-align:center;"><span class="hero-badge" style="border-color:var(--purple-deep);color:var(--purple-deep);">PHẦN 4 · TỰ LUẬN (6 điểm)</span></div>
-
+  <!-- Bài 1 -->
   <div class="q-card" data-qid="b1">
-    <div class="q-top"><div class="q-num">B1</div><span class="q-tag tag-fill">Tính</span><span class="q-points">1,5 điểm</span></div>
-    <div class="fill-line"><span>a) 2/3 + 4/5 =</span><input type="text" data-key="p1" data-answers="22/15"></div>
-    <div class="fill-line"><span>b) 12/5 − 7/8 =</span><input type="text" data-key="p2" data-answers="61/40"></div>
-    <div class="fill-line"><span>c) 42/15 × 3/7 =</span><input type="text" data-key="p3" data-answers="6/5"></div>
-    <div class="feedback" data-explain="a) 2/3+4/5=10/15+12/15=22/15. b) 12/5−7/8=96/40−35/40=61/40. c) 42/15×3/7=126/105=6/5."></div>
+    <div class="q-top"><div class="q-num">1</div><span class="q-tag">Số tự nhiên</span><span class="q-points">1,5 điểm</span></div>
+    <p class="q-text">Cho số: 58 406</p>
+    <div class="fill-line"><span>a) Chữ số 8 trong số trên có giá trị là:</span><input type="text" data-key="a1" data-answers="8000"></div>
+    <div class="fill-line"><span>b) Viết số gồm 7 chục nghìn, 3 trăm và 5 đơn vị:</span><input type="text" data-key="a2" data-answers="70305"></div>
+    <div class="fill-line"><span>c) Làm tròn số 58 406 đến hàng trăm:</span><input type="text" data-key="a2b" data-answers="58400"></div>
+    <div class="feedback" data-explain="a) Chữ số 8 đứng ở hàng nghìn nên có giá trị là 8 000. b) 7 chục nghìn, 3 trăm, 5 đơn vị = 70 305. c) Hàng trăm là chữ số 4; chữ số liền sau (hàng chục) là 0 < 5 nên giữ nguyên, làm tròn: 58 400."></div>
   </div>
 
+  <!-- Bài 2 -->
   <div class="q-card" data-qid="b2">
-    <div class="q-top"><div class="q-num">B2</div><span class="q-tag tag-fill">Tính bằng cách thuận tiện</span><span class="q-points">1,5 điểm</span></div>
-    <div class="fill-line"><span>a) 125×45 + 875×45 + 200 =</span><input type="text" data-key="p4" data-answers="45200"></div>
-    <div class="fill-line"><span>b) 1 678 + 87 907 + 322 − 6 907 =</span><input type="text" data-key="p5" data-answers="83000"></div>
-    <div class="feedback" data-explain="a) 45×(125+875)+200=45000+200=45200. b) (1678+322)+(87907−6907)=2000+81000=83000."></div>
+    <div class="q-top"><div class="q-num">2</div><span class="q-tag">So sánh và sắp xếp</span><span class="q-points">1,0 điểm</span></div>
+    <div class="calc-row" style="margin-bottom:10px;">48 999 <span class="choice-row" data-type="choice" data-correct="<">
+      <button type="button" class="choice-btn" data-val=">">&gt;</button>
+      <button type="button" class="choice-btn" data-val="<">&lt;</button>
+      <button type="button" class="choice-btn" data-val="=">=</button>
+    </span> 49 000</div>
+    <div class="calc-row" style="margin-bottom:18px;">70 050 <span class="choice-row" data-type="choice" data-correct=">">
+      <button type="button" class="choice-btn" data-val=">">&gt;</button>
+      <button type="button" class="choice-btn" data-val="<">&lt;</button>
+      <button type="button" class="choice-btn" data-val="=">=</button>
+    </span> 70 005</div>
+    <p class="q-text">Sắp xếp các số sau theo thứ tự từ bé đến lớn: 25 430; 25 403; 25 340</p>
+    <div class="fill-line"><span>Thứ tự từ bé đến lớn:</span><input type="text" data-key="a3" style="min-width:280px;" data-answers="25340,25403,25430" placeholder="VD: 25340, 25403, 25430"></div>
+    <div class="feedback" data-explain="48 999 < 49 000 · 70 050 > 70 005 · Sắp xếp: 25 340 < 25 403 < 25 430."></div>
   </div>
 
+  <!-- Bài 3 -->
   <div class="q-card" data-qid="b3">
-    <div class="q-top"><div class="q-num">B3</div><span class="q-tag tag-fill">Tự luận</span><span class="q-points">1,5 điểm</span></div>
-    <p class="q-text">Lớp 4A có 30 học sinh, lớp 4B có 35 học sinh. Mỗi học sinh thu gom số ki-lô-gam giấy như nhau, và lớp 4B thu gom nhiều hơn lớp 4A là 15 kg. Hỏi mỗi lớp thu gom được bao nhiêu ki-lô-gam giấy vụn?</p>
-    <div class="fill-line"><span>Lớp 4A:</span><input type="text" data-key="p6" data-answers="90"><span>kg</span></div>
-    <div class="fill-line"><span>Lớp 4B:</span><input type="text" data-key="p7" data-answers="105"><span>kg</span></div>
-    <div class="feedback" data-explain="Chênh lệch học sinh: 35−30=5. Mỗi học sinh: 15:5=3kg. Lớp 4A: 30×3=90kg. Lớp 4B: 35×3=105kg."></div>
+    <div class="q-top"><div class="q-num">3</div><span class="q-tag">Đặt tính rồi tính</span><span class="q-points">2,0 điểm</span></div>
+    <p class="q-text">Tính kết quả của mỗi phép tính sau:</p>
+    <div class="calc-grid">
+      <div class="calc-row">38 475 + 6 209 = <input type="text" data-key="c1" data-answers="44684"></div>
+      <div class="calc-row">70 000 − 28 456 = <input type="text" data-key="c2" data-answers="41544"></div>
+      <div class="calc-row">2 436 × 4 = <input type="text" data-key="c3" data-answers="9744"></div>
+      <div class="calc-row">8 424 : 4 = <input type="text" data-key="c4" data-answers="2106"></div>
+    </div>
+    <div class="feedback" data-explain="38 475 + 6 209 = 44 684 · 70 000 − 28 456 = 41 544 · 2 436 × 4 = 9 744 · 8 424 : 4 = 2 106."></div>
   </div>
 
+  <!-- Bài 4 -->
   <div class="q-card" data-qid="b4">
-    <div class="q-top"><div class="q-num">B4</div><span class="q-tag tag-fill">Tự luận</span><span class="q-points">1,5 điểm</span></div>
-    <p class="q-text">Cho phân số 7/25. Tìm một số sao cho khi lấy tử số của phân số đã cho cộng với số đó và giữ nguyên mẫu số thì được phân số mới bằng 3/5.</p>
-    <div class="fill-line"><span>Đáp số:</span><input type="text" data-key="p8" data-answers="8"></div>
-    <div class="feedback" data-explain="3/5=15/25. Vậy 7+số đó=15 → số đó=8."></div>
+    <div class="q-top"><div class="q-num">4</div><span class="q-tag">Tính nhẩm</span><span class="q-points">1,0 điểm</span></div>
+    <div class="calc-grid">
+      <div class="calc-row">7 × 8 = <input type="text" data-key="d1" data-answers="56"></div>
+      <div class="calc-row">54 : 6 = <input type="text" data-key="d2" data-answers="9"></div>
+      <div class="calc-row">350 × 2 = <input type="text" data-key="d3" data-answers="700"></div>
+      <div class="calc-row">900 : 3 = <input type="text" data-key="d4" data-answers="300"></div>
+    </div>
+    <div class="feedback" data-explain="7 × 8 = 56 · 54 : 6 = 9 · 350 × 2 = 700 · 900 : 3 = 300."></div>
+  </div>
+
+  <!-- Bài 5 -->
+  <div class="q-card" data-qid="b5">
+    <div class="q-top"><div class="q-num">5</div><span class="q-tag">Phân số và đại lượng</span><span class="q-points">1,0 điểm</span></div>
+    <p class="q-text">a) Một chiếc bánh được chia thành 8 phần bằng nhau. An ăn 3 phần. Phân số chỉ phần bánh An đã ăn là:</p>
+    <div class="fill-line" style="margin-bottom:16px;"><input type="text" data-key="a5" style="width:90px;min-width:90px;" data-answers="3/8"></div>
+    <div class="fill-line"><span>b) 3 m 5 cm =</span><input type="text" data-key="a6" data-answers="305"><span>cm</span></div>
+    <div class="feedback" data-explain="a) An ăn 3 trên 8 phần bằng nhau, tức là 3/8 chiếc bánh. b) 3 m = 300 cm, cộng 5 cm = 305 cm."></div>
+  </div>
+
+  <!-- Bài 6 -->
+  <div class="q-card" data-qid="b6">
+    <div class="q-top"><div class="q-num">6</div><span class="q-tag">Hình học</span><span class="q-points">1,5 điểm</span></div>
+    <div class="illus-inline" aria-hidden="true">
+      <svg viewBox="0 0 200 120">
+        <rect x="30" y="35" width="120" height="50" fill="#eafaf1" stroke="#3fc17d" stroke-width="4"/>
+        <text x="90" y="26" text-anchor="middle" font-family="Quicksand" font-weight="700" font-size="13" fill="#2ea364">8 cm</text>
+        <text x="18" y="64" text-anchor="middle" font-family="Quicksand" font-weight="700" font-size="13" fill="#2ea364" transform="rotate(-90 18 64)">5 cm</text>
+      </svg>
+    </div>
+    <p class="q-text">Một hình chữ nhật có chiều dài 8 cm, chiều rộng 5 cm.</p>
+    <div class="fill-line"><span>a) Chu vi hình chữ nhật:</span><input type="text" data-key="a7" data-answers="26"><span>cm</span></div>
+    <div class="fill-line"><span>b) Diện tích hình chữ nhật:</span><input type="text" data-key="a8" data-answers="40"><span>cm²</span></div>
+    <div class="feedback" data-explain="Chu vi = (8 + 5) × 2 = 26 cm. Diện tích = 8 × 5 = 40 cm²."></div>
+  </div>
+
+  <!-- Bài 7 -->
+  <div class="q-card" data-qid="b7">
+    <div class="q-top"><div class="q-num">7</div><span class="q-tag">Đọc bảng</span><span class="q-points">1,0 điểm</span></div>
+    <p class="q-text">Bảng số quyển sách đọc được trong 3 ngày:</p>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:16px;font-weight:600;font-size:14.5px;">
+      <tr style="background:#eaf2ff;"><td style="padding:8px;border:1px solid #d3e3ff;">Ngày</td><td style="padding:8px;border:1px solid #d3e3ff;text-align:center;">Thứ Hai</td><td style="padding:8px;border:1px solid #d3e3ff;text-align:center;">Thứ Ba</td><td style="padding:8px;border:1px solid #d3e3ff;text-align:center;">Thứ Tư</td></tr>
+      <tr><td style="padding:8px;border:1px solid #d3e3ff;">Số quyển sách</td><td style="padding:8px;border:1px solid #d3e3ff;text-align:center;">12</td><td style="padding:8px;border:1px solid #d3e3ff;text-align:center;">18</td><td style="padding:8px;border:1px solid #d3e3ff;text-align:center;">15</td></tr>
+    </table>
+    <div class="fill-line"><span>a) Ngày nào đọc được nhiều sách nhất?</span><input type="text" data-key="a9" style="min-width:120px;" data-textanswers="thứ ba|thứ 3|ngày thứ ba"></div>
+    <div class="fill-line"><span>b) Cả ba ngày đọc được:</span><input type="text" data-key="a10" data-answers="45"><span>quyển</span></div>
+    <div class="feedback" data-explain="a) Thứ Ba đọc được 18 quyển — nhiều nhất trong 3 ngày. b) Tổng: 12 + 18 + 15 = 45 quyển."></div>
+  </div>
+
+  <!-- Bài 8 -->
+  <div class="q-card" data-qid="b8">
+    <div class="q-top"><div class="q-num">8</div><span class="q-tag">Giải toán</span><span class="q-points">1,0 điểm</span></div>
+    <p class="q-text">Có 4 thùng, mỗi thùng có 125 chai nước. Người ta đã sử dụng 86 chai. Hỏi còn lại bao nhiêu chai nước?</p>
+    <div class="fill-line"><span>Đáp số:</span><input type="text" data-key="a11" data-answers="414"><span>chai</span></div>
+    <div class="feedback" data-explain="Tổng số chai nước: 4 × 125 = 500 chai. Số chai còn lại: 500 − 86 = 414 chai."></div>
   </div>
 
 </div>
@@ -285,7 +255,7 @@
   </div>
 </div>
 
-<footer>Đề khảo sát Lớp 5 — Đề 2 · Chúc em làm bài tốt! 🧮</footer>
+<footer>Đề kiểm tra Toán đầu năm — Vào lớp 4 · Chúc em làm bài tốt! 🧮</footer>
 
 <script>
 const qCards = Array.from(document.querySelectorAll('.q-card'));
@@ -308,41 +278,16 @@ function isGroupTouched(card){
   const inputs = card.querySelectorAll('input[type=text]');
   if(Array.from(inputs).some(i=>i.value.trim()!=='')) return true;
   const choices = card.querySelectorAll('.choice-row[data-type="choice"]');
-  if(choices.length){ if(Array.from(card.querySelectorAll('.choice-btn')).some(b=>b.classList.contains('picked'))) return true; }
-  const mc = card.querySelector('.options[data-type="mc"]');
-  if(mc){ if(mc.querySelector('input:checked')) return true; }
-  const tfRows = card.querySelectorAll('.tf-row');
-  if(tfRows.length){ if(Array.from(card.querySelectorAll('.tf-btn')).some(b=>b.classList.contains('picked'))) return true; }
-  const match = card.querySelector('.match-group[data-type="match"]');
-  if(match){ if(Array.from(match.querySelectorAll('select')).some(s=>s.value!=='')) return true; }
+  if(choices.length){ return Array.from(card.querySelectorAll('.choice-btn')).some(b=>b.classList.contains('picked')); }
   return false;
 }
 
 qCards.forEach(card=>{
   card.addEventListener('input', updateProgress);
-  card.addEventListener('change', updateProgress);
   card.querySelectorAll('.choice-row[data-type="choice"]').forEach(row=>{
     row.querySelectorAll('.choice-btn').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         row.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('picked'));
-        btn.classList.add('picked');
-        updateProgress();
-      });
-    });
-  });
-  card.querySelectorAll('.options[data-type="mc"] .opt').forEach(opt=>{
-    opt.addEventListener('click', ()=>{
-      const input = opt.querySelector('input');
-      if(input){ input.checked = true; }
-      card.querySelectorAll('.options[data-type="mc"] .opt').forEach(o=>o.classList.remove('picked'));
-      opt.classList.add('picked');
-      updateProgress();
-    });
-  });
-  card.querySelectorAll('.tf-row').forEach(row=>{
-    row.querySelectorAll('.tf-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        row.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('picked'));
         btn.classList.add('picked');
         updateProgress();
       });
@@ -366,22 +311,9 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
     let groupCorrect = true;
     let groupTouched = isGroupTouched(card);
 
-    // set-type answers (Bài 1a - không cần đúng thứ tự)
-    const handledKeys = new Set();
-    const setInputs = card.querySelectorAll('input[data-answerset]');
-    setInputs.forEach(inp=>{
-      handledKeys.add(inp.getAttribute('data-key'));
-      possible += 1;
-      const expected = inp.getAttribute('data-answerset').split(',').map(x=>x.trim()).sort();
-      const given = normList(inp.value).slice().sort();
-      const ok = expected.length===given.length && expected.every((v,i)=>v===given[i]);
-      if(ok) earned += 1; else groupCorrect = false;
-      inp.style.color = inp.value.trim()==='' ? '#c8ceda' : (ok ? '#1d7a52' : '#e35b4d');
-      inp.style.borderBottomColor = inp.value.trim()==='' ? '#c3cfe0' : (ok ? '#3fc17d' : '#ff7a6e');
-    });
-
-    // list-type answers (thứ tự)
+    // list-type answers (Bài 2)
     const listInputs = card.querySelectorAll('input[data-answers*=","]');
+    const handledKeys = new Set();
 
     Array.from(listInputs).forEach(inp=>{
       handledKeys.add(inp.getAttribute('data-key'));
@@ -432,49 +364,6 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
       });
     });
 
-    // multiple choice (trắc nghiệm A/B/C/D)
-    const mc = card.querySelector('.options[data-type="mc"]');
-    if(mc){
-      possible += 1;
-      const checked = mc.querySelector('input:checked');
-      const correctVal = mc.getAttribute('data-correct');
-      const isCorrect = checked && checked.value === correctVal;
-      if(isCorrect) earned += 1; else groupCorrect = false;
-      mc.querySelectorAll('.opt').forEach(o=>{
-        const input = o.querySelector('input');
-        if(input.value === correctVal) o.classList.add('correct-answer');
-      });
-    }
-
-    // Đúng / Sai
-    const tfRows = card.querySelectorAll('.tf-row');
-    tfRows.forEach(row=>{
-      possible += 1;
-      const correctVal = row.getAttribute('data-correct');
-      const picked = row.querySelector('.tf-btn.picked');
-      const ok = picked && picked.getAttribute('data-val') === correctVal;
-      if(ok) earned += 1; else groupCorrect = false;
-      row.classList.remove('correct','incorrect');
-      if(picked){ row.classList.add(ok ? 'correct' : 'incorrect'); }
-      row.querySelectorAll('.tf-btn').forEach(b=>{
-        if(b.getAttribute('data-val')===correctVal) b.classList.add('correct-answer');
-      });
-    });
-
-    // nối câu (dropdown match)
-    const match = card.querySelector('.match-group[data-type="match"]');
-    if(match){
-      const rows = Array.from(match.querySelectorAll('.match-row'));
-      possible += rows.length;
-      rows.forEach(row=>{
-        const sel = row.querySelector('select');
-        const correctVal = row.getAttribute('data-correct');
-        const ok = sel.value === correctVal;
-        if(ok) earned += 1; else groupCorrect = false;
-        sel.style.borderColor = sel.value ? (ok ? '#3fc17d' : '#ff7a6e') : '#e2edff';
-      });
-    }
-
     card.classList.remove('correct','incorrect');
     if(groupTouched){ card.classList.add(groupCorrect ? 'correct' : 'incorrect'); }
   });
@@ -488,10 +377,9 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
       mode: 'no-cors',
       headers: {'Content-Type': 'text/plain;charset=utf-8'},
       body: JSON.stringify({
-        bai: "Khảo sát Lớp 5 - Đề 2",
+        bai: "Toán đầu năm - Vào lớp 4",
         hoten: nameInput.value.trim(),
         lop: document.getElementById('studentClass').value.trim(),
-        sdt: document.getElementById('parentPhone').value.trim(),
         diem: earned,
         tongdiem: possible
       })
@@ -502,7 +390,7 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
   const resultPanel = document.getElementById('resultPanel');
   document.getElementById('resultScore').textContent = earned+' / '+possible+' điểm';
   let emoji, msg;
-  if(pct >= 90){ emoji='🏆'; msg='xuất sắc, sẵn sàng vào lớp 2 rồi!'; }
+  if(pct >= 90){ emoji='🏆'; msg='xuất sắc, sẵn sàng vào lớp 4 rồi!'; }
   else if(pct >= 70){ emoji='🌟'; msg='làm rất tốt, cố thêm chút nữa nhé!'; }
   else if(pct >= 50){ emoji='🙂'; msg='khá lắm, xem lại vài bài để giỏi hơn nữa nhé.'; }
   else { emoji='📘'; msg='đừng lo, hãy ôn lại và thử lần nữa nhé!'; }
@@ -517,16 +405,8 @@ document.getElementById('retryBtn').addEventListener('click', ()=>{
   document.getElementById('studentName').style.borderColor='#eaeff6';
   document.getElementById('studentName').placeholder='Nhập họ và tên của em...';
   document.getElementById('studentClass').value='';
-  document.getElementById('parentPhone').value='';
-  document.getElementById('parentPhone').style.borderColor='#eaeff6';
-  document.getElementById('parentPhone').placeholder='VD: 0912345678';
   document.querySelectorAll('input[type=text]').forEach(i=>{ if(i.id!=='studentName' && i.id!=='studentClass'){ i.value=''; i.style.color=''; i.style.borderBottomColor=''; } });
   document.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('picked','correct-answer'));
-  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
-  document.querySelectorAll('.options[data-type="mc"] .opt').forEach(o=>o.classList.remove('picked','correct-answer'));
-  document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('picked','correct-answer'));
-  document.querySelectorAll('.tf-row').forEach(r=>r.classList.remove('correct','incorrect'));
-  document.querySelectorAll('.match-group select').forEach(s=>{s.value='';s.style.borderColor='';});
   document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('correct','incorrect'));
   document.getElementById('resultPanel').classList.remove('show');
   updateProgress();

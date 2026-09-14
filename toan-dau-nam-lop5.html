@@ -252,8 +252,8 @@
 const qCards = Array.from(document.querySelectorAll('.q-card'));
 const totalGroups = qCards.length;
 
-function normNum(s){ return (s||'').toString().trim().replace(/[.\s]/g,'').replace(',', '.'); }
-function normList(s){ return (s||'').toString().split(/[,;]+/).map(x=>x.replace(/[^\d]/g,'').trim()).filter(x=>x!==''); }
+function normNum(s){ return (s||'').toString().normalize('NFC').trim().replace(/[.\s]/g,'').replace(',', '.'); }
+function normList(s){ return (s||'').toString().normalize('NFC').split(/[,;]+/).map(x=>x.replace(/[^\d]/g,'').trim()).filter(x=>x!==''); }
 
 function updateProgress(){
   let answered = 0;
@@ -347,6 +347,22 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
   });
 
   updateProgress();
+
+  // Gửi kết quả về Google Sheet của giáo viên
+  try {
+    fetch("https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec", {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        bai: "Toán đầu năm - Vào lớp 5",
+        hoten: nameInput.value.trim(),
+        lop: document.getElementById('studentClass').value.trim(),
+        diem: earned,
+        tongdiem: possible
+      })
+    }).catch(()=>{});
+  } catch(e) {}
 
   const pct = Math.round((earned/possible)*100);
   const resultPanel = document.getElementById('resultPanel');

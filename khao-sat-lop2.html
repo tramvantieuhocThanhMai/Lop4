@@ -381,9 +381,9 @@
 const qCards = Array.from(document.querySelectorAll('.q-card'));
 const totalGroups = qCards.length;
 
-function normNum(s){ return (s||'').toString().trim().replace(/[.\s]/g,'').replace(',', '.'); }
-function normList(s){ return (s||'').toString().split(/[,;]+/).map(x=>x.replace(/[^\d]/g,'').trim()).filter(x=>x!==''); }
-function normText(s){ return (s||'').toString().trim().toLowerCase().replace(/[.,!?;:"']/g,'').replace(/\s+/g,' '); }
+function normNum(s){ return (s||'').toString().normalize('NFC').trim().replace(/[.\s]/g,'').replace(',', '.'); }
+function normList(s){ return (s||'').toString().normalize('NFC').split(/[,;]+/).map(x=>x.replace(/[^\d]/g,'').trim()).filter(x=>x!==''); }
+function normText(s){ return (s||'').toString().normalize('NFC').trim().toLowerCase().replace(/[.,!?;:"']/g,'').replace(/\s+/g,' '); }
 
 function updateProgress(){
   let answered = 0;

@@ -301,7 +301,7 @@
 const qCards = Array.from(document.querySelectorAll('.q-card'));
 const totalGroups = qCards.length;
 
-function normalize(s){ return (s||'').trim().toLowerCase().replace(/[.,!?;:"']/g,'').replace(/\s+/g,' '); }
+function normalize(s){ return (s||'').toString().normalize('NFC').trim().toLowerCase().replace(/[.,!?;:"']/g,'').replace(/–/g,'-').replace(/\s*-\s*/g,' - ').replace(/\s+/g,' ').trim(); }
 
 function updateProgress(){
   let answered = 0;
