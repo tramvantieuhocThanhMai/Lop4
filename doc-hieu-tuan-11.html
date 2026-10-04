@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đọc hiểu tuần 11 — Cậu bé ham học hỏi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --night:#1b2559; --night2:#3a3f8f; --star:#ffd85e; --star-deep:#f5a800;
+    --coral:#ff6b6b; --coral-deep:#e8523f; --leaf:#3fb083; --leaf-deep:#1d7a52;
+    --ink:#2a2f4a; --ink-soft:#5d6382; --paper:#ffffff; --bg:#f3f1ff; --line:#e4e2f5;
+    --violet:#6c5ce7; --radius:22px; --shadow:0 10px 26px rgba(27,37,89,.10);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Quicksand','Segoe UI',Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:17px;line-height:1.6;}
+  h1,h2,h3,.fun{font-family:'Baloo 2','Quicksand','Segoe UI',Arial,sans-serif;}
+  header{background:linear-gradient(180deg,var(--night) 0%,var(--night2) 100%);color:#fff;text-align:center;padding:22px 16px 0;position:relative;overflow:hidden;}
+  header .tag{display:inline-block;background:rgba(255,255,255,.16);border-radius:99px;padding:4px 16px;font-weight:700;font-size:14px;letter-spacing:.5px;}
+  header h1{margin:8px 0 2px;font-size:34px;line-height:1.15;color:var(--star);}
+  header p{margin:0 0 6px;opacity:.9;}
+  header svg{display:block;width:100%;max-width:760px;height:auto;margin:0 auto;}
+  .twinkle{animation:tw 2.4s ease-in-out infinite;}
+  .twinkle.d2{animation-delay:.8s;} .twinkle.d3{animation-delay:1.5s;}
+  @keyframes tw{0%,100%{opacity:1}50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.twinkle{animation:none}}
+  main{max-width:820px;margin:0 auto;padding:18px 14px 40px;}
+  .card{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 20px;margin:18px 0;border:2px solid transparent;}
+  .info-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .info-row label{flex:1 1 220px;font-weight:700;font-size:15px;color:var(--ink-soft);}
+  .info-row label.small{flex:0 1 150px;}
+  .info-row input{width:100%;margin-top:4px;padding:11px 14px;border:2px solid var(--line);border-radius:14px;font:inherit;font-weight:600;color:var(--ink);}
+  .info-row input:focus{outline:none;border-color:var(--violet);}
+  .progress{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 6px;}
+  .progress-top{display:flex;justify-content:space-between;font-weight:700;font-size:14px;color:var(--ink-soft);}
+  .bar{height:12px;background:#dcd9f3;border-radius:99px;position:relative;margin-top:14px;}
+  .bar-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--violet),var(--star));transition:width .4s;}
+  .walker{position:absolute;top:-13px;left:0;transform:translateX(-50%);font-size:22px;transition:left .4s;}
+  .section-title{display:flex;align-items:center;gap:10px;margin:30px 0 4px;}
+  .section-title .ico{width:46px;height:46px;border-radius:14px;background:var(--night);display:grid;place-items:center;font-size:24px;}
+  .section-title h2{margin:0;font-size:25px;color:var(--night);}
+  .story{background:#fffdf3;border:2px dashed #f1d98a;}
+  .story h3{text-align:center;font-size:25px;margin:0 0 8px;color:var(--night2);}
+  .story p{margin:8px 0;text-indent:1.4em;}
+  .story p.dlg{text-indent:1.4em;color:#3a3f8f;font-weight:600;}
+  .story .src{text-align:right;font-style:italic;color:var(--ink-soft);text-indent:0;}
+  .q-card.correct{border-color:var(--leaf);} .q-card.incorrect{border-color:var(--coral);}
+  .q-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;}
+  .q-num{flex:0 0 auto;min-width:38px;height:38px;padding:0 8px;border-radius:12px;background:var(--star);color:var(--night);display:grid;place-items:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;}
+  .q-text{font-weight:700;font-size:18px;}
+  .pts{font-size:13px;font-weight:700;color:var(--violet);background:#eeebff;border-radius:99px;padding:1px 10px;white-space:nowrap;margin-left:6px;}
+  .opt{display:flex;gap:10px;align-items:flex-start;padding:11px 14px;border:2px solid var(--line);border-radius:16px;margin:8px 0;cursor:pointer;transition:.15s;}
+  .opt:hover{border-color:#b9b2f5;}
+  .opt input{margin-top:5px;width:18px;height:18px;accent-color:var(--violet);flex:0 0 auto;}
+  .opt.picked{border-color:var(--violet);background:#f4f2ff;}
+  .opt.right{border-color:var(--leaf);background:#eafaf2;}
+  .opt.wrong{border-color:var(--coral);background:#fff0ee;}
+  .explain{display:none;margin-top:10px;padding:10px 14px;border-radius:14px;background:#eef8ff;border-left:5px solid #58a6e6;font-size:15.5px;}
+  .graded .explain{display:block;}
+  textarea{width:100%;min-height:92px;padding:12px 14px;border:2px solid var(--line);border-radius:16px;font:inherit;resize:vertical;color:var(--ink);}
+  textarea:focus{outline:none;border-color:var(--violet);}
+  .note{font-size:14.5px;color:var(--ink-soft);font-style:italic;margin:6px 0 0;}
+  .poem{background:#f1fbf4;border-radius:16px;padding:12px 18px;margin:8px 0 12px;font-weight:600;font-size:18px;line-height:1.9;}
+  .poem .src{display:block;text-align:right;font-weight:500;font-style:italic;font-size:15px;color:var(--ink-soft);}
+  .tbl-wrap{overflow-x:auto;}
+  table{width:100%;border-collapse:separate;border-spacing:0;min-width:520px;}
+  th{background:var(--night);color:#fff;padding:9px 8px;font-size:15px;}
+  th:first-child{border-radius:14px 0 0 0;} th:last-child{border-radius:0 14px 0 0;}
+  td{border-bottom:2px solid var(--line);padding:9px 6px;vertical-align:top;}
+  td.lbl{font-size:22px;text-align:center;width:44px;vertical-align:middle;}
+  input.fi{width:100%;padding:9px 10px;border:2px solid var(--line);border-radius:12px;font:inherit;font-weight:600;color:var(--ink);}
+  select{width:100%;padding:9px 8px;border:2px solid var(--line);border-radius:12px;font:inherit;font-weight:600;color:var(--ink);background:#fff;}
+  input.fi:focus,select:focus{outline:none;border-color:var(--violet);}
+  .ok{border-color:var(--leaf)!important;background:#eafaf2;color:var(--leaf-deep);}
+  .bad{border-color:var(--coral)!important;background:#fff0ee;color:var(--coral-deep);}
+  .fix{display:block;margin-top:4px;font-size:14px;font-weight:700;color:var(--leaf-deep);}
+  .passage{background:#f6f5ff;border-radius:16px;padding:12px 16px;margin:8px 0;}
+  .passage b.k{color:var(--violet);}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px;}
+  .chip{font:inherit;font-weight:700;padding:9px 16px;border-radius:99px;border:2px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;}
+  .chip.on{border-color:var(--violet);background:#eeebff;color:var(--violet);}
+  .chip.ok{border-color:var(--leaf);} .chip.bad{border-color:var(--coral);}
+  .chip.miss{border:2px dashed var(--leaf);color:var(--leaf-deep);}
+  .chip:disabled{cursor:default;opacity:1;}
+  .mrow{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin:10px 0;}
+  .mrow .left{flex:0 0 150px;font-weight:700;padding-top:9px;}
+  .mrow .right{flex:1 1 260px;}
+  .ways{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:10px;}
+  .way{border-radius:18px;padding:14px;color:var(--ink);font-size:15.5px;}
+  .way b{display:block;font-family:'Baloo 2',sans-serif;font-size:19px;}
+  .way i{display:block;margin-top:6px;}
+  .w1{background:#ffe9e6;} .w2{background:#fff5cf;} .w3{background:#dff5ea;}
+  .hub{text-align:center;margin-top:12px;}
+  .hub span{display:inline-block;background:var(--night);color:var(--star);border-radius:99px;padding:6px 24px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:20px;}
+  @media(max-width:640px){.ways{grid-template-columns:1fr;} header h1{font-size:27px;} .mrow .left{flex-basis:100%;padding-top:0;}
+    table{min-width:0;} tr{display:grid;grid-template-columns:38px 1fr 1fr;border-bottom:2px solid var(--line);padding:6px 0;}
+    tr:first-child{display:none;} td{border:none;padding:4px;} td.lbl{width:auto;grid-row:1 / 3;align-self:center;} td:last-child{grid-column:2 / 4;}}
+  .sub-q{font-weight:700;margin:14px 0 6px;}
+  .btn{font-family:'Baloo 2','Quicksand',sans-serif;font-weight:800;font-size:21px;border:none;border-radius:99px;padding:13px 38px;cursor:pointer;color:var(--night);background:linear-gradient(180deg,var(--star),var(--star-deep));box-shadow:0 6px 0 #c98600;}
+  .btn:active{transform:translateY(3px);box-shadow:0 3px 0 #c98600;}
+  .btn:disabled{filter:grayscale(.7);cursor:not-allowed;}
+  .btn.alt{background:#fff;color:var(--violet);box-shadow:0 6px 0 #cfc9f7;border:2px solid var(--violet);}
+  .center{text-align:center;margin:26px 0;}
+  #resultPanel{display:none;text-align:center;background:linear-gradient(180deg,var(--night),var(--night2));color:#fff;}
+  #resultPanel.show{display:block;}
+  #resultEmoji{font-size:58px;line-height:1.1;}
+  #resultScore{font-family:'Baloo 2',sans-serif;font-size:40px;font-weight:800;color:var(--star);}
+  #resultMsg{font-size:18px;margin:4px 0 6px;}
+  #resultPanel .small{font-size:14.5px;opacity:.85;margin-bottom:14px;}
+  footer{text-align:center;color:var(--ink-soft);font-size:14px;padding:0 12px 30px;}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="tag">TIẾNG VIỆT LỚP 4 · ĐỌC HIỂU TUẦN 11</span>
+  <h1>Cậu bé ham học hỏi</h1>
+  <p>Cùng Hoóc-king ngắm sao và khám phá phép nhân hoá nhé!</p>
+  <svg viewBox="0 0 760 250" role="img" aria-label="Cậu bé Hoóc-king ngắm bầu trời sao qua kính viễn vọng">
+    <circle cx="640" cy="62" r="34" fill="#ffe9a3"/><circle cx="654" cy="52" r="30" fill="#2a3172"/>
+    <g fill="#ffd85e">
+      <polygon class="twinkle" points="120,40 124,52 137,52 126,60 130,72 120,64 110,72 114,60 103,52 116,52"/>
+      <polygon class="twinkle d2" points="330,22 333,31 343,31 335,37 338,46 330,40 322,46 325,37 317,31 327,31"/>
+      <polygon class="twinkle d3" points="500,70 503,79 513,79 505,85 508,94 500,88 492,94 495,85 487,79 497,79"/>
+      <circle class="twinkle d2" cx="60" cy="90" r="3"/><circle class="twinkle" cx="220" cy="80" r="3"/><circle class="twinkle d3" cx="420" cy="50" r="3"/>
+      <circle class="twinkle" cx="570" cy="130" r="3"/><circle class="twinkle d2" cx="700" cy="140" r="3"/><circle class="twinkle d3" cx="270" cy="130" r="2.5"/>
+      <circle cx="40" cy="30" r="2"/><circle cx="460" cy="120" r="2"/><circle cx="180" cy="20" r="2"/><circle cx="600" cy="25" r="2"/>
+    </g>
+    <path d="M410 100 Q470 60 540 40" stroke="#fff" stroke-width="2" stroke-dasharray="3 9" fill="none" opacity=".6"/>
+    <path d="M0 250 Q180 150 400 205 T760 180 V250 Z" fill="#12194a"/>
+    <path d="M0 250 Q260 190 520 232 T760 220 V250 Z" fill="#0c1238"/>
+    <!-- kính viễn vọng -->
+    <g>
+      <line x1="372" y1="170" x2="350" y2="226" stroke="#c9cdf5" stroke-width="5" stroke-linecap="round"/>
+      <line x1="372" y1="170" x2="396" y2="226" stroke="#c9cdf5" stroke-width="5" stroke-linecap="round"/>
+      <line x1="372" y1="170" x2="372" y2="228" stroke="#c9cdf5" stroke-width="5" stroke-linecap="round"/>
+      <g transform="rotate(-32 372 166)">
+        <rect x="322" y="154" width="112" height="24" rx="6" fill="#ff8a65"/>
+        <rect x="426" y="149" width="22" height="34" rx="5" fill="#ffd85e"/>
+        <rect x="306" y="159" width="20" height="14" rx="4" fill="#ffd85e"/>
+      </g>
+    </g>
+    <!-- cậu bé -->
+    <g>
+      <rect x="268" y="176" width="44" height="50" rx="16" fill="#58c7f3"/>
+      <rect x="274" y="218" width="14" height="22" rx="6" fill="#39457f"/><rect x="292" y="218" width="14" height="22" rx="6" fill="#39457f"/>
+      <path d="M306 190 Q326 186 332 196" stroke="#58c7f3" stroke-width="11" stroke-linecap="round" fill="none"/>
+      <circle cx="296" cy="158" r="23" fill="#ffd9b8"/>
+      <path d="M273 156 Q276 130 300 133 Q320 136 319 154 Q304 142 273 156Z" fill="#5b3a29"/>
+      <circle cx="306" cy="160" r="2.6" fill="#2a2f4a"/>
+      <path d="M298 169 Q304 174 310 169" stroke="#c2553f" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="292" cy="167" r="4" fill="#ffb199" opacity=".7"/>
+    </g>
+  </svg>
+</header>
+
+<main>
+  <div class="card">
+    <div class="info-row">
+      <label>Họ và tên của em
+        <input type="text" id="studentName" placeholder="Nhập họ và tên của em..." autocomplete="name">
+      </label>
+      <label class="small">Lớp
+        <input type="text" id="studentClass" placeholder="VD: 4A">
+      </label>
+    </div>
+  </div>
+
+  <div class="progress">
+    <div class="progress-top"><span>🔭 Hành trình ngắm sao</span><span id="progress-count">0 / 7 câu</span></div>
+    <div class="bar"><div class="bar-fill" id="progress-fill"></div><div class="walker" id="progress-walker">⭐</div></div>
+  </div>
+
+  <!-- ================= I. ĐỌC ================= -->
+  <div class="section-title"><div class="ico">📖</div><h2>I. Đọc</h2></div>
+  <p class="note">Em đọc thầm văn bản thật kĩ rồi trả lời các câu hỏi bên dưới.</p>
+
+  <div class="card story">
+    <h3>CẬU BÉ HAM HỌC HỎI</h3>
+    <p>Xti-vơn Hoóc-king là một trong những nhà khoa học nổi tiếng của thế giới.</p>
+    <p>Khi Hoóc-king còn nhỏ, bố đã tặng cho cậu một cái kính viễn vọng. Đó là món quà mà Hoóc-king thích nhất. Cứ đến tối, Hoóc-king lại quan sát bầu trời đêm qua kính viễn vọng. Một lần, cậu chỉ tay lên bầu trời đầy sao và hỏi bố:</p>
+    <p class="dlg">- Chúng ta nhìn thấy các vì sao nhưng bố có biết quá trình hình thành của chúng không ạ?</p>
+    <p>Bố trả lời:</p>
+    <p class="dlg">- Điều con hỏi từ trước tới giờ vẫn chưa ai lí giải được.</p>
+    <p>Hoóc-king tự tin nói: “Nhất định con sẽ tìm ra câu trả lời.”. Từ đó, Hoóc-king thường xuyên quan sát bầu trời rồi tìm cách lí giải cho những thắc mắc của mình. Bố mua cho cậu rất nhiều sách về Trái Đất và bầu trời, cậu lại càng ham mê học hỏi, tìm tòi, khám phá.</p>
+    <p>Sau này, Hoóc-king trở thành nhà khoa học kiệt xuất của nhân loại, có nhiều đóng góp xuất sắc cho việc lí giải sự ra đời của các vì sao.</p>
+    <p class="src">Theo Ngọc Khánh</p>
+  </div>
+
+  <div class="card q-card" data-type="mc" data-correct="C">
+    <div class="q-head"><div class="q-num">1</div><div class="q-text">Bố tặng quà gì cho Xti-vơn Hoóc-king? <span class="pts">1 điểm</span></div></div>
+    <label class="opt"><input type="radio" name="q1" value="A"><span><b>A.</b> Bố đã tặng cho Xti-vơn Hoóc-king một chiếc kính lúp. 🔍</span></label>
+    <label class="opt"><input type="radio" name="q1" value="B"><span><b>B.</b> Bố đã tặng cho Xti-vơn Hoóc-king một cái kính hiển vi. 🔬</span></label>
+    <label class="opt"><input type="radio" name="q1" value="C"><span><b>C.</b> Bố đã tặng cho Xti-vơn Hoóc-king một cái kính viễn vọng. 🔭</span></label>
+    <div class="explain">💡 <b>Đáp án C.</b> Bài đọc viết: “Khi Hoóc-king còn nhỏ, bố đã tặng cho cậu một cái kính viễn vọng.”</div>
+  </div>
+
+  <div class="card q-card" data-type="mc" data-correct="A">
+    <div class="q-head"><div class="q-num">2</div><div class="q-text">Hoóc-king làm gì với chiếc kính viễn vọng bố tặng? <span class="pts">1 điểm</span></div></div>
+    <label class="opt"><input type="radio" name="q2" value="A"><span><b>A.</b> Vào mỗi buổi tối, Hoóc-king dùng kính viễn vọng quan sát bầu trời đêm.</span></label>
+    <label class="opt"><input type="radio" name="q2" value="B"><span><b>B.</b> Hoóc-king dùng kính viễn vọng để tìm hiểu quá trình hình thành Trái Đất.</span></label>
+    <label class="opt"><input type="radio" name="q2" value="C"><span><b>C.</b> Hoóc-king cất giữ chiếc kính thật cẩn thận.</span></label>
+    <div class="explain">💡 <b>Đáp án A.</b> Bài đọc viết: “Cứ đến tối, Hoóc-king lại quan sát bầu trời đêm qua kính viễn vọng.”</div>
+  </div>
+
+  <div class="card q-card" data-type="mc" data-correct="B">
+    <div class="q-head"><div class="q-num">3</div><div class="q-text">Câu nói của Hoóc-king: “Nhất định con sẽ tìm ra câu trả lời.” cho thấy điều gì? <span class="pts">1 điểm</span></div></div>
+    <label class="opt"><input type="radio" name="q3" value="A"><span><b>A.</b> Câu nói cho thấy sự mạnh mẽ, dũng cảm của Hoóc-king.</span></label>
+    <label class="opt"><input type="radio" name="q3" value="B"><span><b>B.</b> Câu nói cho thấy sự quyết tâm tìm ra được nguyên nhân, lí giải được quá trình hình thành các vì sao của Hoóc-king.</span></label>
+    <label class="opt"><input type="radio" name="q3" value="C"><span><b>C.</b> Câu nói cho thấy sự bền bỉ, không ngại vượt qua khó khăn để chinh phục kiến thức của Hoóc-king.</span></label>
+    <div class="explain">💡 <b>Đáp án B.</b> Hoóc-king nói câu này ngay sau khi bố bảo chưa ai lí giải được quá trình hình thành các vì sao. Từ “nhất định” cho thấy cậu rất quyết tâm tìm ra lời giải đáp.</div>
+  </div>
+
+  <div class="card q-card" data-type="essay">
+    <div class="q-head"><div class="q-num">4</div><div class="q-text">Theo em, nhờ những yếu tố nào đã giúp Hoóc-king trở thành nhà khoa học kiệt xuất của nhân loại? <span class="pts">Tự luận</span></div></div>
+    <textarea placeholder="Em viết câu trả lời của mình vào đây..."></textarea>
+    <p class="note">✍️ Câu này thầy cô sẽ chấm riêng. Em nhớ chép câu trả lời vào vở nhé!</p>
+    <div class="explain">💡 <b>Gợi ý:</b> Hoóc-king trở thành nhà khoa học kiệt xuất nhờ lòng ham học hỏi, say mê quan sát, tìm tòi, khám phá; nhờ sự quyết tâm tìm bằng được câu trả lời cho thắc mắc của mình; và nhờ sự quan tâm, ủng hộ của bố (tặng kính viễn vọng, mua nhiều sách về Trái Đất và bầu trời).</div>
+  </div>
+
+  <!-- ================= II. LUYỆN TỪ VÀ CÂU ================= -->
+  <div class="section-title"><div class="ico">✨</div><h2>II. Luyện từ và câu</h2></div>
+
+  <div class="card">
+    <div class="q-text">📌 Ghi nhớ</div>
+    <div class="ways">
+      <div class="way w1"><b>Cách 1</b>Gọi vật, hiện tượng bằng những từ ngữ chỉ người.<i>VD: anh, em, chị, cô, dì, chú,...</i></div>
+      <div class="way w2"><b>Cách 2</b>Dùng từ ngữ chỉ hoạt động, đặc điểm của người để tả, kể về vật, hiện tượng.<i>VD: Bông hồng có vẻ đẹp <b style="display:inline;font-family:inherit;font-size:inherit">kiêu sa</b>.</i></div>
+      <div class="way w3"><b>Cách 3</b>Trò chuyện, xưng hô với vật, hiện tượng như với người.<i>VD: “Chị gió ơi... chị gió ơi. Cho em đi làm mưa với!”</i></div>
+    </div>
+    <div class="hub"><span>⬇ 3 cách nhân hoá ⬇</span></div>
+  </div>
+
+  <div class="card q-card" data-type="table">
+    <div class="q-head"><div class="q-num">1</div><div class="q-text">Tìm từ ngữ nhân hoá trong các câu thơ sau và điền vào ô trống cho phù hợp: <span class="pts">12 điểm</span></div></div>
+    <div class="poem">
+      🎋 Chị tre chải tóc bên ao<br>
+      ☁️ Nàng mây áo trắng ghé vào soi gương<br>
+      🍲 Bác nồi đồng hát bùng boong<br>
+      🧹 Bà chổi loẹt quẹt lom khom trong nhà.
+      <span class="src">(Buổi sáng sân nhà em – Trần Đăng Khoa)</span>
+    </div>
+    <p class="note">Hai ô đầu em gõ chữ, ô thứ ba em chọn trong danh sách. Mỗi dòng thơ điền vào một hàng.</p>
+    <div class="tbl-wrap">
+    <table>
+      <tr><th></th><th>Tên sự vật</th><th>Từ gọi sự vật như gọi người</th><th>Từ ngữ tả sự vật như tả người</th></tr>
+      <tr><td class="lbl">🎋</td>
+        <td><input class="fi" type="text" aria-label="Dòng 1: tên sự vật" placeholder="Tên sự vật" data-answers="tre|cây tre" data-show="tre"></td>
+        <td><input class="fi" type="text" aria-label="Dòng 1: từ gọi như gọi người" placeholder="Từ gọi" data-answers="chị" data-show="chị"></td>
+        <td><select class="ps" aria-label="Dòng 1: từ ngữ tả như tả người" data-correct="chai" data-show="chải tóc"></select></td></tr>
+      <tr><td class="lbl">☁️</td>
+        <td><input class="fi" type="text" aria-label="Dòng 2: tên sự vật" placeholder="Tên sự vật" data-answers="mây|đám mây" data-show="mây"></td>
+        <td><input class="fi" type="text" aria-label="Dòng 2: từ gọi như gọi người" placeholder="Từ gọi" data-answers="nàng" data-show="nàng"></td>
+        <td><select class="ps" aria-label="Dòng 2: từ ngữ tả như tả người" data-correct="soi" data-show="áo trắng, ghé vào soi gương"></select></td></tr>
+      <tr><td class="lbl">🍲</td>
+        <td><input class="fi" type="text" aria-label="Dòng 3: tên sự vật" placeholder="Tên sự vật" data-answers="nồi đồng|nồi|cái nồi đồng|cái nồi" data-show="nồi đồng"></td>
+        <td><input class="fi" type="text" aria-label="Dòng 3: từ gọi như gọi người" placeholder="Từ gọi" data-answers="bác" data-show="bác"></td>
+        <td><select class="ps" aria-label="Dòng 3: từ ngữ tả như tả người" data-correct="hat" data-show="hát"></select></td></tr>
+      <tr><td class="lbl">🧹</td>
+        <td><input class="fi" type="text" aria-label="Dòng 4: tên sự vật" placeholder="Tên sự vật" data-answers="chổi|cái chổi|cây chổi" data-show="chổi"></td>
+        <td><input class="fi" type="text" aria-label="Dòng 4: từ gọi như gọi người" placeholder="Từ gọi" data-answers="bà" data-show="bà"></td>
+        <td><select class="ps" aria-label="Dòng 4: từ ngữ tả như tả người" data-correct="lom" data-show="lom khom"></select></td></tr>
+    </table>
+    </div>
+    <div class="explain">💡 “bùng boong”, “loẹt quẹt” là từ tả âm thanh; “bên ao”, “trong nhà” chỉ nơi chốn – đây không phải từ ngữ tả người.</div>
+  </div>
+
+  <div class="card q-card" data-type="b2">
+    <div class="q-head"><div class="q-num">2</div><div class="q-text">Đọc các đoạn văn, xác định sự vật được nhân hoá và tìm các từ ngữ dùng để nhân hoá: <span class="pts">10 điểm</span></div></div>
+    <div class="passage"><b class="k">a.</b> 🌱 Mùa xuân đến, mầm non cựa mình tỉnh giấc. Các loài chim đua nhau ca hát. Bầu trời say sưa lắng nghe khúc ca rộn rã và mê mải ngắm nhìn những chiếc lá xanh nõn nà.</div>
+    <div class="passage"><b class="k">b.</b> 🌙 Trăng lẩn trốn trong các tán lá xanh rì của những cây đa cổ thụ đầu thôn. Những mắt lá ánh lên tinh nghịch. Trăng chìm vào đáy nước. Trăng óng ánh trên hàm răng, trăng đậu vào ánh mắt. Trăng ôm ấp mái tóc bạc của các cụ già.</div>
+
+    <div class="sub-q">Bước 1. Chạm để chọn <u>5 sự vật được nhân hoá</u>:</div>
+    <div class="chips" id="chips">
+      <button type="button" class="chip" data-ok="0">mùa xuân</button>
+      <button type="button" class="chip" data-ok="1">mầm non</button>
+      <button type="button" class="chip" data-ok="0">chiếc lá</button>
+      <button type="button" class="chip" data-ok="1">các loài chim</button>
+      <button type="button" class="chip" data-ok="1">trăng</button>
+      <button type="button" class="chip" data-ok="0">cây đa</button>
+      <button type="button" class="chip" data-ok="1">bầu trời</button>
+      <button type="button" class="chip" data-ok="0">các cụ già</button>
+      <button type="button" class="chip" data-ok="1">mắt lá</button>
+    </div>
+
+    <div class="sub-q">Bước 2. Chọn từ ngữ dùng để nhân hoá cho mỗi sự vật:</div>
+    <div class="mrow"><div class="left">🌱 Mầm non</div><div class="right"><select class="ws" aria-label="Từ ngữ nhân hoá mầm non" data-correct="1"></select></div></div>
+    <div class="mrow"><div class="left">🐦 Các loài chim</div><div class="right"><select class="ws" aria-label="Từ ngữ nhân hoá các loài chim" data-correct="2"></select></div></div>
+    <div class="mrow"><div class="left">🌤️ Bầu trời</div><div class="right"><select class="ws" aria-label="Từ ngữ nhân hoá bầu trời" data-correct="3"></select></div></div>
+    <div class="mrow"><div class="left">🌙 Trăng</div><div class="right"><select class="ws" aria-label="Từ ngữ nhân hoá trăng" data-correct="4"></select></div></div>
+    <div class="mrow"><div class="left">🍃 Mắt lá</div><div class="right"><select class="ws" aria-label="Từ ngữ nhân hoá mắt lá" data-correct="5"></select></div></div>
+    <div class="explain">💡 “xanh nõn nà”, “xanh rì”, “óng ánh” là từ tả màu sắc, ánh sáng của sự vật – không phải từ ngữ chỉ hoạt động, đặc điểm của người.</div>
+  </div>
+
+  <div class="card q-card" data-type="essay">
+    <div class="q-head"><div class="q-num">3</div><div class="q-text">Sử dụng biện pháp nhân hoá để viết lại các câu sau cho sinh động hơn: <span class="pts">Tự luận</span></div></div>
+    <div class="sub-q">a. 🐜 Đàn kiến tha mồi về tổ.</div>
+    <textarea placeholder="Em viết lại câu a..."></textarea>
+    <div class="sub-q">b. 🎋 Bụi tre rì rào trong gió.</div>
+    <textarea placeholder="Em viết lại câu b..."></textarea>
+    <div class="sub-q">c. 🌟 Những vì sao sáng lấp lánh.</div>
+    <textarea placeholder="Em viết lại câu c..."></textarea>
+    <p class="note">✍️ Câu này thầy cô sẽ chấm riêng. Em nhớ chép câu trả lời vào vở nhé!</p>
+    <div class="explain">💡 <b>Gợi ý (em có thể viết theo cách khác):</b><br>
+      a. Các chú kiến chăm chỉ rủ nhau khiêng mồi về tổ.<br>
+      b. Chị tre thì thầm trò chuyện cùng gió.<br>
+      c. Những vì sao tinh nghịch nháy mắt với em trên bầu trời đêm.</div>
+  </div>
+
+  <div class="center"><button class="btn" id="submitBtn">🚀 Nộp bài</button></div>
+
+  <div class="card" id="resultPanel">
+    <div id="resultEmoji">🌟</div>
+    <div id="resultScore">0 / 25 điểm</div>
+    <div id="resultMsg"></div>
+    <div class="small">Ô màu xanh là đúng, ô màu đỏ là chưa đúng – đáp án đúng hiện ngay bên dưới. Em kéo lên xem lại nhé!</div>
+    <button class="btn alt" id="retryBtn">🔄 Làm lại</button>
+  </div>
+</main>
+
+<footer>Đọc hiểu tuần 11 · Tiếng Việt lớp 4 · Chúc em học vui! 🌠</footer>
+
+<script>
+(function(){
+  var SHEET_URL = "https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec";
+  var BAI = "Đọc hiểu tuần 11 - Cậu bé ham học hỏi";
+
+  // ----- nạp danh sách lựa chọn -----
+  var PHRASES = [["","— từ ngữ tả như tả người —"],["ben","bên ao"],["lom","lom khom"],["bung","bùng boong"],["chai","chải tóc"],["loet","loẹt quẹt"],["soi","áo trắng, ghé vào soi gương"],["nha","trong nhà"],["hat","hát"]];
+  var WORDS = [["","— chọn —"],["6","xanh nõn nà"],["4","lẩn trốn, ôm ấp"],["2","đua nhau ca hát"],["7","xanh rì"],["5","tinh nghịch"],["1","cựa mình tỉnh giấc"],["8","óng ánh"],["3","say sưa lắng nghe, mê mải ngắm nhìn"]];
+  function fillSelect(sel, list){
+    list.forEach(function(p){ var o=document.createElement('option'); o.value=p[0]; o.textContent=p[1]; sel.appendChild(o); });
+  }
+  function labelOf(list, v){ for(var i=0;i<list.length;i++){ if(list[i][0]===v) return list[i][1]; } return ''; }
+  document.querySelectorAll('select.ps').forEach(function(s){ fillSelect(s, PHRASES); });
+  document.querySelectorAll('select.ws').forEach(function(s){ fillSelect(s, WORDS); });
+
+  var qCards = Array.prototype.slice.call(document.querySelectorAll('.q-card'));
+  var total = qCards.length;
+  var submitted = false;
+
+  function normalize(s){
+    return (s||'').toString().normalize('NFC').toLowerCase().replace(/[.,!?;:"'“”]/g,'').replace(/\s+/g,' ').trim();
+  }
+  function touched(card){
+    var t = card.getAttribute('data-type');
+    if(t==='mc') return !!card.querySelector('input:checked');
+    if(t==='essay') return Array.prototype.some.call(card.querySelectorAll('textarea'), function(a){return a.value.trim()!=='';});
+    var any = Array.prototype.some.call(card.querySelectorAll('input.fi'), function(i){return i.value.trim()!=='';})
+           || Array.prototype.some.call(card.querySelectorAll('select'), function(s){return s.value!=='';})
+           || !!card.querySelector('.chip.on');
+    return any;
+  }
+  function updateProgress(){
+    var n = 0; qCards.forEach(function(c){ if(touched(c)) n++; });
+    var pct = Math.round(n/total*100);
+    document.getElementById('progress-fill').style.width = pct+'%';
+    document.getElementById('progress-walker').style.left = pct+'%';
+    document.getElementById('progress-count').textContent = n+' / '+total+' câu';
+  }
+  function addFix(el, text){
+    var s = document.createElement('span'); s.className='fix'; s.textContent='✔ Đáp án: '+text;
+    el.parentNode.appendChild(s);
+  }
+
+  qCards.forEach(function(card){
+    card.addEventListener('change', function(){
+      card.querySelectorAll('.opt').forEach(function(o){ o.classList.toggle('picked', o.querySelector('input').checked); });
+      updateProgress();
+    });
+    card.addEventListener('input', updateProgress);
+  });
+  document.querySelectorAll('.chip').forEach(function(ch){
+    ch.addEventListener('click', function(){ if(submitted) return; ch.classList.toggle('on'); updateProgress(); });
+  });
+
+  function need(input, msg){
+    if(input.value.trim()===''){
+      input.style.borderColor='var(--coral)'; input.placeholder=msg; input.focus();
+      input.scrollIntoView({behavior:'smooth', block:'center'}); return true;
+    }
+    input.style.borderColor=''; return false;
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    if(submitted) return;
+    var nameInput = document.getElementById('studentName');
+    var classInput = document.getElementById('studentClass');
+    if(need(nameInput,'Em nhớ điền tên trước khi nộp bài nhé!')) return;
+    if(need(classInput,'Em nhớ điền lớp!')) return;
+    submitted = true;
+
+    var earned = 0, possible = 0;
+    qCards.forEach(function(card){
+      var t = card.getAttribute('data-type');
+      var allOk = true;
+      card.classList.add('graded');
+
+      if(t==='mc'){
+        possible += 1;
+        var correct = card.getAttribute('data-correct');
+        var checked = card.querySelector('input:checked');
+        allOk = !!checked && checked.value===correct;
+        if(allOk) earned += 1;
+        card.querySelectorAll('.opt').forEach(function(o){
+          var inp = o.querySelector('input');
+          o.classList.remove('picked');
+          if(inp.value===correct) o.classList.add('right');
+          else if(inp.checked) o.classList.add('wrong');
+          inp.disabled = true;
+        });
+      }
+      else if(t==='essay'){
+        card.querySelectorAll('textarea').forEach(function(a){ a.readOnly = true; });
+        return; // không tính điểm, không tô màu đúng/sai
+      }
+      else {
+        card.querySelectorAll('input.fi').forEach(function(inp){
+          possible += 1;
+          var acc = inp.getAttribute('data-answers').split('|').map(normalize);
+          var ok = acc.indexOf(normalize(inp.value))!==-1;
+          if(ok) earned += 1; else { allOk=false; addFix(inp, inp.getAttribute('data-show')); }
+          inp.classList.add(ok?'ok':'bad'); inp.readOnly = true;
+        });
+        card.querySelectorAll('select').forEach(function(sel){
+          possible += 1;
+          var cv = sel.getAttribute('data-correct');
+          var ok = sel.value===cv;
+          if(ok) earned += 1; else { allOk=false; addFix(sel, labelOf(sel.classList.contains('ps')?PHRASES:WORDS, cv)); }
+          sel.classList.add(ok?'ok':'bad'); sel.disabled = true;
+        });
+        var chips = card.querySelectorAll('.chip');
+        if(chips.length){
+          var good=0, wrong=0, need5=0;
+          chips.forEach(function(ch){
+            var isOk = ch.getAttribute('data-ok')==='1', on = ch.classList.contains('on');
+            if(isOk) need5++;
+            if(on && isOk){ good++; ch.classList.add('ok'); ch.textContent='✔ '+ch.textContent; }
+            else if(on && !isOk){ wrong++; ch.classList.add('bad'); ch.textContent='✘ '+ch.textContent; }
+            else if(!on && isOk){ ch.classList.add('miss'); ch.textContent='➜ '+ch.textContent; }
+            ch.disabled = true;
+          });
+          possible += need5;
+          earned += Math.max(0, good-wrong);
+          if(good!==need5 || wrong>0) allOk=false;
+        }
+      }
+      card.classList.add(allOk?'correct':'incorrect');
+    });
+
+    document.getElementById('submitBtn').disabled = true;
+
+    try{
+      fetch(SHEET_URL, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify({ bai: BAI, hoten: nameInput.value.trim(), lop: classInput.value.trim(), diem: earned, tongdiem: possible })
+      }).catch(function(){});
+    }catch(e){}
+
+    var pct = Math.round(earned/possible*100), emoji, msg;
+    if(pct>=90){ emoji='🌟'; msg='tuyệt vời! Em đúng là một nhà khám phá tí hon!'; }
+    else if(pct>=70){ emoji='🔭'; msg='rất tốt! Em sắp chạm tới các vì sao rồi.'; }
+    else if(pct>=50){ emoji='🌙'; msg='khá lắm! Xem lại vài câu để giỏi hơn nữa nhé.'; }
+    else { emoji='☁️'; msg='đừng lo, hãy đọc lại bài và thử lần nữa nhé!'; }
+    document.getElementById('resultEmoji').textContent = emoji;
+    document.getElementById('resultScore').textContent = earned+' / '+possible+' điểm';
+    document.getElementById('resultMsg').textContent = nameInput.value.trim()+' ơi, '+msg;
+    var panel = document.getElementById('resultPanel');
+    panel.classList.add('show');
+    panel.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  document.getElementById('retryBtn').addEventListener('click', function(){
+    submitted = false;
+    document.querySelectorAll('.fix').forEach(function(f){ f.remove(); });
+    document.querySelectorAll('input[type=radio]').forEach(function(r){ r.checked=false; r.disabled=false; });
+    document.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('picked','right','wrong'); });
+    document.querySelectorAll('input.fi').forEach(function(i){ i.value=''; i.readOnly=false; i.classList.remove('ok','bad'); });
+    document.querySelectorAll('.q-card select').forEach(function(s){ s.value=''; s.disabled=false; s.classList.remove('ok','bad'); });
+    document.querySelectorAll('.q-card textarea').forEach(function(a){ a.readOnly=false; });
+    document.querySelectorAll('.chip').forEach(function(ch){
+      ch.disabled=false; ch.classList.remove('on','ok','bad','miss');
+      ch.textContent = ch.textContent.replace(/^[✔✘➜] /,'');
+    });
+    qCards.forEach(function(c){ c.classList.remove('graded','correct','incorrect'); });
+    document.getElementById('submitBtn').disabled = false;
+    document.getElementById('resultPanel').classList.remove('show');
+    updateProgress();
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>

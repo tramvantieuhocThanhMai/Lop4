@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Đọc hiểu tuần 16</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff6e6;--card:#fff;--ink:#2b2d42;--muted:#6b6f8a;--line:#eadfc8;--blue:#4c6ef5;--ok:#2b8a3e;--okbg:#e3f8e8;--bad:#e03131;--badbg:#ffe6e6;--hl:#fff1b8;--warn:#f08c00;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141a33;--card:#1f2747;--ink:#f1f3ff;--muted:#b4bbe0;--line:#3a4474;--okbg:#17402a;--badbg:#4a1f26;--hl:#4a4320;--ok:#69db7c;--bad:#ff8787;--blue:#91a7ff}}
+:root[data-theme="dark"]{--bg:#141a33;--card:#1f2747;--ink:#f1f3ff;--muted:#b4bbe0;--line:#3a4474;--okbg:#17402a;--badbg:#4a1f26;--hl:#4a4320;--ok:#69db7c;--bad:#ff8787;--blue:#91a7ff}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Nunito','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.6}
+h1,h2,h3,.fh{font-family:'Baloo 2','Nunito',Arial,sans-serif;margin:0}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px 120px}
+.hero{position:relative;margin:0 -14px 16px;overflow:hidden;border-radius:0 0 28px 28px;background:#1b1f5e}
+.hero svg{display:block;width:100%;height:210px}
+.hero .t{position:absolute;left:0;right:0;top:16px;text-align:center;color:#fff;text-shadow:0 2px 8px #0008;padding:0 10px}
+.hero h1{font-size:clamp(28px,7vw,44px);font-weight:800;line-height:1.1}
+.hero p{margin:4px 0 0;font-weight:700;color:#ffe9a8}
+.sec{background:var(--card);border-radius:22px;padding:16px;margin:16px 0;border:3px solid var(--line);box-shadow:0 4px 0 var(--line)}
+.sh{display:flex;align-items:center;gap:10px;font-size:24px;font-weight:800;margin-bottom:8px}
+.sh .ic{font-size:30px}
+.hint{color:var(--muted);font-weight:700;margin:0 0 10px}
+.letter{background:linear-gradient(#fffdf5,#fff6d9);color:#3b3326;border-radius:16px;padding:14px 16px;border:2px dashed #e6c77a;margin:10px 0}
+.letter h3{text-align:center;color:#5b3fa0;font-size:26px}
+.letter p{margin:8px 0;text-indent:1.4em}
+.letter .sg{text-align:right;font-style:italic;font-weight:700}
+.a1{color:#1c7ed6;font-weight:800}.a2{color:#d6336c;font-weight:800}.a3{color:#e8590c;font-weight:800}.a4{color:#7048e8;font-weight:800}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:6px 0 2px}
+.chip{display:flex;flex-direction:column;align-items:center;font-size:13px;font-weight:800;width:84px;background:#fff;color:#3b3326;border-radius:14px;padding:4px;border:2px solid #f0e2b5}
+.chip svg{width:44px;height:52px}
+.q{margin:16px 0;padding-top:10px;border-top:2px dotted var(--line)}
+.q:first-of-type{border-top:0}
+.qt{font-weight:800;margin-bottom:8px}
+.qn{display:inline-block;background:var(--blue);color:#fff;border-radius:50%;width:30px;height:30px;line-height:30px;text-align:center;margin-right:6px;font-family:'Baloo 2';font-size:17px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin:8px 0;border:3px solid var(--line);border-radius:16px;cursor:pointer;background:var(--card);transition:.15s}
+.opt:hover{border-color:var(--blue)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt .l{flex:none;width:32px;height:32px;border-radius:50%;background:var(--line);color:var(--ink);font-weight:800;text-align:center;line-height:32px}
+.opt:has(input:checked){border-color:var(--blue);background:var(--hl)}
+.opt:has(input:checked) .l{background:var(--blue);color:#fff}
+.opt.ok{border-color:var(--ok)!important;background:var(--okbg)!important}
+.opt.ok .l{background:var(--ok)!important;color:#fff}
+.opt.bad{border-color:var(--bad)!important;background:var(--badbg)!important}
+.opt.bad .l{background:var(--bad)!important;color:#fff}
+.fb{display:none;margin-top:8px;padding:8px 12px;border-radius:12px;font-weight:700}
+.fb.ok{display:block;background:var(--okbg);color:var(--ok)}
+.fb.bad{display:block;background:var(--badbg);color:var(--bad)}
+textarea{width:100%;min-height:110px;padding:10px 12px;font:inherit;border:3px solid var(--line);border-radius:16px;background:var(--card);color:var(--ink);resize:vertical}
+textarea:focus,select:focus{outline:3px solid var(--blue)}
+.frame{position:relative;border-radius:18px;padding:14px 84px 14px 16px;margin:10px 0;border:3px dashed}
+.frame .em{position:absolute;right:10px;bottom:6px;font-size:52px;line-height:1}
+.f1{border-color:#fd7e14;background:#fff4e6;color:#3b2a1a}.f2{border-color:#15aabf;background:#e3fafc;color:#10343a}.f3{border-color:#e64980;background:#fff0f6;color:#44152a}
+.frame .ln{margin:3px 0}
+select{font:inherit;font-weight:800;border:2px solid #868e96;border-radius:10px;background:#fff;color:#222;padding:1px 2px;margin:0 2px;max-width:100%}
+select.blank{width:3.2em;text-align:center;border-style:dashed}
+select.ok{border-color:var(--ok);background:#d3f9d8}
+select.bad{border-color:var(--bad);background:#ffe3e3}
+.ans{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:8px 0 2px;font-weight:700}
+.ans select{background:var(--card);color:var(--ink)}
+.ans select.ok{background:#d3f9d8;color:#222}.ans select.bad{background:#ffe3e3;color:#222}
+.tx{border:2px solid var(--line);border-radius:16px;padding:10px 12px;margin:8px 0;background:var(--card)}
+.tx .r{margin:4px 0}
+.slot{display:inline-block;min-width:26px;height:26px;line-height:22px;padding:0 5px;margin:0 3px;border:2px dashed #adb5bd;border-radius:8px;background:transparent;color:#adb5bd;font:800 16px 'Nunito',Arial;cursor:pointer;vertical-align:middle}
+.slot:hover{border-color:var(--blue);color:var(--blue)}
+.slot.on{border-style:solid;border-color:var(--blue);background:var(--blue);color:#fff}
+.slot.ok{border-color:var(--ok);background:var(--ok);color:#fff}
+.slot.bad{border-color:var(--bad);background:var(--bad);color:#fff}
+.slot.miss{border:2px solid var(--warn);color:var(--warn);background:var(--hl)}
+.fx{color:var(--blue);margin:0 4px}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:3px solid var(--line);display:flex;gap:10px;justify-content:center;z-index:5}
+.btn{font:800 20px 'Baloo 2','Nunito',Arial;border:0;border-radius:16px;padding:10px 22px;cursor:pointer;color:#fff;background:#37b24d;box-shadow:0 4px 0 #2b8a3e}
+.btn.b2{background:#ff922b;box-shadow:0 4px 0 #d9730d}
+.btn:active{transform:translateY(3px);box-shadow:none}
+#res{display:none;text-align:center;border-radius:22px;padding:18px;margin:16px 0;background:linear-gradient(135deg,#ffe066,#ffa8a8);color:#3b2a1a;border:4px solid #fff;animation:pop .5s}
+#res .big{font:800 44px 'Baloo 2'}
+.info{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+.info label{font-weight:800;font-size:.9em;display:block}
+.info input{width:100%;font:inherit;padding:9px 12px;border:3px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink)}
+.info input:focus{outline:3px solid var(--blue)}
+#rname{font:800 24px 'Baloo 2'}
+#rtable{margin:8px auto 0;border-collapse:collapse;font-size:16px;background:#fff9;border-radius:12px}
+#rtable td{padding:3px 14px;text-align:left;border-bottom:1px solid #3b2a1a33}
+#rtable td:last-child{text-align:right;font-weight:800}
+#warn{font-weight:800;color:#c92a2a;margin:8px 0 0}
+@media(max-width:520px){.info{grid-template-columns:1fr}}
+#res .st{font-size:34px;letter-spacing:4px}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.note{background:var(--hl);border-radius:12px;padding:8px 12px;margin-top:8px;font-weight:700}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="ang" viewBox="0 0 60 70">
+<ellipse cx="13" cy="38" rx="11" ry="19" transform="rotate(25 13 38)" fill="#fff"/><ellipse cx="47" cy="38" rx="11" ry="19" transform="rotate(-25 47 38)" fill="#fff"/>
+<path d="M30 28C18 28 13 60 7 67H53C47 60 42 28 30 28Z" fill="currentColor"/>
+<circle cx="30" cy="20" r="10" fill="#ffd9b8"/><path d="M20 19C20 8 40 8 40 19C36 14 24 14 20 19Z" fill="#8d5524"/>
+<circle cx="26.5" cy="21" r="1.5" fill="#333"/><circle cx="33.5" cy="21" r="1.5" fill="#333"/><path d="M27 25Q30 28 33 25" stroke="#c0392b" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<ellipse cx="30" cy="5" rx="10" ry="3.5" fill="none" stroke="#ffd43b" stroke-width="3"/>
+</symbol></defs></svg>
+
+<div class="wrap">
+<div class="hero">
+<svg viewBox="0 0 800 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b1f5e"/><stop offset="1" stop-color="#7a4fc4"/></linearGradient></defs>
+<rect width="800" height="210" fill="url(#sky)"/>
+<g fill="#ffe066"><circle cx="60" cy="90" r="3"/><circle cx="150" cy="40" r="2.5"/><circle cx="250" cy="110" r="3"/><circle cx="380" cy="30" r="2"/><circle cx="520" cy="95" r="3"/><circle cx="640" cy="35" r="2.5"/><circle cx="740" cy="115" r="3"/><circle cx="700" cy="70" r="2"/><circle cx="110" cy="130" r="2"/></g>
+<circle cx="725" cy="55" r="26" fill="#fff4c2"/><circle cx="737" cy="49" r="23" fill="#4b3a9a"/>
+<path d="M0 210V178Q120 150 260 180T520 172T800 180V210Z" fill="#3b2f86"/>
+<use href="#ang" x="120" y="112" width="60" height="70" style="color:#74c0fc"/><use href="#ang" x="320" y="124" width="52" height="61" style="color:#faa2c1"/><use href="#ang" x="480" y="112" width="60" height="70" style="color:#ffc078"/><use href="#ang" x="620" y="124" width="52" height="61" style="color:#b197fc"/>
+</svg>
+<div class="t"><h1>Đọc hiểu tuần 16</h1><p>🌙 Thư gửi các Thiên thần ✨</p></div>
+</div>
+
+<section class="sec">
+<div class="info">
+<div><label for="hs">Họ và tên của em</label><input type="text" id="hs" autocomplete="name"></div>
+<div><label for="lop">Lớp</label><input type="text" id="lop" placeholder="VD: 4A"></div>
+</div>
+</section>
+
+<section class="sec">
+<div class="sh"><span class="ic">📖</span>I. ĐỌC</div>
+<p class="hint">Đọc thầm văn bản sau:</p>
+<div class="letter">
+<h3>THƯ GỬI CÁC THIÊN THẦN</h3>
+<div class="chips">
+<div class="chip"><svg viewBox="0 0 60 70" style="color:#74c0fc"><use href="#ang"/></svg>🕊️ Hòa Bình</div>
+<div class="chip"><svg viewBox="0 0 60 70" style="color:#faa2c1"><use href="#ang"/></svg>🪄 Tình Thương</div>
+<div class="chip"><svg viewBox="0 0 60 70" style="color:#ffc078"><use href="#ang"/></svg>💞 Tình Yêu</div>
+<div class="chip"><svg viewBox="0 0 60 70" style="color:#b197fc"><use href="#ang"/></svg>🌟 Ước Mơ</div>
+</div>
+<p><i>Thưa các Thiên thần!</i></p>
+<p>Đêm nay, ở nơi đây, con đã thấy các Thiên thần ở trên cao kia, nơi sáng nhất trên bầu trời. Con đã thấy các Thiên thần đùa vui nơi thiên đàng xanh thẳm không mảy may lo buồn vướng bận nơi trần thế.</p>
+<p>Nhưng thưa các Thiên thần, cũng ngay đêm nay thôi, nơi trần gian này, các Thiên thần có nhìn thấy không, những số phận, những mảnh đời còn nặng trĩu đau buồn. Con xin các Thiên thần hãy một lần xuống đây và đến bên những con người bất hạnh ấy, những bạn bè cùng trang lứa với con và những em bé thơ ngây của con.</p>
+<p>Con xin Thiên thần <span class="a1">Hòa Bình</span> hãy ru yên giấc ngủ chiến tranh, để bao bạn bè, em nhỏ, nơi cách xa con được sống yên bình như con, được học hành vui chơi không phải ngày ngày lo sợ tiếng bom, tiếng đạn.</p>
+<p>Con xin Thiên thần <span class="a2">Tình Thương</span> hãy gõ chiếc đũa thần của Người vào trái tim người lớn để họ hiểu trẻ thơ và thêm lòng yêu thương con trẻ, để không còn những người bạn như con phải lao động vất vả cực nhọc hay cầm súng ra chiến trận, hay bị hắt hủi, ghẻ lạnh trong những gia đình không hạnh phúc.</p>
+<p>Con xin Thiên thần <span class="a3">Tình Yêu</span> hãy hàn gắn tình yêu của các ông bố, bà mẹ để những em bé của con được sống dưới mái ấm gia đình hạnh phúc, không còn cảnh lang thang nay đây mai đó, đêm đêm màn trời chiếu đất, đói rét và biết bao hiểm nguy rình rập.</p>
+<p>Và cuối cùng con xin Thiên thần <span class="a4">Ước Mơ</span> hãy tặng cho mỗi em bé trên trái đất này một ngôi sao xanh trong chiếc giỏ đựng vô vàn những ngôi sao của Người, để những ước mơ nhỏ bé, giản dị và hồn nhiên của mọi trẻ thơ đều thành hiện thực.</p>
+<p>Cảm ơn những làn gió tốt bụng đã mang giúp lá thư này đến cho các Thiên thần.</p>
+<p class="sg">Ngô Thị Hoài Thu</p>
+</div>
+<p class="hint">Dựa vào nội dung bài đọc, chọn câu trả lời đúng nhất hoặc làm theo yêu cầu:</p>
+<div id="mc"></div>
+<div class="q" id="q5">
+<div class="qt"><span class="qn">5</span>Nếu em được gặp một trong các Thiên thần ở bài đọc, em mong muốn được gặp ai? Em sẽ xin Thiên thần ấy điều gì?</div>
+<textarea id="t5" placeholder="Em viết câu trả lời của mình vào đây nhé… ✏️"></textarea>
+<div class="fb" id="fb5"></div>
+</div>
+</section>
+
+<section class="sec">
+<div class="sh"><span class="ic">✏️</span>II. LUYỆN TỪ VÀ CÂU</div>
+<div class="qt"><span class="qn">1</span>Điền thêm dấu câu phù hợp vào mỗi ô trống. Cho biết dấu câu đó có tác dụng gì?</div>
+<p class="hint">Bấm vào ô trống để chọn dấu câu, rồi chọn tên dấu và tác dụng ở dưới mỗi khung.</p>
+<div id="fr"></div>
+<div class="qt" style="margin-top:20px"><span class="qn">2</span>Thêm dấu gạch ngang vào những vị trí thích hợp trong mỗi đoạn văn, câu văn:</div>
+<p class="hint">Bấm vào ô nét đứt để đặt dấu gạch ngang (–). Bấm lần nữa để bỏ. Có những chỗ không cần gạch ngang đấy nhé!</p>
+<div id="ds"></div>
+</section>
+
+<div id="res"><div id="rname"></div><div class="big" id="sc"></div><div class="st" id="stars"></div><div id="msg" style="font-weight:800;font-size:20px"></div><table id="rtable"></table><p style="margin:10px 0 0;font-weight:700">Câu 5 (phần Đọc) là bài tự luận, cô sẽ chấm riêng.<br>Kết quả và bài làm của em đã được gửi cho cô.</p><p id="warn"></p></div>
+</div>
+
+<div class="bar"><button class="btn" id="chk">Chấm bài ✨</button><button class="btn b2" id="rst">Làm lại 🔄</button></div>
+
+<script>
+/* ====== CẤU HÌNH ====== */
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec";
+var TEN_BAI = "Đọc hiểu tuần 16";
+var graded=false;
+var MC=[
+{q:"Trong thư, bạn nhỏ đã xin Thiên thần Hòa Bình điều gì?",o:["Hàn gắn tình yêu của những ông bố bà mẹ.","Hiểu trẻ thơ và thêm lòng yêu con trẻ.","Trái Đất không còn chiến tranh."],a:2,e:"Bạn nhỏ xin Thiên thần Hòa Bình ru yên giấc ngủ chiến tranh để trẻ em được sống yên bình."},
+{q:"Bạn nhỏ xin Thiên thần Tình Thương điều gì?",o:["Những em bé được sống dưới mái ấm hạnh phúc.","Trẻ em không còn phải lao động vất vả, cực nhọc; không cầm súng ra chiến trận hay bị hắt hủi, ghẻ lạnh trong những gia đình không hạnh phúc.","Tặng cho mỗi em bé một ngôi sao xanh."],a:1,e:"Thiên thần Tình Thương được xin gõ đũa thần vào trái tim người lớn để họ thương yêu trẻ em hơn."},
+{q:"Còn ở Thiên thần Ước Mơ, bạn ấy cầu xin điều gì?",o:["Những ước mơ nhỏ bé, giản dị và hồn nhiên của mọi trẻ thơ đều thành hiện thực.","Những em nhỏ được sống yên bình, được học hành vui chơi không phải ngày ngày lo sợ tiếng bom, tiếng đạn.","Gõ chiếc đũa thần vào trái tim người lớn."],a:0,e:"Thiên thần Ước Mơ được xin tặng mỗi em bé một ngôi sao xanh để ước mơ thành hiện thực."},
+{q:"Tất cả những điều bạn Hoài Thu cầu xin các Thiên thần đều nhằm mục đích gì?",o:["Làm cho trẻ nhỏ trở nên dũng cảm, tốt bụng.","Làm cho trẻ em trở nên thông minh, học giỏi.","Làm cho trẻ em được sống hạnh phúc."],a:2,e:"Mọi lời xin trong thư đều mong trẻ em được sống bình yên và hạnh phúc."}
+];
+var L=['A','B','C'];
+var T=["Đánh dấu các ý liệt kê (gạch đầu dòng)","Nối các từ ngữ trong một liên danh (tên các địa danh nối tiếp nhau)","Đánh dấu lời nói trực tiếp của nhân vật","Đánh dấu phần chú thích trong câu"];
+var FR=[
+{c:'f1',em:'🍈',t:0,lines:["Cây bưởi có rất nhiều công dụng đối với cuộc sống con người:","[]Lá bưởi dùng để gội đầu;","[]Hoa bưởi dùng để trang trí, ướp trà;","[]Vỏ bưởi dùng để nấu chè;","[]Tép bưởi có nhiều chất dinh dưỡng, ngăn ngừa bệnh tật;","[]Lá, vỏ, hoa và hạt bưởi còn được dùng để làm mĩ phẩm hoặc làm thuốc."]},
+{c:'f2',em:'⛵',t:1,lines:["Cung đường ven biển sẽ kết nối các điểm du lịch Long Hải[]Bình Châu[]La Gi[]Mũi Né[]Phan Thiết."]},
+{c:'f3',em:'🌼',t:2,lines:["Những bông hoa bồ công anh vẫy đôi tay bé tí xíu:","[]Tạm biệt mẹ, chúng con đi đây!"]}
+];
+var DS=[
+{l:'a',r:["{-}Để tiết kiệm nước, em cần ghi nhớ:","{+}Mở vòi nước vừa phải,","{+}Lấy nước vừa đủ dùng,","{+}Khoá vòi ngay sau khi sử dụng xong;","{+}Tái sử dụng nước hợp lí;","{+}Kêu gọi mọi người cùng thực hiện."],e:"Gạch ngang đặt ở đầu mỗi dòng để đánh dấu các việc cần ghi nhớ. Câu mở đầu không cần gạch ngang."},
+{l:'b',r:["Chương trình Chung kết cuộc thi Đường lên đỉnh Olympia lần thứ 22 truyền hình trực tiếp, kết nối{-}bốn điểm cầu Hải Phòng{+}Sơn La{+}Thái Bình{+}Hà Nội."],e:"Gạch ngang nối tên các địa danh: Hải Phòng – Sơn La – Thái Bình – Hà Nội."},
+{l:'c',r:["Chú hề vội tiếp lời:","{+}Tất nhiên rồi. Khi một con hươu mất sừng, cái sừng mới sẽ mọc ra. Sau khi đêm thay thế cho ngày, ngày lại thế chỗ của đêm.","{+}Mặt trăng cũng như vậy, mọi thứ đều như vậy... {=} Giọng công chúa nhỏ dần, nhỏ dần. Nàng đã ngủ.","{-}Chú hề đắp chăn cho công chúa rồi rón rén ra khỏi phòng."],e:"Gạch ngang đặt trước lời nói của nhân vật. Câu kể của tác giả (Chú hề đắp chăn…) không cần gạch ngang."},
+{l:'d',r:["Sau khi liên hoan, các em thiếu nhi có thêm nhiều kỉ niệm đẹp, nhiều người bạn mới và hiểu sâu sắc về mối quan hệ{-}hữu nghị truyền thống Việt Nam{+}Lào{+}Cam-pu-chia."],e:"Gạch ngang nối tên các nước: Việt Nam – Lào – Cam-pu-chia."}
+];
+var $=function(s){return document.querySelector(s)};
+var mc='';
+MC.forEach(function(m,i){
+ mc+='<div class="q"><div class="qt"><span class="qn">'+(i+1)+'</span>'+m.q+'</div>';
+ m.o.forEach(function(o,j){mc+='<label class="opt" data-q="'+i+'" data-j="'+j+'"><input type="radio" name="q'+i+'" value="'+j+'"><span class="l">'+L[j]+'</span><span>'+o+'</span></label>'});
+ mc+='<div class="fb" id="fb'+i+'"></div></div>';
+});
+$('#mc').innerHTML=mc;
+var BL=['<option value="">▢</option>','<option value="–">–</option>','<option value=":">:</option>','<option value=";">;</option>','<option value=",">,</option>','<option value="!">!</option>','<option value="?">?</option>'].join('');
+var DAU='<option value="">— chọn dấu —</option><option value="gn">gạch ngang</option><option value="hc">hai chấm</option><option value="ph">phẩy</option><option value="cp">chấm phẩy</option>';
+var fr='';
+FR.forEach(function(f,i){
+ fr+='<div class="frame '+f.c+'">'+f.lines.map(function(s){return '<div class="ln">'+s.split('[]').join('<select class="blank" data-f="'+i+'">'+BL+'</select>')+'</div>'}).join('')+'<span class="em">'+f.em+'</span></div>';
+ fr+='<div class="ans">Dấu <select class="dau" data-f="'+i+'">'+DAU+'</select> có tác dụng <select class="tac" data-f="'+i+'"><option value="">— chọn tác dụng —</option>'+T.map(function(t,k){return '<option value="'+k+'">'+t+'</option>'}).join('')+'</select></div><div class="fb" id="ff'+i+'"></div>';
+});
+$('#fr').innerHTML=fr;
+var ds='';
+DS.forEach(function(d,i){
+ ds+='<div class="tx"><b>'+d.l+'.</b>'+d.r.map(function(r){return '<div class="r">'+r.split(/(\{[+\-=]\})/).map(function(p){
+  if(p=='{+}')return '<button type="button" class="slot" data-ok="1" data-d="'+i+'" aria-label="Chỗ đặt dấu gạch ngang">+</button>';
+  if(p=='{-}')return '<button type="button" class="slot" data-ok="0" data-d="'+i+'" aria-label="Chỗ đặt dấu gạch ngang">+</button>';
+  if(p=='{=}')return '<b class="fx">–</b>';return p}).join('')+'</div>'}).join('')+'<div class="fb" id="fd'+i+'"></div></div>';
+});
+$('#ds').innerHTML=ds;
+document.addEventListener('click',function(e){
+ var s=e.target.closest('.slot');
+ if(s){s.classList.remove('ok','bad','miss');s.classList.toggle('on');s.textContent=s.classList.contains('on')?'–':'+'}
+});
+function setfb(el,ok,txt){el.className='fb '+(ok?'ok':'bad');el.textContent=txt}
+function grade(){
+ if(graded)return;
+ var name=$('#hs').value.trim(),lop=$('#lop').value.trim();
+ if(!name){alert('Em hãy viết họ và tên trước khi nộp bài nhé!');$('#hs').focus();return}
+ if(!lop){alert('Em hãy viết lớp của em trước khi nộp bài nhé!');$('#lop').focus();return}
+ graded=true;
+ var score=0,total=MC.length+FR.length+DS.length,rows=[],sec=0;
+ function mark(lbl,ok){rows.push([lbl,ok?1:0,1]);if(ok)score++}
+ MC.forEach(function(m,i){
+  var sel=document.querySelector('input[name="q'+i+'"]:checked');
+  document.querySelectorAll('.opt[data-q="'+i+'"]').forEach(function(o){o.classList.remove('ok','bad')});
+  var ok=sel&&+sel.value===m.a;
+  if(sel)document.querySelector('.opt[data-q="'+i+'"][data-j="'+sel.value+'"]').classList.add(ok?'ok':'bad');
+  if(!ok)document.querySelector('.opt[data-q="'+i+'"][data-j="'+m.a+'"]').classList.add('ok');
+  mark('Đọc – câu '+(i+1),ok);
+  setfb($('#fb'+i),ok,(ok?'🎉 Chính xác! ':(sel?'Chưa đúng, đáp án là '+L[m.a]+'. ':'Em chưa chọn đáp án. Đáp án là '+L[m.a]+'. '))+m.e);
+ });
+ var f5=$('#fb5');f5.className='fb ok';
+ f5.innerHTML='✍️ Câu này cô sẽ chấm riêng. <br><i>Gợi ý: Em muốn gặp Thiên thần Tình Yêu và xin Thiên thần cho mọi gia đình luôn hạnh phúc, để không em bé nào phải lang thang đói rét.</i>';
+ FR.forEach(function(f,i){
+  var good=true,bs=document.querySelectorAll('select.blank[data-f="'+i+'"]');
+  bs.forEach(function(b){var o=b.value==='–';b.className='blank '+(o?'ok':'bad');if(!o)good=false});
+  var d=document.querySelector('select.dau[data-f="'+i+'"]'),t=document.querySelector('select.tac[data-f="'+i+'"]');
+  var dok=d.value==='gn',tok=+t.value===f.t&&t.value!=='';
+  d.className='dau '+(dok?'ok':'bad');t.className='tac '+(tok?'ok':'bad');
+  var all=good&&dok&&tok;mark('Bài 1 – Khung '+(i+1),all);
+  setfb($('#ff'+i),all,all?'🎉 Đúng rồi! Dấu gạch ngang '+T[f.t].charAt(0).toLowerCase()+T[f.t].slice(1)+'.':'Chưa đúng hết. Các ô trống đều cần dấu gạch ngang (–), và tác dụng là: '+T[f.t]+'.');
+ });
+ DS.forEach(function(d,i){
+  var all=true;
+  document.querySelectorAll('.slot[data-d="'+i+'"]').forEach(function(s){
+   s.classList.remove('ok','bad','miss');
+   var on=s.classList.contains('on'),need=s.dataset.ok==='1';
+   if(on&&need)s.classList.add('ok');else if(on&&!need){s.classList.add('bad');all=false}
+   else if(!on&&need){s.classList.add('miss');s.textContent='–';all=false}
+  });
+  mark('Bài 2 – Ý '+d.l,all);
+  setfb($('#fd'+i),all,all?'🎉 Đúng rồi! '+d.e:'Chưa đúng hết (đỏ: thừa, vàng: còn thiếu). '+d.e);
+ });
+ var d10=Math.round(score/total*100)/10;
+ var r=$('#res');r.style.display='block';
+ $('#rname').textContent=name+' – Lớp '+lop;
+ $('#sc').textContent=String(d10).replace('.',',')+' điểm';
+ var tb=$('#rtable');tb.innerHTML='';
+ rows.forEach(function(x){var tr=document.createElement('tr');var a=document.createElement('td');a.textContent=x[0];var b=document.createElement('td');b.textContent=x[1]+'/'+x[2];tr.appendChild(a);tr.appendChild(b);tb.appendChild(tr)});
+ var n=Math.round(score/total*5);$('#stars').textContent='⭐'.repeat(n)+'☆'.repeat(5-n);
+ $('#msg').textContent='Đúng '+score+'/'+total+' ý. '+(score===total?'Tuyệt vời! Em là Thiên thần chăm học! 👼':(score>=total*0.7?'Giỏi lắm! Sửa vài chỗ nữa là hoàn hảo! 💪':'Cố lên nhé! Em đọc lại bài và làm lại thử xem! 🌈'));
+ document.querySelectorAll('input,textarea,select').forEach(function(e){if(e.type==='radio'||e.tagName==='SELECT')e.disabled=true;else e.readOnly=true});
+ document.querySelectorAll('.slot,.opt').forEach(function(e){e.style.pointerEvents='none'});
+ var t5=$('#t5').value.trim()||'(bỏ trống)';
+ $('#warn').textContent='';
+ if(SCRIPT_URL){
+  var fail=function(){$('#warn').textContent='Chưa gửi được điểm cho cô. Em chụp màn hình gửi cô nhé!'};
+  try{fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},
+   body:JSON.stringify({bai:TEN_BAI,hoten:name,lop:lop,diem:score,tongdiem:total,tuluan:'ĐỌC - CÂU 5:\n'+t5})}).catch(fail)}catch(e){fail()}
+ }
+ r.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function reset(){
+ if(!graded&&!confirm('Em có chắc muốn xoá hết bài đang làm không?'))return;
+ var n=$('#hs').value,l=$('#lop').value;graded=false;
+ document.querySelectorAll('input,textarea,select').forEach(function(e){e.disabled=false;e.readOnly=false});
+ document.querySelectorAll('.slot,.opt').forEach(function(e){e.style.pointerEvents=''});
+ document.querySelectorAll('input[type=radio]').forEach(function(i){i.checked=false});
+ document.querySelectorAll('.opt').forEach(function(o){o.classList.remove('ok','bad')});
+ document.querySelectorAll('select').forEach(function(s){s.value='';s.className=s.className.replace(/\b(ok|bad)\b/g,'').trim()});
+ document.querySelectorAll('.slot').forEach(function(s){s.className='slot';s.textContent='+'});
+ document.querySelectorAll('.fb').forEach(function(f){f.className='fb';f.textContent=''});
+ $('#t5').value='';$('#hs').value=n;$('#lop').value=l;$('#res').style.display='none';window.scrollTo({top:0,behavior:'smooth'});
+}
+$('#chk').onclick=grade;$('#rst').onclick=reset;
+</script>
+</body>
+</html>

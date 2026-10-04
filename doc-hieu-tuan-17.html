@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đọc hiểu tuần 17</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:ital,wght@0,500;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#1d2a5c; --night2:#33408f; --star:#ffd84d; --grass:#58b368; --grass2:#3d9950;
+  --paper:#fffaf0; --ink:#26304f; --soft:#f1ecff; --line:#e3dcc8;
+  --ok:#1f9d55; --okbg:#dff6e6; --bad:#d6336c; --badbg:#ffe3ec; --miss:#e8890c; --missbg:#fff1d6;
+  --pick:#33408f; --pickbg:#dfe4ff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#eaf3ff;color:var(--ink);font-family:'Nunito','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.65}
+h1,h2,h3,.disp{font-family:'Baloo 2','Nunito','Segoe UI',Arial,sans-serif}
+.wrap{max-width:860px;margin:0 auto;padding:0 14px 60px}
+.hero{background:var(--night);border-radius:0 0 28px 28px;overflow:hidden;position:relative;color:#fff}
+.hero svg{display:block;width:100%;height:auto}
+.hero-txt{position:absolute;left:0;right:0;top:6%;text-align:center;padding:0 12px}
+.hero-txt .tag{display:inline-block;background:var(--star);color:var(--night);font-weight:800;border-radius:999px;padding:2px 16px;font-size:.85em}
+.hero-txt h1{margin:.15em 0 0;font-size:clamp(1.7rem,6vw,3rem);line-height:1.1;text-shadow:0 3px 0 rgba(0,0,0,.25)}
+.card{background:#fff;border-radius:22px;padding:20px 20px 22px;margin-top:20px;box-shadow:0 5px 0 #cfdcf3}
+.card h2{margin:0 0 6px;font-size:1.45rem;color:var(--night2)}
+.card h3{margin:0 0 8px;font-size:1.15rem;line-height:1.35}
+.num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;border-radius:50%;background:var(--star);color:var(--night);font-family:'Baloo 2',sans-serif;font-weight:800;margin-right:8px}
+.info{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+.info label{font-weight:800;font-size:.9em;display:block}
+input[type=text],textarea{width:100%;font:inherit;padding:9px 12px;border:2px solid #cfd6ee;border-radius:12px;background:#fbfcff;color:var(--ink)}
+input[type=text]:focus,textarea:focus,button:focus-visible{outline:3px solid var(--star);outline-offset:1px}
+textarea{min-height:70px;resize:vertical}
+.story{background:var(--paper);border:2px dashed var(--line);border-radius:18px;padding:16px 18px}
+.story h3{text-align:center;font-size:1.5rem;color:#c2571a;margin-bottom:4px}
+.story p{margin:.5em 0;text-indent:1.4em;text-align:justify}
+.story .src{text-align:right;text-indent:0;font-style:italic}
+.pic{display:block;width:100%;max-width:420px;margin:6px auto 10px;height:auto;border-radius:16px}
+.q{margin-top:18px;padding-top:16px;border-top:2px dotted #dfe6f5}
+.q:first-of-type{border-top:0}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;font:inherit;color:inherit;background:#f6f8ff;border:2px solid #d5dcf5;border-radius:14px;padding:9px 12px;margin:7px 0;cursor:pointer}
+.opt b{flex:none;width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid #b9c3ea;display:inline-flex;align-items:center;justify-content:center}
+.opt.sel{background:var(--pickbg);border-color:var(--pick)}
+.opt.sel b{background:var(--pick);color:#fff;border-color:var(--pick)}
+.ok{background:var(--okbg)!important;border-color:var(--ok)!important;color:#0d5c30}
+.bad{background:var(--badbg)!important;border-color:var(--bad)!important;color:#8f1741}
+.miss{background:var(--missbg)!important;border:2px dashed var(--miss)!important}
+.poem{background:var(--paper);border-radius:16px;padding:12px 18px;border-left:6px solid var(--star);margin:8px 0;font-style:italic}
+.poem u{text-decoration-thickness:2px;text-underline-offset:4px;font-weight:700}
+.sortrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #eef1fa}
+.sortrow .w{min-width:130px;font-weight:800}
+.seg{font:inherit;font-size:.9em;font-weight:700;color:var(--ink);border:2px solid #cfd6ee;background:#fff;border-radius:999px;padding:4px 13px;cursor:pointer}
+.seg.sel{background:var(--pick);border-color:var(--pick);color:#fff}
+.seg.ok,.seg.bad{color:inherit}
+.para{line-height:2.35}
+.tk{font:inherit;color:inherit;background:#f3f5fc;border:2px solid transparent;border-radius:9px;padding:1px 7px;margin:0 1px;cursor:pointer}
+.tk.sel{background:var(--pickbg);border-color:var(--pick);font-weight:800}
+.pair{white-space:nowrap}
+.tbl{width:100%;border-collapse:separate;border-spacing:0 8px}
+.tbl td{vertical-align:middle}
+.tbl .base{text-align:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.2rem;background:var(--star);border-radius:12px;width:22%;padding:4px}
+.tbl input{text-align:center}
+.fill{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:9px 0}
+.fill span{flex:1 1 250px}
+.fill input{flex:1 1 200px;width:auto}
+.hint{font-size:.9em;color:#5b668f}
+.fb{display:none;margin-top:10px;padding:10px 14px;border-radius:14px;background:#f2f7ff;border:2px solid #cfe0ff;font-size:.95em}
+.graded .fb{display:block}
+.note{font-size:.85em;background:#fff6d8;border-radius:10px;padding:2px 10px;display:inline-block;font-weight:700}
+.btn{font-family:'Baloo 2',sans-serif;font-size:1.25rem;font-weight:800;border:0;border-radius:999px;padding:12px 30px;cursor:pointer;color:var(--night);background:var(--star);box-shadow:0 5px 0 #d9a900}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #d9a900}
+.btn.alt{background:#fff;box-shadow:0 5px 0 #cfdcf3;border:2px solid #cfdcf3}
+.actions{text-align:center;margin-top:26px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+#result{display:none;text-align:center;background:var(--night);color:#fff;box-shadow:0 5px 0 #0f1838}
+#result .big{font-family:'Baloo 2',sans-serif;font-size:3.2rem;line-height:1;color:var(--star)}
+#result table{margin:10px auto 0;border-collapse:collapse;font-size:.95em}
+#result td{padding:3px 12px;text-align:left;border-bottom:1px solid rgba(255,255,255,.18)}
+#result td:last-child{text-align:right;font-weight:800}
+#warn{color:#ffd0dd;font-weight:700}
+@media(max-width:520px){body{font-size:16.5px}.info{grid-template-columns:1fr}.card{padding:16px 14px}.sortrow .w{min-width:100%}}
+@media(prefers-reduced-motion:no-preference){.twk{animation:tw 2.4s ease-in-out infinite}.twk:nth-child(2n){animation-delay:1.1s}@keyframes tw{50%{opacity:.25}}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+<svg viewBox="0 0 860 360" role="img" aria-label="Bé Lin-đa và chú ngựa non ngước nhìn bầu trời đầy sao">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16214d"/><stop offset="1" stop-color="#5a61c9"/></linearGradient>
+  </defs>
+  <rect width="860" height="360" fill="url(#sky)"/>
+  <g fill="#ffd84d">
+    <path class="twk" d="M90 60l5 12 13 1-10 8 3 13-11-7-11 7 3-13-10-8 13-1z"/>
+    <path class="twk" d="M770 50l5 12 13 1-10 8 3 13-11-7-11 7 3-13-10-8 13-1z"/>
+    <path class="twk" d="M640 150l4 9 10 1-8 6 3 10-9-6-9 6 3-10-8-6 10-1z"/>
+    <path class="twk" d="M215 170l4 9 10 1-8 6 3 10-9-6-9 6 3-10-8-6 10-1z"/>
+    <circle class="twk" cx="160" cy="120" r="3"/><circle class="twk" cx="320" cy="40" r="3"/><circle class="twk" cx="540" cy="35" r="3"/>
+    <circle class="twk" cx="700" cy="110" r="3"/><circle class="twk" cx="40" cy="170" r="3"/><circle class="twk" cx="820" cy="180" r="3"/>
+  </g>
+  <circle cx="735" cy="235" r="0" />
+  <path d="M0 300 Q200 235 430 285 T860 265 V360 H0z" fill="#3d9950"/>
+  <path d="M0 325 Q260 270 520 315 T860 300 V360 H0z" fill="#58b368"/>
+  <!-- bé gái -->
+  <g transform="translate(235,222)">
+    <path d="M-20 22 L20 22 L30 78 L-30 78z" fill="#ff7aa8"/>
+    <rect x="-13" y="78" width="9" height="22" rx="4" fill="#ffd9b8"/><rect x="5" y="78" width="9" height="22" rx="4" fill="#ffd9b8"/>
+    <path d="M18 30 L48 2" stroke="#ffd9b8" stroke-width="9" stroke-linecap="round"/>
+    <path d="M-18 32 L-34 52" stroke="#ffd9b8" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="0" cy="0" r="24" fill="#ffd9b8"/>
+    <path d="M-25 2 Q-28 -30 0 -27 Q28 -30 25 2 Q14 -14 0 -13 Q-14 -14 -25 2z" fill="#5b3420"/>
+    <circle cx="-27" cy="6" r="8" fill="#5b3420"/><circle cx="27" cy="6" r="8" fill="#5b3420"/>
+    <circle cx="-8" cy="1" r="2.6" fill="#26304f"/><circle cx="9" cy="1" r="2.6" fill="#26304f"/>
+    <path d="M-7 10 Q1 17 9 10" stroke="#c2571a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- ngựa non -->
+  <g transform="translate(610,250)">
+    <path d="M-52 -6 Q-80 -2 -74 34" stroke="#8a4b1f" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <rect x="-42" y="14" width="11" height="52" rx="5" fill="#c9792f"/><rect x="-18" y="18" width="11" height="48" rx="5" fill="#b56a26"/>
+    <rect x="14" y="18" width="11" height="48" rx="5" fill="#b56a26"/><rect x="34" y="14" width="11" height="52" rx="5" fill="#c9792f"/>
+    <ellipse cx="0" cy="6" rx="56" ry="27" fill="#e0913d"/>
+    <path d="M30 0 L52 -48 L76 -40 L56 12z" fill="#e0913d"/>
+    <ellipse cx="74" cy="-50" rx="27" ry="18" transform="rotate(18 74 -50)" fill="#e0913d"/>
+    <ellipse cx="92" cy="-42" rx="11" ry="9" fill="#f6c58c"/>
+    <path d="M56 -66 L60 -84 L70 -66z" fill="#c9792f"/>
+    <path d="M36 -4 Q32 -40 54 -62 L62 -56 Q46 -34 48 -6z" fill="#8a4b1f"/>
+    <circle cx="74" cy="-55" r="3.5" fill="#26304f"/><circle cx="95" cy="-43" r="1.8" fill="#8a4b1f"/>
+    <path d="M84 -36 Q90 -32 96 -36" stroke="#8a4b1f" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </g>
+  <g fill="#fff"><circle cx="90" cy="335" r="4"/><circle cx="400" cy="340" r="4"/><circle cx="480" cy="330" r="4"/><circle cx="780" cy="335" r="4"/></g>
+  <g fill="#ffd84d"><circle cx="90" cy="335" r="1.6"/><circle cx="400" cy="340" r="1.6"/><circle cx="480" cy="330" r="1.6"/><circle cx="780" cy="335" r="1.6"/></g>
+</svg>
+<div class="hero-txt"><span class="tag">Tiếng Việt lớp 4</span><h1>Đọc hiểu tuần 17</h1></div>
+</header>
+
+<main class="wrap" id="app">
+
+<section class="card">
+  <div class="info">
+    <div><label for="hs">Họ và tên của em</label><input type="text" id="hs" autocomplete="name"></div>
+    <div><label for="lop">Lớp</label><input type="text" id="lop" placeholder="VD: 4A"></div>
+  </div>
+</section>
+
+<!-- ============ I. ĐỌC ============ -->
+<section class="card">
+  <h2>I. Đọc</h2>
+  <p class="hint" style="margin:0 0 10px">Em hãy đọc thầm văn bản sau rồi trả lời câu hỏi nhé!</p>
+  <div class="story">
+    <h3>HÃY CỨ ƯỚC MƠ</h3>
+    <p>Mẹ của một bé gái 5 tuổi lanh lợi mới đi dự Hội nghị Phụ nữ về. Vốn đang phấn khích bởi những giấc mơ kì thú về năng lực của nữ giới – chủ đề chính của cuộc hội nghị – bà bèn hỏi con gái mình sau này lớn lên bé muốn làm nghề gì. Bé Lin-da mau mắn đáp: “Dạ, làm y tá ạ!”</p>
+    <p>Dạo ấy, y tá vẫn bị cho là nghề riêng của phụ nữ, thế nên câu trả lời trẻ thơ kia xem ra không làm bà mẹ vui lòng, dù sao thì bà cũng vừa mới đi dự hội nghị về năng lực của phụ nữ kia mà.</p>
+    <p>– Con có thể làm bất cứ nghề gì con muốn. – Bà mẹ khơi gợi cho con gái. – Con có thể làm luật sư, bác sĩ phẫu thuật, làm một nhân viên ngân hàng hay tổng thống... Con có thể làm bất cứ thứ gì con thích.</p>
+    <p>Bé Lin-da hỏi lại: “Bất cứ thứ gì hả mẹ?”</p>
+    <p>– Ừ, làm bất cứ thứ gì, con ạ! – Người mẹ mỉm cười.</p>
+    <p>Bé Lin-da reo lên: “Ồ, vậy thì hay quá! Con muốn làm một chú ngựa non!”</p>
+    <p>Đã hẳn là giấc mơ của cô bé kia cần thêm đôi chút chín chắn nữa, thế nhưng bạn có muốn mình có được tinh thần lạc quan như của cô bé ngây thơ mong muốn được làm một chú ngựa con tung tăng chạy nhảy trên thảm cỏ xanh, hít thở khí trời và những làn gió mát; hơn là cứ bi quan ủ rũ và than vãn rằng: “Tôi chẳng làm được cái gì nên hồn cả!” hay không?</p>
+    <p>Tết-đi Ru-dơ-veo đã nói rằng: “Hãy cứ ngước nhìn lên các vì sao và nhớ giữ cho đôi chân đứng vững trên mặt đất”. Đó là một cách để biến ước mơ thành hiện thực. Nào, hãy bắt đầu bằng cách ngước nhìn lên và mơ tưởng về những điều đẹp nhất.</p>
+    <p class="src">Theo <b>Một phút có thể thay đổi cuộc đời</b></p>
+  </div>
+
+  <p style="margin:16px 0 0"><b><i>Dựa vào nội dung bài đọc, em hãy chọn câu trả lời đúng nhất hoặc làm theo yêu cầu:</i></b></p>
+  <div id="mcq"></div>
+
+  <div class="q" id="d4">
+    <h3><span class="num">4</span>Em hãy đưa ra ví dụ cụ thể về ước mơ để phân biệt sự khác nhau giữa: <i>ước mơ cao đẹp, ước mơ nhỏ bé, ước mơ viển vông.</i> <span class="note">✍️ Tự luận – cô chấm</span></h3>
+    <label for="um1"><b>🌟 Ước mơ cao đẹp:</b></label><textarea id="um1"></textarea>
+    <label for="um2"><b>🎈 Ước mơ nhỏ bé:</b></label><textarea id="um2"></textarea>
+    <label for="um3"><b>☁️ Ước mơ viển vông:</b></label><textarea id="um3"></textarea>
+    <div class="fb"><b>Gợi ý:</b><br>• Ước mơ cao đẹp: Em ước mơ trở thành bác sĩ để chữa bệnh cho mọi người.<br>• Ước mơ nhỏ bé: Em ước có một hộp bút màu mới.<br>• Ước mơ viển vông: Em ước không cần học bài mà vẫn giỏi nhất lớp.</div>
+  </div>
+</section>
+
+<!-- ============ II. LTVC ============ -->
+<section class="card">
+  <h2>II. Luyện từ và câu</h2>
+
+  <div class="q" id="b1">
+    <h3><span class="num">1</span>Xếp các từ được gạch chân trong khổ thơ vào nhóm thích hợp:</h3>
+    <svg class="pic" viewBox="0 0 420 150" role="img" aria-label="Con ốc xanh biếc trong chum nước">
+      <rect width="420" height="150" rx="16" fill="#e4f6ff"/>
+      <path d="M0 120 Q210 100 420 120 V150 H0z" fill="#bfe6c5"/>
+      <path d="M250 40 Q230 40 232 54 Q200 90 240 132 H330 Q370 90 338 54 Q340 40 320 40z" fill="#b5651d"/>
+      <ellipse cx="285" cy="42" rx="38" ry="9" fill="#7a3f0f"/><ellipse cx="285" cy="43" rx="30" ry="5.5" fill="#6fd0f2"/>
+      <path d="M250 80 Q285 92 322 80" stroke="#8a4b1f" stroke-width="4" fill="none"/>
+      <g transform="translate(120,96)">
+        <path d="M-58 22 Q-66 4 -46 2 L40 6 Q58 10 54 22z" fill="#ffd9a0"/>
+        <path d="M-50 4 L-60 -22 M-42 3 L-44 -24" stroke="#ffd9a0" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="-60" cy="-24" r="4.5" fill="#26304f"/><circle cx="-44" cy="-26" r="4.5" fill="#26304f"/>
+        <circle cx="8" cy="-10" r="36" fill="#27a9c9"/><circle cx="8" cy="-10" r="25" fill="#5fd0e6"/><circle cx="8" cy="-10" r="14" fill="#27a9c9"/><circle cx="8" cy="-10" r="5" fill="#bff2fa"/>
+        <path d="M-52 12 Q-47 17 -42 12" stroke="#c2571a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>
+    </svg>
+    <div class="poem">
+      Xưa có <u>bà</u> già <u>nghèo</u><br>
+      Chuyên <u>mò</u> <u>cua</u> <u>bắt</u> <u>ốc</u><br>
+      <u>Một hôm</u> bà bắt được<br>
+      Một con ốc <u>xinh xinh</u><br>
+      <u>Vỏ</u> nó <u>biêng biếc xanh</u><br>
+      Không giống như ốc khác<br>
+      Bà <u>thương</u> không muốn <u>bán</u><br>
+      Bèn <u>thả</u> vào trong <u>chum</u>.
+    </div>
+    <p class="hint">👉 Với mỗi từ, em bấm chọn nhóm đúng.</p>
+    <div id="sort"></div>
+    <div class="fb"><b>Đáp án:</b><br>• Danh từ: bà, cua, ốc, một hôm, vỏ, chum.<br>• Động từ: mò, bắt, thương, bán, thả.<br>• Tính từ: nghèo, xinh xinh, biêng biếc xanh.</div>
+  </div>
+
+  <div class="q" id="b2">
+    <h3><span class="num">2</span>Tìm những danh từ có trong đoạn văn sau:</h3>
+    <svg class="pic" viewBox="0 0 420 150" role="img" aria-label="Cây bàng dưới ánh trăng non">
+      <rect width="420" height="150" rx="16" fill="#26306b"/>
+      <circle cx="340" cy="42" r="24" fill="#ffe89a"/><circle cx="351" cy="36" r="22" fill="#26306b"/>
+      <g fill="#ffe89a"><circle cx="60" cy="30" r="2"/><circle cx="130" cy="20" r="2"/><circle cx="250" cy="28" r="2"/><circle cx="390" cy="90" r="2"/></g>
+      <rect x="0" y="125" width="420" height="25" fill="#49507f"/>
+      <rect x="196" y="70" width="14" height="58" fill="#7a4b22"/>
+      <ellipse cx="203" cy="80" rx="74" ry="13" fill="#2f8f55"/><ellipse cx="203" cy="60" rx="54" ry="12" fill="#3aa864"/><ellipse cx="203" cy="42" rx="34" ry="10" fill="#4dbd76"/>
+      <g fill="#e58a2e"><ellipse cx="90" cy="136" rx="13" ry="6" transform="rotate(-15 90 136)"/><ellipse cx="290" cy="138" rx="13" ry="6" transform="rotate(12 290 138)"/><ellipse cx="150" cy="140" rx="11" ry="5"/></g>
+      <rect x="60" y="78" width="8" height="50" fill="#555c8f"/><circle cx="64" cy="76" r="10" fill="#fff3b0"/>
+    </svg>
+    <p class="hint">👉 Em bấm vào các <b>danh từ</b>. Bấm lần nữa để bỏ chọn.</p>
+    <div class="para" id="tk2"></div>
+    <div class="fb"><b>Đáp án:</b> bố, con, hành lang, đường phố, giờ, cây bàng, bầu trời, ánh trăng, cơn mưa, lá bàng, mặt phố, quạt mo, ánh điện.</div>
+  </div>
+
+  <div class="q" id="b3">
+    <h3><span class="num">3</span>Chọn từ ngữ phù hợp trong ngoặc đơn:</h3>
+    <svg class="pic" viewBox="0 0 420 130" role="img" aria-label="Cành cây nhú lộc biếc mùa xuân">
+      <rect width="420" height="130" rx="16" fill="#fff3e0"/>
+      <circle cx="360" cy="34" r="20" fill="#ffd84d"/>
+      <path d="M10 112 Q120 80 210 76 Q300 70 400 40" stroke="#7a4b22" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M150 84 Q170 50 200 30 M270 72 Q280 96 310 108" stroke="#7a4b22" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <g fill="#58b368"><ellipse cx="204" cy="26" rx="9" ry="5" transform="rotate(-40 204 26)"/><ellipse cx="120" cy="82" rx="9" ry="5" transform="rotate(-60 120 82)"/><ellipse cx="316" cy="110" rx="9" ry="5" transform="rotate(30 316 110)"/><ellipse cx="330" cy="54" rx="9" ry="5" transform="rotate(-60 330 54)"/><ellipse cx="60" cy="96" rx="9" ry="5" transform="rotate(-60 60 96)"/></g>
+      <g fill="#ff8fb3"><circle cx="240" cy="62" r="7"/><circle cx="252" cy="68" r="7"/><circle cx="240" cy="75" r="7"/><circle cx="228" cy="68" r="7"/><circle cx="176" cy="52" r="6"/><circle cx="186" cy="58" r="6"/><circle cx="176" cy="64" r="6"/><circle cx="166" cy="58" r="6"/></g>
+      <circle cx="240" cy="68" r="4" fill="#ffd84d"/><circle cx="176" cy="58" r="3.5" fill="#ffd84d"/>
+    </svg>
+    <div class="para" id="p3"></div>
+    <p style="text-align:right;margin:0"><i>Theo Lục Mạnh Cường</i></p>
+    <p style="margin:12px 0 4px"><b><i>Trong các từ vừa chọn, từ nào là động từ, từ nào là tính từ?</i></b></p>
+    <div id="cls3"></div>
+    <div class="fb"><b>Đáp án:</b> khẳng khiu – nhú – êm dịu – sáng bừng – nhen.<br>• Động từ: nhú, nhen.<br>• Tính từ: khẳng khiu, êm dịu, sáng bừng.</div>
+  </div>
+
+  <div class="q" id="b4">
+    <h3><span class="num">4</span>Viết thêm tính từ để hoàn thiện câu sinh động hơn: <span class="note">✍️ Tự luận – cô chấm</span></h3>
+    <svg class="pic" viewBox="0 0 420 130" role="img" aria-label="Dãy núi, thác nước và dòng sông">
+      <rect width="420" height="130" rx="16" fill="#cfefff"/>
+      <circle cx="60" cy="32" r="18" fill="#ffd84d"/>
+      <path d="M0 100 L80 40 L140 86 L210 22 L290 90 L350 50 L420 100 V130 H0z" fill="#6fa58a"/>
+      <path d="M196 38 L210 22 L224 38 L214 34 L208 40z" fill="#fff"/>
+      <path d="M150 96 Q210 60 280 96 Q340 84 420 104 V130 H0 V108 Q80 88 150 96z" fill="#58b368"/>
+      <rect x="296" y="58" width="16" height="50" fill="#fff" opacity=".9"/>
+      <path d="M0 122 Q100 104 200 118 Q270 126 304 108 Q360 112 420 120 V130 H0z" fill="#4fb3e8"/>
+    </svg>
+    <div class="fill"><span>a. Trước mặt chúng tôi là những dãy núi</span><input type="text" id="f1" aria-label="Câu a"></div>
+    <div class="fill"><span>b. Dưới ánh nắng, dòng sông trôi</span><input type="text" id="f2" aria-label="Câu b"></div>
+    <div class="fill"><span>c. Khắp vùng trung du, đồi núi</span><input type="text" id="f3" aria-label="Câu c"></div>
+    <div class="fill"><span>d. Từ xa, chúng tôi đã nghe thấy tiếng thác đổ</span><input type="text" id="f4" aria-label="Câu d"></div>
+    <div class="fb"><b>Gợi ý:</b> a. cao sừng sững / trùng điệp &nbsp;•&nbsp; b. lấp lánh / hiền hoà &nbsp;•&nbsp; c. nhấp nhô / xanh mướt &nbsp;•&nbsp; d. ầm ầm / ào ào</div>
+  </div>
+
+  <div class="q" id="b5">
+    <h3><span class="num">5</span>Hãy thêm tiếng ở trước hoặc sau các tính từ “<i>tối, sáng, bé, cao, thấp</i>” để tạo thành các tính từ có xác định mức độ:</h3>
+    <p class="hint">👉 Ô bên trái: viết tiếng đứng <b>trước</b> (ví dụ: <i>rất</i> tối). Ô bên phải: viết tiếng đứng <b>sau</b> (ví dụ: tối <i>om</i>). Em hãy tìm từ khác với ví dụ nếu có thể nhé!</p>
+    <table class="tbl" id="t5"></table>
+    <div class="fb"><b>Gợi ý đáp án:</b><br>• Thêm phía trước: rất, hơi, khá, quá, cực kì, vô cùng...<br>• Thêm phía sau: tối om, tối mịt, tối thui • sáng rực, sáng trưng, sáng choang • bé xíu, bé tí, bé tẹo • cao vút, cao ngất, cao vời vợi • thấp tè, thấp tịt, thấp lè tè (hoặc thêm <i>quá, lắm</i>).<br><span class="hint">Nếu em viết một từ khác mà máy báo chưa đúng, em hãy hỏi lại cô nhé!</span></div>
+  </div>
+
+  <div class="q" id="b6">
+    <h3><span class="num">6</span>Tìm các động từ có trong khổ thơ sau:</h3>
+    <svg class="pic" viewBox="0 0 420 120" role="img" aria-label="Thành luỹ, cờ và trống trận">
+      <rect width="420" height="120" rx="16" fill="#ffe9c9"/>
+      <path d="M40 104 V64 h20 v-12 h20 v12 h20 v-12 h20 v12 h20 v-12 h20 v12 h20 v40z" fill="#c98a4b"/>
+      <rect x="96" y="80" width="28" height="24" rx="12" fill="#7a4b22"/>
+      <rect x="118" y="14" width="4" height="40" fill="#7a4b22"/><path d="M122 16 l34 9 -34 11z" fill="#e23b3b"/>
+      <ellipse cx="290" cy="64" rx="34" ry="12" fill="#f6d9a8"/><path d="M256 64 v30 a34 12 0 0 0 68 0 v-30" fill="#d33a3a"/><ellipse cx="290" cy="64" rx="34" ry="12" fill="#f6d9a8" stroke="#a52525" stroke-width="3"/>
+      <path d="M250 30 l30 28 M336 26 l-30 32" stroke="#7a4b22" stroke-width="6" stroke-linecap="round"/>
+      <rect x="0" y="104" width="420" height="16" fill="#8cc474"/>
+    </svg>
+    <p class="hint">👉 Em bấm vào các <b>động từ</b>.</p>
+    <div class="poem para" id="tk6" style="font-style:normal"></div>
+    <div class="fb"><b>Đáp án:</b> đắp, lập, chống, nghe, kêu gọi, vùng lên.</div>
+  </div>
+</section>
+
+<div class="actions">
+  <button class="btn" id="nop" type="button">⭐ Nộp bài</button>
+  <button class="btn alt" id="lai" type="button">↺ Làm lại</button>
+</div>
+
+<section class="card" id="result" aria-live="polite">
+  <div class="disp" style="font-size:1.3rem" id="rname"></div>
+  <div class="big" id="rscore"></div>
+  <div id="rmsg" style="font-weight:800"></div>
+  <table id="rtable"></table>
+  <p class="hint" style="color:#cfd6ff;margin:10px 0 0">Câu 4 (phần Đọc) và bài 4 (Luyện từ và câu) là bài tự luận, cô sẽ chấm riêng.<br>Kết quả và bài tự luận của em đã được gửi cho cô.</p>
+  <p id="warn"></p>
+</section>
+
+</main>
+
+<script>
+/* ====== CẤU HÌNH ======
+   Dán link Web App của Google Apps Script vào đây để tự gửi điểm về Google Sheet.
+   Để trống "" thì trang vẫn chấm điểm bình thường, chỉ không gửi điểm. */
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec";
+var TEN_BAI = "Đọc hiểu tuần 17";
+
+/* ====== DỮ LIỆU ====== */
+var MCQ = [
+ {q:"Vì sao câu trả lời thích làm y tá của bé Lin-da không làm mẹ vui lòng?",
+  o:["Vì mẹ thích con làm một nghề danh giá, hơn là làm những nghề mà xã hội chưa coi trọng.","Vì nghề đó rất vất vả.","Vì nghề đó không được trả lương cao."],a:0},
+ {q:"Mơ ước “được làm một chú ngựa con” cho thấy bé Lin-da là một em bé như thế nào?",
+  o:["Đó là một em bé yêu súc vật.","Đó là một em bé yêu thiên nhiên.","Đó là một em bé hồn nhiên, ngây thơ và lạc quan yêu đời."],a:2},
+ {q:"Câu chuyện muốn nói với ta điều gì?",
+  o:["Hãy luôn ước mơ tất cả mọi điều.","Hãy luôn sống lạc quan, luôn mơ ước và biết cách biến ước mơ trở thành hiện thực.","Hãy sống hồn nhiên ngây thơ như là trẻ em."],a:1}
+];
+var SORT = [["bà","D"],["nghèo","T"],["mò","Đ"],["cua","D"],["bắt","Đ"],["ốc","D"],["một hôm","D"],["xinh xinh","T"],["vỏ","D"],["biêng biếc xanh","T"],["thương","Đ"],["bán","Đ"],["thả","Đ"],["chum","D"]];
+var GROUPS = [["D","Danh từ"],["Đ","Động từ"],["T","Tính từ"]];
+/* 1 = đúng, 0 = sai; chuỗi thường = dấu câu / xuống dòng */
+var TK2 = [["Hai",0],["bố",1],["con",1],["cùng",0],["đứng",0],["ở",0],["ngoài",0],["hành lang",1],",",["nhìn",0],["xuống",0],["đường phố",1],".",
+ ["Lúc",0],["này",0],["khoảng",0],["8",0],["giờ",1],".",
+ ["Cây bàng",1],["như",0],["ngủ",0],["yên",0],["dưới",0],["bầu trời",1],["thoang thoảng",0],["ánh trăng",1],["non",0],".",
+ ["Ấy vậy mà",0],["khi",0],["cơn mưa",1],["đi",0],["qua",0],",",["những",0],["chiếc",0],["lá bàng",1],["nằm",0],["la liệt",0],["trên",0],["mặt phố",1],["như",0],["những",0],["cái",0],["quạt mo",1],["lung linh",0],["ánh điện",1],"."];
+var TK6 = [["Bà",0],["đắp",1],["thành",0],["lập",1],["trại",0],"\n",["Chống",1],["áp bức",0],["cường quyền",0],"\n",["Nghe",1],["lời",0],["bà",0],["kêu gọi",1],"\n",["Cả",0],["nước",0],["ta",0],["vùng lên",1],"."];
+var P3 = ["Hơi lạnh vẫn còn vương khắp đất trời nhưng cậu nhận ra mùa xuân đến gần lắm. Những cành cây ",
+ {o:["khẳng khiu","khoẻ mạnh"],a:0,t:"T"}," chống lại cái lạnh của mùa đông đã ",
+ {o:["nhú","nở"],a:0,t:"Đ"}," những lộc biếc đầu tiên. Màu xanh ",
+ {o:["êm dịu","êm ả"],a:0,t:"T"}," làm đất trời ",
+ {o:["sáng bừng","sáng rực"],a:0,t:"T"}," lên sức sống. Và sắc màu mùa xuân cũng bắt đầu ",
+ {o:["nhen","nhóm"],a:0,t:"Đ"}," lên trên những cánh hoa nở sớm."];
+var TRUOC = ["rất","hơi","khá","quá","cực","cực kì","cực kỳ","vô cùng","hết sức","thật","tương đối","siêu","hơi hơi","rất là","thật là"];
+var SAU_CHUNG = ["quá","lắm","ghê","thật","vô cùng","cực kì","cực kỳ","quá chừng","quá đi"];
+var T5 = [
+ ["tối",["om","om om","mịt","mịt mùng","mù","mò","thui","sầm","đen","tăm","như mực","như bưng"]],
+ ["sáng",["rực","trưng","choang","loá","lóa","chói","bừng","quắc","ngời","loáng","rỡ"]],
+ ["bé",["xíu","tí","tẹo","tí tẹo","tí xíu","tị","tí ti","xíu xiu","bỏng","con con","tẹo teo","tí teo","tí tị"]],
+ ["cao",["vút","ngất","vời vợi","vòi vọi","chót vót","lêu nghêu","kều","lênh khênh","ngất ngưởng","vống","nghều"]],
+ ["thấp",["tè","lè tè","tịt","chủn","lũn cũn","tẹt","lùn tịt"]]
+];
+
+/* ====== TIỆN ÍCH ====== */
+function $(id){return document.getElementById(id);}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+function norm(s){return (s||"").normalize("NFC").toLowerCase().replace(/[.,;!?"“”]/g," ").replace(/\s+/g," ").trim();}
+var graded=false;
+function pickOne(group,btn){ if(graded)return; group.forEach(function(b){b.classList.remove("sel");b.setAttribute("aria-pressed","false");}); btn.classList.add("sel");btn.setAttribute("aria-pressed","true"); }
+
+/* ====== DỰNG GIAO DIỆN ====== */
+var mcqBtns=[], sortBtns=[], p3Btns=[], cls3Btns=[], cls3Lab=[], tkEls={};
+function build(){
+  // I. Trắc nghiệm
+  var box=$("mcq"); box.innerHTML=""; mcqBtns=[];
+  MCQ.forEach(function(m,i){
+    var d=el("div","q"); var h=el("h3"); h.appendChild(el("span","num",String(i+1))); h.appendChild(document.createTextNode(m.q)); d.appendChild(h);
+    var g=[]; m.o.forEach(function(t,j){ var b=el("button","opt"); b.type="button"; b.setAttribute("aria-pressed","false");
+      b.appendChild(el("b",null,"ABC"[j])); b.appendChild(el("span",null,t));
+      b.onclick=function(){pickOne(g,b);}; g.push(b); d.appendChild(b); });
+    d.appendChild(el("div","fb","Đáp án đúng: "+"ABC"[m.a]));
+    mcqBtns.push(g); box.appendChild(d);
+  });
+  // Bài 1
+  var s=$("sort"); s.innerHTML=""; sortBtns=[];
+  SORT.forEach(function(w){ var r=el("div","sortrow"); r.appendChild(el("span","w",w[0])); var g=[];
+    GROUPS.forEach(function(G){ var b=el("button","seg",G[1]); b.type="button"; b.dataset.v=G[0]; b.setAttribute("aria-pressed","false"); b.onclick=function(){pickOne(g,b);}; g.push(b); r.appendChild(b); });
+    sortBtns.push(g); s.appendChild(r); });
+  // Bài 2, 6
+  buildTokens("tk2",TK2); buildTokens("tk6",TK6);
+  // Bài 3
+  var p=$("p3"); p.innerHTML=""; p3Btns=[]; var c=$("cls3"); c.innerHTML=""; cls3Btns=[]; cls3Lab=[];
+  var k=0;
+  P3.forEach(function(part){
+    if(typeof part==="string"){p.appendChild(document.createTextNode(part));return;}
+    var idx=k++; var sp=el("span","pair"); sp.appendChild(document.createTextNode("(")); var g=[];
+    part.o.forEach(function(t,j){ var b=el("button","tk",t); b.type="button"; b.setAttribute("aria-pressed","false");
+      b.onclick=function(){ if(graded)return; pickOne(g,b); cls3Lab[idx].textContent=t; };
+      g.push(b); if(j) sp.appendChild(document.createTextNode(", ")); sp.appendChild(b); });
+    sp.appendChild(document.createTextNode(")")); p.appendChild(sp); p3Btns.push(g);
+    var r=el("div","sortrow"); var lab=el("span","w","(từ số "+(idx+1)+")"); r.appendChild(lab); cls3Lab.push(lab); var g2=[];
+    [["Đ","Động từ"],["T","Tính từ"]].forEach(function(G){ var b=el("button","seg",G[1]); b.type="button"; b.dataset.v=G[0]; b.setAttribute("aria-pressed","false"); b.onclick=function(){pickOne(g2,b);}; g2.push(b); r.appendChild(b); });
+    cls3Btns.push(g2); c.appendChild(r);
+  });
+  // Bài 5
+  var t=$("t5"); t.innerHTML="";
+  T5.forEach(function(row,i){ var tr=el("tr");
+    var a=el("td"); var ia=el("input"); ia.type="text"; ia.id="t5a"+i; ia.setAttribute("aria-label","Tiếng đứng trước từ "+row[0]); a.appendChild(ia);
+    var m=el("td","base",row[0]);
+    var b=el("td"); var ib=el("input"); ib.type="text"; ib.id="t5b"+i; ib.setAttribute("aria-label","Tiếng đứng sau từ "+row[0]); b.appendChild(ib);
+    tr.appendChild(a); tr.appendChild(m); tr.appendChild(b); t.appendChild(tr); });
+}
+function buildTokens(id,data){
+  var box=$(id); box.innerHTML=""; tkEls[id]=[];
+  data.forEach(function(d){
+    if(typeof d==="string"){ if(d==="\n") box.appendChild(el("br")); else box.appendChild(document.createTextNode(d+" ")); return; }
+    var b=el("button","tk",d[0]); b.type="button"; b.dataset.t=d[1]; b.setAttribute("aria-pressed","false");
+    b.onclick=function(){ if(graded)return; var on=b.classList.toggle("sel"); b.setAttribute("aria-pressed",on?"true":"false"); };
+    tkEls[id].push(b); box.appendChild(b); box.appendChild(document.createTextNode(" "));
+  });
+}
+
+/* ====== CHẤM ====== */
+function gradeSingle(g,ansIdx){ // 1 lựa chọn trong nhóm
+  var ok=false; g.forEach(function(b,j){ if(b.classList.contains("sel")){ if(j===ansIdx){b.classList.add("ok");ok=true;} else b.classList.add("bad"); } else if(j===ansIdx) b.classList.add("miss"); });
+  return ok?1:0;
+}
+function gradeTokens(id){
+  var hit=0,wrong=0,total=0;
+  tkEls[id].forEach(function(b){ var t=b.dataset.t, s=b.classList.contains("sel");
+    if(t==="1"){ total++; if(s){hit++;b.classList.add("ok");} else b.classList.add("miss"); }
+    else if(t==="0" && s){ wrong++; b.classList.add("bad"); }
+    else if(t==="2" && s){ b.classList.add("ok"); } });
+  return [Math.max(0,hit-wrong),total];
+}
+function checkT5(inp,base,list){
+  var v=norm(inp.value); if(!v){inp.classList.add("miss");return 0;}
+  v=norm((" "+v+" ").replace(" "+base+" "," ")); // bỏ từ gốc nếu em gõ cả cụm
+  var ok=list.indexOf(v)>=0; inp.classList.add(ok?"ok":"bad"); return ok?1:0;
+}
+function grade(){
+  if(graded)return;
+  var name=$("hs").value.trim();
+  if(!name){ alert("Em hãy viết họ và tên trước khi nộp bài nhé!"); $("hs").focus(); return; }
+  if(!$("lop").value.trim()){ alert("Em hãy viết lớp của em trước khi nộp bài nhé!"); $("lop").focus(); return; }
+  function tv(id){ return $(id).value.trim()||"(bỏ trống)"; }
+  var tuluan="ĐỌC - CÂU 4:\n- Ước mơ cao đẹp: "+tv("um1")+"\n- Ước mơ nhỏ bé: "+tv("um2")+"\n- Ước mơ viển vông: "+tv("um3")
+    +"\n\nLTVC - BÀI 4:\na. "+tv("f1")+"\nb. "+tv("f2")+"\nc. "+tv("f3")+"\nd. "+tv("f4");
+  graded=true; document.body.classList.add("graded");
+  var rows=[], sc=0, tot=0;
+  function add(lbl,a,b){rows.push([lbl,a,b]);sc+=a;tot+=b;}
+  var s=0; MCQ.forEach(function(m,i){ s+=gradeSingle(mcqBtns[i],m.a); }); add("Đọc – câu 1, 2, 3",s,3);
+  s=0; SORT.forEach(function(w,i){ var ai=GROUPS.map(function(G){return G[0];}).indexOf(w[1]); s+=gradeSingle(sortBtns[i],ai); }); add("Bài 1 – Xếp nhóm từ",s,SORT.length);
+  var r=gradeTokens("tk2"); add("Bài 2 – Danh từ",r[0],r[1]);
+  s=0; var k=0; P3.forEach(function(p){ if(typeof p==="string")return; s+=gradeSingle(p3Btns[k],p.a); s+=gradeSingle(cls3Btns[k],p.t==="Đ"?0:1); k++; }); add("Bài 3 – Chọn từ, xếp loại",s,10);
+  s=0; T5.forEach(function(row,i){ s+=checkT5($("t5a"+i),row[0],TRUOC); s+=checkT5($("t5b"+i),row[0],row[1].concat(SAU_CHUNG)); }); add("Bài 5 – Tính từ chỉ mức độ",s,10);
+  r=gradeTokens("tk6"); add("Bài 6 – Động từ",r[0],r[1]);
+  Array.prototype.forEach.call(document.querySelectorAll("input,textarea"),function(e){e.readOnly=true;});
+
+  var d10=Math.round(sc/tot*100)/10;
+  $("rname").textContent=name+($("lop").value.trim()?" – Lớp "+$("lop").value.trim():"");
+  $("rscore").textContent=String(d10).replace(".",",")+" điểm";
+  $("rmsg").textContent="Đúng "+sc+"/"+tot+" ý. "+(d10>=9?"Xuất sắc! Em như một vì sao sáng! 🌟":d10>=7?"Em làm tốt lắm! Cố thêm chút nữa nhé! 🐴":d10>=5?"Khá rồi! Em xem lại đáp án bên trên nhé! 💪":"Em hãy đọc kĩ đáp án rồi bấm Làm lại nhé! 🌱");
+  var tb=$("rtable"); tb.innerHTML="";
+  rows.forEach(function(x){ var tr=el("tr"); tr.appendChild(el("td",null,x[0])); tr.appendChild(el("td",null,x[1]+"/"+x[2])); tb.appendChild(tr); });
+  $("result").style.display="block"; $("result").scrollIntoView({behavior:"smooth"});
+  $("warn").textContent="";
+  if(SCRIPT_URL){
+    try{
+      fetch(SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body:JSON.stringify({bai:TEN_BAI,hoten:name,lop:$("lop").value.trim(),diem:sc,tongdiem:tot,tuluan:tuluan})
+      }).catch(function(){ $("warn").textContent="Chưa gửi được điểm cho cô. Em chụp màn hình gửi cô nhé!"; });
+    }catch(e){ $("warn").textContent="Chưa gửi được điểm cho cô. Em chụp màn hình gửi cô nhé!"; }
+  }
+}
+function reset(){
+  if(graded || confirm("Em có chắc muốn xoá hết bài đang làm không?")){
+    var n=$("hs").value, l=$("lop").value;
+    graded=false; document.body.classList.remove("graded");
+    Array.prototype.forEach.call(document.querySelectorAll("input,textarea"),function(e){e.readOnly=false;e.value="";e.classList.remove("ok","bad","miss");});
+    $("hs").value=n; $("lop").value=l;
+    build(); $("result").style.display="none"; window.scrollTo({top:0,behavior:"smooth"});
+  }
+}
+build();
+$("nop").onclick=grade; $("lai").onclick=reset;
+</script>
+</body>
+</html>

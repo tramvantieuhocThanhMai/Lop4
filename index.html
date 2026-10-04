@@ -1,133 +1,52 @@
 <!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Thư viện Bài tập Tiếng Việt — Lớp 4</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --sky:#eaf6ff; --sun:#ffc93c; --sun-deep:#ffab00;
-    --coral:#ff6b6b; --coral-deep:#e8523f;
-    --leaf:#3fb083; --leaf-deep:#2f9270;
-    --plum:#8675a9; --ink:#2d3142; --ink-soft:#5a5f75;
-    --paper:#ffffff; --radius:20px; --shadow:0 10px 26px rgba(45,49,66,0.10);
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;font-family:'Quicksand',sans-serif;color:var(--ink);
-    background:
-      radial-gradient(circle at 12% 8%, #fff6da 0%, transparent 45%),
-      radial-gradient(circle at 90% 4%, #ffe1e1 0%, transparent 40%),
-      linear-gradient(180deg, var(--sky) 0%, #f5fbff 55%, #fdf9ef 100%);
-    min-height:100vh;padding-bottom:60px;
-  }
-  h1,h2,.display{font-family:'Baloo 2',sans-serif;}
-  .hero{text-align:center;padding:40px 18px 24px;}
-  .hero-badge{
-    display:inline-block;background:var(--paper);border:2px dashed var(--sun-deep);
-    color:var(--coral-deep);font-weight:700;font-size:14px;padding:6px 16px;
-    border-radius:999px;margin-bottom:14px;
-  }
-  .hero h1{font-size:clamp(26px,5.5vw,40px);margin:0 0 8px;}
-  .hero h1 span{color:var(--coral-deep);}
-  .hero p{max-width:520px;margin:0 auto;color:var(--ink-soft);font-weight:600;font-size:15.5px;}
-
-  .wrap{max-width:680px;margin:20px auto 0;padding:0 18px;}
-
-  .year-block{margin-bottom:34px;}
-  .year-title{
-    display:flex;align-items:center;gap:10px;font-size:20px;color:var(--plum);
-    margin:0 0 14px;
-  }
-  .year-title .line{flex:1;height:2px;background:#e2e7f0;border-radius:2px;}
-
-  .lesson-grid{display:flex;flex-direction:column;gap:12px;}
-  .lesson-card{
-    display:flex;align-items:center;gap:14px;
-    background:var(--paper);border-radius:16px;box-shadow:var(--shadow);
-    padding:16px 18px;text-decoration:none;color:var(--ink);
-    border:2px solid transparent;transition:transform .15s, border-color .15s;
-  }
-  .lesson-card:hover{transform:translateY(-2px);border-color:var(--sun);}
-  .lesson-badge{
-    flex:none;width:46px;height:46px;border-radius:14px;
-    background:linear-gradient(135deg,var(--sun),var(--coral));
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Baloo 2',sans-serif;font-weight:700;color:#fff;font-size:15px;
-  }
-  .lesson-info{flex:1;}
-  .lesson-info .name{font-weight:700;font-size:16px;margin-bottom:2px;}
-  .lesson-info .desc{font-size:13.5px;color:var(--ink-soft);font-weight:600;}
-  .lesson-arrow{flex:none;color:var(--coral-deep);font-size:20px;}
-
-  .empty-slot{
-    border:2px dashed #d8e0ec;border-radius:16px;padding:16px 18px;
-    color:#a7b1c2;font-weight:600;font-size:14px;text-align:center;
-  }
-
-  footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:30px;font-weight:600;}
-</style>
-</head>
-<body>
-
-<div class="hero">
-  <span class="hero-badge">THƯ VIỆN BÀI TẬP</span>
-  <h1>Bài tập <span>Tiếng Việt</span> — Lớp 4</h1>
-  <p>Chọn đúng tuần học để bắt đầu làm bài. Mỗi bài đều được chấm điểm tự động ngay khi nộp.</p>
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Roboto,Arial,sans-serif;background:#fff8ec;color:#16424f;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:28px 16px 60px}
+.tag{display:inline-block;background:#ef6f5a;color:#fff;font-weight:800;font-size:13px;letter-spacing:.08em;padding:4px 14px;border-radius:99px}
+h1{font-size:clamp(26px,6vw,40px);margin:10px 0 6px}p.lead{margin:0 0 8px;color:#4d6b75}
+h2{font-size:20px;margin:30px 0 12px;padding-bottom:6px;border-bottom:2px dashed #ecdcc3}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.card{display:flex;align-items:center;gap:12px;background:#fff;border:2.5px solid #16424f;border-radius:16px;padding:12px 14px;text-decoration:none;color:inherit;box-shadow:4px 4px 0 #c98b4e;transition:transform .12s}
+.card:hover,.card:focus{transform:translate(-2px,-2px);outline:none}
+.card.tv{box-shadow:4px 4px 0 #2f7fd1}
+.b{flex:none;width:46px;height:46px;border-radius:12px;background:#fdeed9;display:grid;place-items:center;font-weight:800;color:#8a5a2b}
+.tv .b{background:#e3f0fc;color:#2f7fd1}
+.t{flex:1;min-width:0}.t strong{display:block;font-size:15.5px}.t small{color:#4d6b75}
+.go{font-weight:800;font-size:20px}
+footer{margin-top:36px;text-align:center;color:#4d6b75;font-size:14px}
+</style></head><body><div class="wrap">
+<span class="tag">THƯ VIỆN BÀI TẬP</span>
+<h1>Bài tập Tiếng Việt — Lớp 4</h1>
+<p class="lead">Chọn đúng tuần học để bắt đầu làm bài. Mỗi bài đều được chấm điểm tự động ngay khi nộp.</p>
+<h2>📖 Đọc hiểu — Năm học 2026 – 2027</h2>
+<div class="grid">
+<a class="card dh" href="doc-hieu-tuan-1.html"><span class="b">T1</span><span class="t"><strong>Tuần 1 — Vệt phấn trên mặt bàn</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-2.html"><span class="b">T2</span><span class="t"><strong>Tuần 2 — Những vết đinh</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-3.html"><span class="b">T3</span><span class="t"><strong>Tuần 3 — Sự sẻ chia bình dị</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-4.html"><span class="b">T4</span><span class="t"><strong>Tuần 4 — Câu chuyện về túi khoai tây</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-5.html"><span class="b">T5</span><span class="t"><strong>Tuần 5 — Tấm lòng thầm lặng</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-6.html"><span class="b">T6</span><span class="t"><strong>Tuần 6 — Con heo đất</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-7.html"><span class="b">T7</span><span class="t"><strong>Tuần 7 — Cô bé ấy đã lớn</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-8.html"><span class="b">T8</span><span class="t"><strong>Tuần 8 — Gió vườn</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-9.html"><span class="b">T9</span><span class="t"><strong>Tuần 9 — Nói lời cổ vũ</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-10.html"><span class="b">T10</span><span class="t"><strong>Tuần 10 — Mùa thu</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-11.html"><span class="b">T11</span><span class="t"><strong>Tuần 11 — Cậu bé ham học hỏi</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-12.html"><span class="b">T12</span><span class="t"><strong>Tuần 12 — Cây táo đã nảy mầm</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-13.html"><span class="b">T13</span><span class="t"><strong>Tuần 13 — Tuổi Ngựa</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-14.html"><span class="b">T14</span><span class="t"><strong>Tuần 14 — Người lính dũng cảm</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-15.html"><span class="b">T15</span><span class="t"><strong>Tuần 15 — Không ngừng nỗ lực</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-16.html"><span class="b">T16</span><span class="t"><strong>Tuần 16 — Thư gửi các Thiên thần</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-17.html"><span class="b">T17</span><span class="t"><strong>Tuần 17 — Hãy cứ ước mơ</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
+<a class="card dh" href="doc-hieu-tuan-18.html"><span class="b">T18</span><span class="t"><strong>Tuần 18 — Điều mong ước kỳ diệu</strong><small>Đọc hiểu · Luyện từ và câu</small></span><span class="go">→</span></a>
 </div>
-
-<div class="wrap">
-
-  <div class="year-block">
-    <h2 class="year-title">📚 Năm học 2026 – 2027 <span class="line"></span></h2>
-    <div class="lesson-grid">
-
-      <a class="lesson-card" href="lop4-tuan2.html">
-        <div class="lesson-badge">T2</div>
-        <div class="lesson-info">
-          <div class="name">Tuần 2 — Bà Táp-táp</div>
-          <div class="desc">Đọc hiểu · Nối từ · Điền từ</div>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card" href="lop4-tuan3.html">
-        <div class="lesson-badge">T3</div>
-        <div class="lesson-info">
-          <div class="name">Tuần 3 — Câu chuyện của cành nhỏ</div>
-          <div class="desc">Đọc hiểu · Điền từ · Trả lời ngắn</div>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card" href="lop4-tuan4.html">
-        <div class="lesson-badge">T4</div>
-        <div class="lesson-info">
-          <div class="name">Tuần 4 — Suối nhỏ, hồ nước và biển</div>
-          <div class="desc">Đọc hiểu · Điền từ · Đặt câu</div>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <a class="lesson-card" href="lop4-tuan5.html">
-        <div class="lesson-badge">T5</div>
-        <div class="lesson-info">
-          <div class="name">Tuần 5 — Những niềm vui</div>
-          <div class="desc">Đọc hiểu · Nối câu · Danh từ - Động từ</div>
-        </div>
-        <div class="lesson-arrow">→</div>
-      </a>
-
-      <div class="empty-slot">Các bài của Tuần 6, 7... sẽ được thêm vào đây</div>
-
-    </div>
-  </div>
-
+<h2>📚 Bài tập tuần — Năm học 2026 – 2027</h2>
+<div class="grid">
+<a class="card tv" href="lop4-tuan2.html"><span class="b">T2</span><span class="t"><strong>Tuần 2 — Bà Táp-táp</strong><small>Đọc hiểu · Nối từ · Điền từ</small></span><span class="go">→</span></a>
+<a class="card tv" href="lop4-tuan3.html"><span class="b">T3</span><span class="t"><strong>Tuần 3 — Câu chuyện của cành nhỏ</strong><small>Đọc hiểu · Điền từ · Trả lời ngắn</small></span><span class="go">→</span></a>
+<a class="card tv" href="lop4-tuan4.html"><span class="b">T4</span><span class="t"><strong>Tuần 4 — Suối nhỏ, hồ nước và biển</strong><small>Đọc hiểu · Điền từ · Đặt câu</small></span><span class="go">→</span></a>
+<a class="card tv" href="lop4-tuan5.html"><span class="b">T5</span><span class="t"><strong>Tuần 5 — Những niềm vui</strong><small>Đọc hiểu · Nối câu · Danh từ - Động từ</small></span><span class="go">→</span></a>
 </div>
-
 <footer>Thư viện bài tập của cô/thầy · Cập nhật theo từng tuần 🌈</footer>
-
-</body>
-</html>
+</div></body></html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đọc hiểu tuần 2 – Những vết đinh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16424f; --ink-soft:#4d6b75; --paper:#fff8ec; --card:#ffffff;
+  --wood:#c98b4e; --wood-dark:#8a5a2b; --wood-light:#f3dcbd;
+  --coral:#ef6f5a; --green:#3fa46a; --green-bg:#e6f6ec; --red:#e2513f; --red-bg:#fdeae6;
+  --blue:#2f7fd1; --blue-bg:#e3f0fc; --orange:#ee8a1f; --orange-bg:#fdeed9;
+  --line:#ecdcc3;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Nunito','Segoe UI',Arial,sans-serif;font-size:17px;line-height:1.65;
+  background-image:radial-gradient(#f1dfc2 1.2px,transparent 1.2px);background-size:22px 22px}
+h1,h2,h3{font-family:'Baloo 2','Nunito','Segoe UI',Arial,sans-serif;line-height:1.2;margin:0}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px 60px}
+.hero{background:linear-gradient(#bfe6f2,#e9f7f3 70%);border-radius:0 0 28px 28px;overflow:hidden;border:3px solid var(--ink);border-top:none}
+.hero svg{display:block;width:100%;height:auto}
+.hero-text{padding:14px 20px 20px;background:var(--card);border-top:3px solid var(--ink)}
+.tag{display:inline-block;background:var(--coral);color:#fff;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:3px 12px;border-radius:99px}
+.hero-text h1{font-size:clamp(28px,6vw,42px);margin-top:6px;color:var(--ink)}
+.hero-text p{margin:4px 0 0;color:var(--ink-soft)}
+.student{background:var(--card);border:3px solid var(--ink);border-radius:20px;padding:16px;margin:18px 0;display:grid;grid-template-columns:2fr 1fr;gap:12px;box-shadow:5px 5px 0 var(--wood)}
+.student label{font-weight:800;font-size:14px;display:block;margin-bottom:4px}
+.student input{width:100%;font:inherit;padding:10px 12px;border:2.5px solid var(--line);border-radius:12px;background:#fffdf8;color:var(--ink)}
+.student input:focus,.fill input:focus,textarea:focus,.mm input:focus{outline:3px solid #ffd27a;border-color:var(--wood)}
+.progress{position:sticky;top:0;z-index:20;background:var(--paper);padding:10px 0 8px;border-bottom:2px dashed var(--line)}
+.progress-top{display:flex;justify-content:space-between;font-weight:800;font-size:14px}
+.rail{position:relative;height:16px;background:var(--wood-light);border:2.5px solid var(--ink);border-radius:99px;margin-top:6px}
+.rail-fill{height:100%;width:0;background:repeating-linear-gradient(90deg,var(--wood) 0 14px,#b97b40 14px 17px);border-radius:99px;transition:width .35s}
+.rail-hammer{position:absolute;top:-13px;left:0;transform:translateX(-50%);font-size:24px;transition:left .35s}
+.section-title{display:flex;align-items:center;gap:12px;margin:34px 0 14px}
+.section-title .num{flex:none;width:46px;height:46px;border-radius:14px;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22px;transform:rotate(-4deg)}
+.section-title h2{font-size:26px}
+.story{background:var(--card);border:3px solid var(--ink);border-radius:20px;padding:20px 22px;box-shadow:5px 5px 0 var(--wood)}
+.story h3{text-align:center;font-size:26px;color:var(--wood-dark);margin-bottom:10px}
+.story p{margin:0 0 10px;text-indent:1.4em}
+.story p.say{text-indent:0;padding-left:1.4em;border-left:4px solid #ffd27a;background:#fffaf0;border-radius:0 10px 10px 0;padding-top:4px;padding-bottom:4px}
+.story .src{text-align:right;font-style:italic;color:var(--ink-soft);text-indent:0;margin:0}
+.q-card{background:var(--card);border:3px solid var(--ink);border-radius:20px;padding:18px;margin:16px 0;box-shadow:5px 5px 0 var(--line);transition:box-shadow .2s,border-color .2s}
+.q-card.correct{border-color:var(--green);box-shadow:5px 5px 0 #bfe5cd}
+.q-card.incorrect{border-color:var(--red);box-shadow:5px 5px 0 #f6c6bd}
+.q-head{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.q-no{flex:none;background:#ffd27a;border:2.5px solid var(--ink);border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-weight:800;font-family:'Baloo 2',sans-serif}
+.q-text{font-weight:800;font-size:18px;padding-top:3px}
+.hint{color:var(--ink-soft);font-size:15px;margin:0 0 10px}
+.art{float:right;width:110px;margin:0 0 6px 10px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:2.5px solid var(--line);border-radius:14px;margin:8px 0;cursor:pointer;background:#fffdf8}
+.opt:hover{border-color:var(--wood)}
+.opt input{margin-top:5px;width:18px;height:18px;accent-color:var(--ink);flex:none}
+.opt.picked{border-color:var(--ink);background:#fff3d6}
+.opt.right{border-color:var(--green);background:var(--green-bg)}
+.opt.wrong{border-color:var(--red);background:var(--red-bg)}
+.opt b{margin-right:2px}
+textarea{width:100%;min-height:130px;font:inherit;padding:12px;border:2.5px solid var(--line);border-radius:14px;background:#fffdf8 repeating-linear-gradient(transparent 0 27px,#f3e6cf 27px 28px);line-height:28px;color:var(--ink);resize:vertical}
+.passage{background:#fffaf0;border:2.5px dashed var(--wood);border-radius:16px;padding:14px 16px;line-height:2.3;font-size:18px;clear:both}
+.tk{display:inline-block;padding:0 7px;margin:1px 0;border-radius:9px;border:2px solid transparent;cursor:pointer;line-height:1.6;user-select:none;-webkit-tap-highlight-color:transparent}
+.tk:hover{background:#fbe9c9}
+.tk.sel{background:#ffe08a;border-color:var(--ink);font-weight:800}
+.tk.mc{background:var(--blue-bg);border-color:var(--blue);color:#14528f;font-weight:800}
+.tk.mr{background:var(--orange-bg);border-color:var(--orange);color:#9a5205;font-weight:800}
+.tk.ok{background:var(--green-bg)!important;border-color:var(--green)!important;color:#1c6b40!important}
+.tk.bad{background:var(--red-bg)!important;border-color:var(--red)!important;color:#a3301f!important;text-decoration:line-through}
+.tk.miss{border:2px dashed var(--green)!important;background:#fff!important;color:#1c6b40!important;font-weight:800}
+.graded .tk{cursor:default}
+.pens{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.pen{font:inherit;font-weight:800;padding:8px 14px;border-radius:99px;border:2.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
+.pen[data-pen="c"].on{background:var(--blue);border-color:var(--blue);color:#fff}
+.pen[data-pen="r"].on{background:var(--orange);border-color:var(--orange);color:#fff}
+.sort-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border:2.5px solid var(--line);border-radius:14px;margin:7px 0;background:#fffdf8}
+.sort-row .w{font-weight:800;font-size:18px}
+.sort-row .btns{display:flex;gap:6px;flex:none}
+.sbtn{font:inherit;font-weight:800;font-size:14px;padding:6px 12px;border-radius:99px;border:2.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink-soft)}
+.sbtn[data-v="c"].on{background:var(--blue);border-color:var(--blue);color:#fff}
+.sbtn[data-v="r"].on{background:var(--orange);border-color:var(--orange);color:#fff}
+.sort-row.ok{border-color:var(--green);background:var(--green-bg)}
+.sort-row.bad{border-color:var(--red);background:var(--red-bg)}
+.sort-row .fix{font-size:14px;font-weight:800;color:#1c6b40;display:none}
+.sort-row.bad .fix{display:inline}
+.sort-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.fill{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fill .cell{border:2.5px solid var(--line);border-radius:14px;padding:10px 12px;background:#fffdf8}
+.fill .wrongname{font-weight:800;color:var(--red);font-size:18px}
+.fill .wrongname::before{content:"✗ ";}
+.fill input{width:100%;font:inherit;font-weight:700;padding:8px 10px;border:2.5px solid var(--line);border-radius:10px;margin-top:6px;color:var(--ink);background:#fff}
+.fill .cell.ok{border-color:var(--green);background:var(--green-bg)}
+.fill .cell.bad{border-color:var(--red);background:var(--red-bg)}
+.fill .fix{display:none;font-weight:800;color:#1c6b40;font-size:15px;margin-top:5px}
+.fill .cell.bad .fix{display:block}
+.explain{display:none;margin-top:12px;padding:10px 14px;border-radius:14px;background:#eef8f1;border:2px solid #bfe5cd;font-size:16px}
+.graded .explain{display:block}
+.explain b{color:#1c6b40}
+.mm{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center;margin-bottom:14px}
+.mm .core{aspect-ratio:1;border-radius:50%;background:radial-gradient(#f29a94,#f7cfcb);border:3px solid var(--ink);display:grid;place-items:center;text-align:center;font-family:'Baloo 2',sans-serif;font-weight:800;padding:12px;font-size:17px;line-height:1.2}
+.mm .branches{display:grid;gap:8px}
+.mm .br{display:flex;align-items:center;gap:8px}
+.mm .br span{flex:none;width:34px;height:34px;border-radius:50%;border:3px solid var(--ink);background:#fff;display:grid;place-items:center;font-weight:800}
+.mm input{flex:1;min-width:0;font:inherit;padding:9px 14px;border-radius:99px;border:2.5px solid #f6b56b;background:#fde3c0;color:var(--ink)}
+.note{font-size:14.5px;color:var(--ink-soft);background:#fff3d6;border-radius:12px;padding:8px 12px;margin-top:10px}
+.submit{display:block;width:100%;margin:26px 0 0;font-family:'Baloo 2',sans-serif;font-size:24px;font-weight:800;color:#fff;background:var(--coral);border:3px solid var(--ink);border-radius:18px;padding:14px;cursor:pointer;box-shadow:5px 5px 0 var(--ink)}
+.submit:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.submit:disabled{background:#c9c2b6;cursor:not-allowed}
+.warn{display:none;color:var(--red);font-weight:800;margin-top:10px;text-align:center}
+.result{display:none;text-align:center;background:var(--card);border:3px solid var(--ink);border-radius:22px;padding:22px;margin-top:22px;box-shadow:6px 6px 0 #ffd27a}
+.result.show{display:block}
+.result .emo{font-size:54px;line-height:1}
+.result .score{font-family:'Baloo 2',sans-serif;font-size:40px;font-weight:800;color:var(--coral)}
+.result table{margin:10px auto;border-collapse:collapse;font-size:15px}
+.result td{padding:3px 12px;border-bottom:1px dashed var(--line);text-align:left}
+.result td:last-child{text-align:right;font-weight:800}
+.retry{font:inherit;font-weight:800;margin-top:12px;padding:10px 20px;border-radius:99px;border:2.5px solid var(--ink);background:#fff;cursor:pointer;color:var(--ink)}
+footer{text-align:center;color:var(--ink-soft);font-size:14px;margin-top:30px}
+@media(max-width:560px){
+  body{font-size:16px}
+  .student,.fill,.sort-grid{grid-template-columns:1fr}
+  .mm{grid-template-columns:1fr}.mm .core{width:130px;margin:0 auto}
+  .art{width:80px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <svg viewBox="0 0 800 300" role="img" aria-label="Cậu bé cầm búa đứng cạnh hàng rào gỗ có những chiếc đinh và vết đinh, người cha đứng bên cạnh">
+    <circle cx="690" cy="62" r="34" fill="#ffd45e" stroke="#16424f" stroke-width="3"/>
+    <g fill="#fff" stroke="#16424f" stroke-width="3"><path d="M90 70q10-26 38-16 18-22 42 0 26-4 26 18 0 16-20 16H104q-22 0-14-18z"/><path d="M440 50q8-18 28-12 14-16 32 0 20-2 20 14 0 12-16 12h-52q-18 0-12-14z"/></g>
+    <path d="M0 236q200-30 400-8t400-10v82H0z" fill="#8fcf8a" stroke="#16424f" stroke-width="3"/>
+    <!-- hàng rào -->
+    <g stroke="#16424f" stroke-width="3" stroke-linejoin="round">
+      <rect x="250" y="150" width="530" height="16" fill="#a86d36"/><rect x="250" y="215" width="530" height="16" fill="#a86d36"/>
+      <g fill="#d9a066">
+        <path d="M262 258V126l24-24 24 24v132z"/><path d="M326 258V126l24-24 24 24v132z"/><path d="M390 258V126l24-24 24 24v132z"/>
+        <path d="M454 258V126l24-24 24 24v132z"/><path d="M518 258V126l24-24 24 24v132z"/><path d="M582 258V126l24-24 24 24v132z"/>
+        <path d="M646 258V126l24-24 24 24v132z"/><path d="M710 258V126l24-24 24 24v132z"/>
+      </g>
+    </g>
+    <g stroke="#b97b40" stroke-width="2" fill="none" stroke-linecap="round"><path d="M276 140v100M352 150v80M420 135v60M486 160v80M548 140v70M612 150v90M676 135v80M742 150v70"/></g>
+    <!-- vết đinh -->
+    <g fill="#5b3a17"><circle cx="350" cy="180" r="4"/><circle cx="414" cy="150" r="4"/><circle cx="478" cy="200" r="4"/><circle cx="542" cy="170" r="4"/><circle cx="606" cy="140" r="4"/><circle cx="670" cy="195" r="4"/><circle cx="296" cy="205" r="4"/><circle cx="734" cy="185" r="4"/><circle cx="414" cy="212" r="4"/></g>
+    <!-- đinh còn lại -->
+    <g stroke="#16424f" stroke-width="2.5"><g fill="#cfd6dc"><circle cx="606" cy="190" r="7"/><circle cx="734" cy="142" r="7"/><circle cx="542" cy="128" r="7"/></g>
+      <path d="M603 187l6 6M731 139l6 6M539 125l6 6" stroke-width="1.5"/></g>
+    <!-- người cha -->
+    <g stroke="#16424f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M52 262v-70q0-26 30-26t30 26v70z" fill="#4f8fb0"/>
+      <path d="M110 196l44 16" fill="none" stroke-width="12" stroke="#4f8fb0"/><path d="M110 196l44 16" fill="none"/>
+      <circle cx="82" cy="134" r="30" fill="#f6c9a0"/><path d="M52 128q4-34 34-30 26 2 26 28-24-18-60 2z" fill="#3b2a1c"/>
+      <path d="M72 138h1M94 138h1" stroke-width="5"/><path d="M74 150q9 7 18 0" fill="none"/>
+      <path d="M64 262v24M100 262v24" stroke-width="10" stroke="#2c4a57"/>
+    </g>
+    <!-- cậu bé + búa -->
+    <g stroke="#16424f" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M166 268v-42q0-20 24-20t24 20v42z" fill="#ef6f5a"/>
+      <path d="M212 232l26-22" stroke="#ef6f5a" stroke-width="11"/><path d="M212 232l26-22" fill="none"/>
+      <circle cx="190" cy="182" r="26" fill="#f6c9a0"/><path d="M164 178q0-30 28-28 24 2 24 24-26-12-52 4z" fill="#3b2a1c"/>
+      <path d="M182 186h1M200 186h1" stroke-width="5"/><path d="M184 196q7 5 14 0" fill="none"/>
+      <path d="M176 268v20M204 268v20" stroke-width="9" stroke="#2c4a57"/>
+      <path d="M238 214l10-44" stroke="#8a5a2b" stroke-width="7"/><rect x="232" y="152" width="40" height="20" rx="4" fill="#9aa5ad" transform="rotate(12 252 162)"/>
+    </g>
+  </svg>
+  <div class="hero-text">
+    <span class="tag">Tiếng Việt 4 · Đọc hiểu tuần 2</span>
+    <h1>Những vết đinh</h1>
+    <p>Đọc truyện, trả lời câu hỏi và luyện tập về danh từ. Làm xong em bấm <b>Nộp bài</b> để xem điểm và đáp án nhé!</p>
+  </div>
+</header>
+
+<div class="student">
+  <div><label for="studentName">Họ và tên</label><input type="text" id="studentName" placeholder="Nhập họ và tên của em..." autocomplete="name"></div>
+  <div><label for="studentClass">Lớp</label><input type="text" id="studentClass" placeholder="VD: 4A"></div>
+</div>
+
+<div class="progress">
+  <div class="progress-top"><span>Em đã làm</span><span id="progressCount">0 / 9 câu</span></div>
+  <div class="rail"><div class="rail-fill" id="railFill"></div><div class="rail-hammer" id="railHammer">🔨</div></div>
+</div>
+
+<div class="section-title"><div class="num">I</div><h2>Đọc</h2></div>
+
+<article class="story">
+  <h3>NHỮNG VẾT ĐINH</h3>
+  <p>Có một cậu bé nọ tính hay cáu kỉnh. Cha cậu bèn đưa cho cậu một túi đinh và bảo:</p>
+  <p class="say">- Mỗi lần con cáu kỉnh với ai, con hãy đóng một cái đinh lên hàng rào gỗ.</p>
+  <p>Ngày đầu tiên, cậu bé đã đóng 15 cái đinh lên hàng rào. Nhưng sau vài tuần, cậu đã biết kiềm chế những cơn nóng giận, số đinh cậu đóng trên hàng rào ngày một ít đi. Cậu nhận thấy kiềm chế cơn giận còn dễ hơn là phải đóng một cái đinh lên hàng rào.</p>
+  <p>Đến một hôm, cậu đã không còn cáu giận với ai trong suốt cả ngày. Cậu thưa với cha. Người cha bảo:</p>
+  <p class="say">- Sau một ngày mà con không hề cáu giận ai, con hãy nhổ một cái đinh ra khỏi hàng rào.</p>
+  <p>Ngày lại trôi qua, rồi cũng đến một hôm cậu bé hãnh diện khoe với cha rằng không còn một cái đinh nào trên hàng rào. Cha liền dẫn cậu đến bên hàng rào, bảo:</p>
+  <p class="say">- Con đã làm mọi việc rất tốt. Nhưng hãy nhìn lên hàng rào: Dù con đã nhổ đinh đi, vết đinh vẫn còn. Nếu con xúc phạm ai đó trong cơn giận lời xúc phạm của con cũng giống như những chiếc đinh này: Chúng để lại những vết thương khó lành trong lòng người khác và cả trong lòng con nữa. Mà vết thương tinh thần còn tệ hơn những vết đinh rất nhiều.</p>
+  <p class="src">Mai Văn Khôi (Truyện đọc lớp 4, 2018)</p>
+</article>
+
+<p class="hint" style="margin-top:16px"><b>Dựa vào nội dung bài đọc, chọn câu trả lời đúng nhất hoặc làm theo yêu cầu:</b></p>
+
+<section class="q-card" data-type="mc" data-correct="b" data-label="Đọc – Câu 1">
+  <div class="q-head"><div class="q-no">1</div><div class="q-text">Người cha dạy con trai kiềm chế tính nóng nảy bằng cách nào?</div></div>
+  <label class="opt"><input type="radio" name="q1" value="a"><span><b>A.</b> Người cha dạy con trai kiềm chế tính nóng nảy bằng cách nhổ đinh ở hàng rào gỗ.</span></label>
+  <label class="opt"><input type="radio" name="q1" value="b"><span><b>B.</b> Người cha dạy con trai kiềm chế tính nóng nảy bằng cách đóng đinh vào hàng rào gỗ.</span></label>
+  <label class="opt"><input type="radio" name="q1" value="c"><span><b>C.</b> Người cha dạy con trai kiềm chế tính nóng nảy bằng cách làm hàng rào gỗ.</span></label>
+  <div class="explain"><b>Đáp án: B.</b> Cha đưa cho cậu một túi đinh và bảo: mỗi lần cáu kỉnh với ai, hãy đóng một cái đinh lên hàng rào gỗ.</div>
+</section>
+
+<section class="q-card" data-type="mc" data-correct="a" data-label="Đọc – Câu 2">
+  <div class="q-head"><div class="q-no">2</div><div class="q-text">Khi cậu bé đã kiềm chế được tính nóng nảy, người cha bảo cậu làm gì?</div></div>
+  <label class="opt"><input type="radio" name="q2" value="a"><span><b>A.</b> Sau một ngày không hề cáu giận ai, hãy nhổ một cái đinh ra khỏi hàng rào.</span></label>
+  <label class="opt"><input type="radio" name="q2" value="b"><span><b>B.</b> Sau một ngày không hề cáu giận ai, hãy đóng một cái đinh lên hàng rào.</span></label>
+  <label class="opt"><input type="radio" name="q2" value="c"><span><b>C.</b> Sau một ngày không hề cáu giận ai, hãy đóng 15 cái đinh lên hàng rào.</span></label>
+  <div class="explain"><b>Đáp án: A.</b> Người cha bảo: “Sau một ngày mà con không hề cáu giận ai, con hãy nhổ một cái đinh ra khỏi hàng rào.”</div>
+</section>
+
+<section class="q-card" data-type="mc" data-correct="c" data-label="Đọc – Câu 3">
+  <div class="q-head"><div class="q-no">3</div><div class="q-text">Em hiểu “vết đinh” trong câu “Dù con đã nhổ đinh đi, vết đinh vẫn còn” chỉ điều gì?</div></div>
+  <label class="opt"><input type="radio" name="q3" value="a"><span><b>A.</b> Chỉ những vết sứt do đinh đóng vào gỗ gây ra.</span></label>
+  <label class="opt"><input type="radio" name="q3" value="b"><span><b>B.</b> Chỉ những tổn thương trong lòng người bị cậu bé cáu giận.</span></label>
+  <label class="opt"><input type="radio" name="q3" value="c"><span><b>C.</b> Chỉ những tổn thương khó lành trong lòng người khác và cả trong lòng đứa con sau những lời xúc phạm của cơn giận.</span></label>
+  <div class="explain"><b>Đáp án: C.</b> Lời xúc phạm trong cơn giận để lại vết thương khó lành trong lòng người khác <u>và cả trong lòng con nữa</u>.</div>
+</section>
+
+<section class="q-card" data-type="essay" data-label="Đọc – Câu 4">
+  <div class="q-head"><div class="q-no">4</div><div class="q-text">Hãy kể về một lần em giận dỗi hoặc cáu kỉnh với ai đó. Nêu suy nghĩ của em về việc ấy.</div></div>
+  <textarea placeholder="Em viết câu trả lời vào đây..."></textarea>
+  <div class="note">✍️ Câu này em tự viết, thầy cô sẽ đọc và nhận xét riêng (không tính vào điểm tự động).</div>
+</section>
+
+<div class="section-title"><div class="num">II</div><h2>Luyện từ và câu</h2></div>
+
+<section class="q-card" data-type="pick" id="ex1" data-label="LTVC – Bài 1">
+  <svg class="art" viewBox="0 0 120 90" aria-hidden="true"><g stroke="#16424f" stroke-width="2.5" stroke-linejoin="round"><path d="M58 44Q30 10 12 20t40 28z" fill="#cfeef7"/><path d="M62 44Q90 10 108 20T68 48z" fill="#cfeef7"/><path d="M56 50Q28 62 20 54t34-8z" fill="#e3f6fb"/><path d="M64 50q28 12 36 4t-34-8z" fill="#e3f6fb"/><rect x="56" y="46" width="8" height="40" rx="4" fill="#f2b632"/><circle cx="60" cy="40" r="9" fill="#f2b632"/></g><circle cx="56" cy="38" r="3" fill="#16424f"/><circle cx="64" cy="38" r="3" fill="#16424f"/></svg>
+  <div class="q-head"><div class="q-no">1</div><div class="q-text">Tìm các danh từ trong đoạn văn sau:</div></div>
+  <p class="hint">👆 Bấm vào từ em cho là <b>danh từ</b> để tô vàng. Bấm lần nữa để bỏ chọn.</p>
+  <div class="passage" id="p1"></div>
+  <div class="explain"><b>Danh từ:</b> chú, chuồn chuồn nước, màu, lưng, chú, cái cánh, giấy bóng, cái đầu, con mắt, thuỷ tinh. <br>Ô viền nét đứt là danh từ em còn bỏ sót; ô đỏ gạch ngang là từ em chọn nhầm.</div>
+</section>
+
+<section class="q-card" data-type="sort" id="ex2" data-label="LTVC – Bài 2">
+  <svg class="art" viewBox="0 0 120 90" aria-hidden="true"><g stroke="#16424f" stroke-width="2.5" stroke-linejoin="round"><path d="M4 80L44 22l22 30 14-16 36 44z" fill="#8fcf8a"/><path d="M40 80V62h30v18z" fill="#fff3d6"/><path d="M34 64l21-16 21 16z" fill="#ef6f5a"/><rect x="51" y="68" width="8" height="12" fill="#8a5a2b"/></g></svg>
+  <div class="q-head"><div class="q-no">2</div><div class="q-text">Xếp các danh từ in đậm trong đoạn văn sau theo 2 loại danh từ:</div></div>
+  <div class="passage" style="line-height:1.9"><b>Núi</b>/ <b>Sam</b> thuộc <b>làng</b>/ <b>Vĩnh Tế</b>. Làng có <b>miếu</b>/ <b>Bà Chúa Xứ</b>, có <b>lăng</b>/ <b>Thoại Ngọc Hầu</b> – <b>người</b> đã đào <b>con kênh</b> Vĩnh Tế.</div>
+  <p class="hint" style="margin-top:12px">👆 Với mỗi từ, em bấm chọn <b style="color:var(--blue)">Chung</b> (danh từ chung) hoặc <b style="color:var(--orange)">Riêng</b> (danh từ riêng).</p>
+  <div class="sort-grid" id="sortList"></div>
+  <div class="explain"><b>Danh từ chung:</b> núi, làng, miếu, lăng, người, con kênh.<br><b>Danh từ riêng:</b> Sam, Vĩnh Tế, Bà Chúa Xứ, Thoại Ngọc Hầu.</div>
+</section>
+
+<section class="q-card" data-type="mark" id="ex3" data-label="LTVC – Bài 3">
+  <svg class="art" viewBox="0 0 120 90" aria-hidden="true"><g stroke="#16424f" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><path d="M48 86q-4-30 2-52h20q6 22 2 52z" fill="#c98b4e"/><path d="M52 34L34 16M56 34L50 10M64 34l6-24M68 34l18-18" fill="none" stroke="#8a5a2b" stroke-width="4"/><g fill="#6dbb6a"><circle cx="30" cy="14" r="9"/><circle cx="50" cy="8" r="7"/><circle cx="71" cy="8" r="7"/><circle cx="90" cy="14" r="9"/></g><path d="M6 86h108" /></g></svg>
+  <div class="q-head"><div class="q-no">3</div><div class="q-text">Em hãy tìm các danh từ chung, danh từ riêng trong đoạn văn sau:</div></div>
+  <p class="hint">👆 Chọn bút rồi bấm vào từ để tô màu. Bấm lại vào từ đã tô để xoá.</p>
+  <div class="pens">
+    <button type="button" class="pen on" data-pen="c">🖍️ Bút xanh: danh từ chung</button>
+    <button type="button" class="pen" data-pen="r">🖍️ Bút cam: danh từ riêng</button>
+  </div>
+  <div class="passage" id="p3"></div>
+  <div class="explain"><b>a. Danh từ chung:</b> người, loài, cây, bao báp, châu lục, đảo, đồn điền, hạt, loại, bơ.<br><b>b. Danh từ riêng:</b> châu Phi, Ma-đa-ga-xca, Ấn Độ Dương.<br>Ô viền nét đứt là danh từ em còn bỏ sót; ô đỏ gạch ngang là từ em tô nhầm.</div>
+</section>
+
+<section class="q-card" data-type="fill" id="ex4" data-label="LTVC – Bài 4">
+  <div class="q-head"><div class="q-no">4</div><div class="q-text">Hãy viết lại các danh từ riêng dưới đây cho đúng:</div></div>
+  <p class="hint">⌨️ Nhớ viết hoa chữ cái đầu của <b>mỗi tiếng</b> trong tên người, tên địa lí Việt Nam nhé!</p>
+  <div class="fill">
+    <div class="cell" data-answer="Bạch Thái Bưởi"><div class="wrongname">bạch thái bưởi</div><input type="text" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Viết lại cho đúng..."><div class="fix">✔ Bạch Thái Bưởi</div></div>
+    <div class="cell" data-answer="Bạch Long Vĩ"><div class="wrongname">Bạch long vĩ</div><input type="text" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Viết lại cho đúng..."><div class="fix">✔ Bạch Long Vĩ</div></div>
+    <div class="cell" data-answer="Trần Đăng Khoa"><div class="wrongname">Trần đăng khoa</div><input type="text" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Viết lại cho đúng..."><div class="fix">✔ Trần Đăng Khoa</div></div>
+    <div class="cell" data-answer="Phần Lan"><div class="wrongname">phần lan</div><input type="text" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Viết lại cho đúng..."><div class="fix">✔ Phần Lan</div></div>
+    <div class="cell" data-answer="Nông Văn Dền"><div class="wrongname">Nông văn Dền</div><input type="text" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Viết lại cho đúng..."><div class="fix">✔ Nông Văn Dền</div></div>
+    <div class="cell" data-answer="Cao Bằng"><div class="wrongname">cao bằng</div><input type="text" autocapitalize="off" autocomplete="off" spellcheck="false" placeholder="Viết lại cho đúng..."><div class="fix">✔ Cao Bằng</div></div>
+  </div>
+</section>
+
+<div class="section-title"><div class="num">III</div><h2>Viết</h2></div>
+
+<section class="q-card" data-type="essay" data-label="Viết">
+  <div class="q-head"><div class="q-no">✎</div><div class="q-text">Đề bài: Viết đoạn văn nêu lí do yêu thích một câu chuyện đã học hoặc đã nghe.</div></div>
+  <p class="hint">🧠 Trước khi viết, em ghi nhanh các ý vào sơ đồ nhé:</p>
+  <div class="mm">
+    <div class="core">Câu chuyện em yêu thích</div>
+    <div class="branches">
+      <div class="br"><span>1</span><input type="text" placeholder="Ý 1..."></div>
+      <div class="br"><span>2</span><input type="text" placeholder="Ý 2..."></div>
+      <div class="br"><span>3</span><input type="text" placeholder="Ý 3..."></div>
+      <div class="br"><span>4</span><input type="text" placeholder="Ý 4..."></div>
+      <div class="br"><span>5</span><input type="text" placeholder="Ý 5..."></div>
+    </div>
+  </div>
+  <textarea style="min-height:220px" placeholder="Em viết đoạn văn vào đây..."></textarea>
+  <div class="note">✍️ Bài viết không tính vào điểm tự động. Viết xong em chụp màn hình gửi thầy cô để được chấm chữa nhé.</div>
+</section>
+
+<button class="submit" id="submitBtn" type="button">🔨 Nộp bài</button>
+<div class="warn" id="warn"></div>
+
+<div class="result" id="resultPanel">
+  <div class="emo" id="resultEmoji"></div>
+  <div class="score" id="resultScore"></div>
+  <div id="resultMsg" style="font-weight:800"></div>
+  <table id="resultTable"></table>
+  <div class="hint" style="margin:6px 0 0">Kéo lên để xem đáp án và lời giải thích ở từng câu.</div>
+  <button class="retry" id="retryBtn" type="button">↻ Làm lại từ đầu</button>
+</div>
+
+<footer>Đọc hiểu tuần 2 · Tiếng Việt 4 · Chúc em học vui! 🌈</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec";
+var BAI = "Đọc hiểu tuần 2 - Những vết đinh";
+
+/* Bài 1: [từ, 1 = danh từ]; chuỗi thường = chữ không bấm được */
+var P1 = [["Chú",1],["chuồn chuồn nước",1],["mới",0],["đẹp",0],["làm sao",0],"! ",
+ ["Màu",1],["vàng",0],["trên",0],["lưng",1],["chú",1],["lấp lánh",0],". ",
+ ["Bốn",0],["cái cánh",1],["mỏng",0],["như",0],["giấy bóng",1],". ",
+ ["Cái đầu",1],["tròn",0],["và",0],["hai",0],["con mắt",1],["long lanh",0],["như",0],["thuỷ tinh",1],"."];
+
+/* Bài 2 */
+var P2 = [["Núi","c"],["Sam","r"],["làng","c"],["Vĩnh Tế","r"],["miếu","c"],["Bà Chúa Xứ","r"],["lăng","c"],["Thoại Ngọc Hầu","r"],["người","c"],["con kênh","c"]];
+
+/* Bài 3: [từ, "c" chung | "r" riêng | ""] */
+var P3 = [["Nhiều",""],["người","c"],["vẫn",""],["nghĩ",""],["loài","c"],["cây","c"],["bao báp","c"],["kì diệu",""],["chỉ",""],["có",""],["ở",""],["châu Phi","r"],". ",
+ ["Nhưng",""],["thực ra",""],["tại",""],["châu lục","c"],["đen",""],["chỉ",""],["có",""],["duy nhất",""],["một",""],["loài","c"],["bao báp","c"],". ",
+ ["Còn",""],["trên",""],["đảo","c"],["Ma-đa-ga-xca","r"],["ở",""],["Ấn Độ Dương","r"],["có",""],["tới",""],["tận",""],["bảy",""],["loài","c"],". ",
+ ["Một",""],["loài","c"],["trong số đó",""],["còn",""],["được",""],["trồng",""],["thành",""],["đồn điền","c"],", ",
+ ["vì",""],["từ",""],["hạt","c"],["của",""],["nó",""],["có thể",""],["chế",""],["được",""],["loại","c"],["bơ","c"],["rất",""],["ngon",""],["và",""],["bổ dưỡng",""],"."];
+
+var graded = false, pen = "c";
+var $ = function(id){ return document.getElementById(id); };
+var cards = Array.prototype.slice.call(document.querySelectorAll(".q-card"));
+
+function buildPassage(box, data, onTap){
+  data.forEach(function(item){
+    if(typeof item === "string"){ box.appendChild(document.createTextNode(item)); return; }
+    var s = document.createElement("span");
+    s.className = "tk"; s.textContent = item[0]; s.setAttribute("data-key", String(item[1]));
+    s.setAttribute("role","button"); s.tabIndex = 0;
+    s.addEventListener("click", function(){ if(!graded){ onTap(s); updateProgress(); } });
+    s.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); s.click(); } });
+    box.appendChild(s); box.appendChild(document.createTextNode(" "));
+  });
+  /* bỏ khoảng trắng thừa trước dấu câu */
+  Array.prototype.slice.call(box.childNodes).forEach(function(n,i,all){
+    if(n.nodeType===3 && n.textContent===" " && all[i+1] && all[i+1].nodeType===3) box.removeChild(n);
+  });
+}
+buildPassage($("p1"), P1, function(s){ s.classList.toggle("sel"); });
+buildPassage($("p3"), P3, function(s){
+  var cls = pen==="c" ? "mc" : "mr";
+  var had = s.classList.contains(cls);
+  s.classList.remove("mc","mr");
+  if(!had) s.classList.add(cls);
+});
+
+Array.prototype.forEach.call(document.querySelectorAll(".pen"), function(b){
+  b.addEventListener("click", function(){
+    pen = b.getAttribute("data-pen");
+    Array.prototype.forEach.call(document.querySelectorAll(".pen"), function(x){ x.classList.toggle("on", x===b); });
+  });
+});
+
+P2.forEach(function(item){
+  var row = document.createElement("div"); row.className = "sort-row"; row.setAttribute("data-key", item[1]);
+  var left = document.createElement("div");
+  var w = document.createElement("span"); w.className = "w"; w.textContent = item[0];
+  var fix = document.createElement("span"); fix.className = "fix"; fix.textContent = " → " + (item[1]==="c" ? "danh từ chung" : "danh từ riêng");
+  left.appendChild(w); left.appendChild(fix);
+  var btns = document.createElement("div"); btns.className = "btns";
+  [["c","Chung"],["r","Riêng"]].forEach(function(o){
+    var b = document.createElement("button"); b.type = "button"; b.className = "sbtn"; b.setAttribute("data-v", o[0]); b.textContent = o[1];
+    b.addEventListener("click", function(){
+      if(graded) return;
+      Array.prototype.forEach.call(btns.children, function(x){ x.classList.toggle("on", x===b); });
+      updateProgress();
+    });
+    btns.appendChild(b);
+  });
+  row.appendChild(left); row.appendChild(btns);
+  $("sortList").appendChild(row);
+});
+
+function norm(s){ return (s||"").normalize("NFC").replace(/\s+/g," ").trim(); }
+
+function touched(card){
+  var t = card.getAttribute("data-type");
+  if(t==="mc") return !!card.querySelector("input:checked");
+  if(t==="essay") return norm(card.querySelector("textarea").value) !== "";
+  if(t==="pick") return !!card.querySelector(".tk.sel");
+  if(t==="mark") return !!card.querySelector(".tk.mc,.tk.mr");
+  if(t==="sort") return !!card.querySelector(".sbtn.on");
+  if(t==="fill") return Array.prototype.some.call(card.querySelectorAll("input"), function(i){ return norm(i.value)!==""; });
+  return false;
+}
+function updateProgress(){
+  var n = cards.filter(touched).length, pct = Math.round(n/cards.length*100);
+  $("railFill").style.width = pct+"%"; $("railHammer").style.left = pct+"%";
+  $("progressCount").textContent = n+" / "+cards.length+" câu";
+}
+cards.forEach(function(card){
+  card.addEventListener("change", function(){
+    Array.prototype.forEach.call(card.querySelectorAll(".opt"), function(o){ o.classList.toggle("picked", o.querySelector("input").checked); });
+    updateProgress();
+  });
+  card.addEventListener("input", updateProgress);
+});
+
+function gradeCard(card){
+  var t = card.getAttribute("data-type"), earned = 0, possible = 0;
+  if(t==="mc"){
+    possible = 1;
+    var key = card.getAttribute("data-correct"), ch = card.querySelector("input:checked");
+    if(ch && ch.value===key) earned = 1;
+    Array.prototype.forEach.call(card.querySelectorAll(".opt"), function(o){
+      var i = o.querySelector("input");
+      if(i.value===key) o.classList.add("right"); else if(i.checked) o.classList.add("wrong");
+    });
+  } else if(t==="pick" || t==="mark"){
+    var hit = 0, wrong = 0;
+    Array.prototype.forEach.call(card.querySelectorAll(".tk"), function(s){
+      var k = s.getAttribute("data-key"), want, got;
+      if(t==="pick"){ want = k==="1" ? "y" : ""; got = s.classList.contains("sel") ? "y" : ""; }
+      else { want = k; got = s.classList.contains("mc") ? "c" : (s.classList.contains("mr") ? "r" : ""); }
+      if(want) possible++;
+      if(got && got===want){ hit++; s.classList.add("ok"); }
+      else if(got){ wrong++; s.classList.add("bad"); if(want) s.title = "Đúng ra là danh từ " + (want==="c"?"chung":"riêng"); }
+      else if(want){ s.classList.add("miss"); }
+    });
+    earned = Math.max(0, hit - wrong);
+  } else if(t==="sort"){
+    Array.prototype.forEach.call(card.querySelectorAll(".sort-row"), function(r){
+      possible++;
+      var on = r.querySelector(".sbtn.on"), ok = on && on.getAttribute("data-v")===r.getAttribute("data-key");
+      if(ok) earned++;
+      r.classList.add(ok ? "ok" : "bad");
+    });
+  } else if(t==="fill"){
+    Array.prototype.forEach.call(card.querySelectorAll(".cell"), function(c){
+      possible++;
+      var ok = norm(c.querySelector("input").value) === norm(c.getAttribute("data-answer"));
+      if(ok) earned++;
+      c.classList.add(ok ? "ok" : "bad");
+    });
+  }
+  return {earned: earned, possible: possible};
+}
+
+function need(input, msg){
+  if(norm(input.value)===""){
+    input.style.borderColor = "var(--red)"; input.focus();
+    $("warn").textContent = msg; $("warn").style.display = "block";
+    input.scrollIntoView({behavior:"smooth", block:"center"});
+    return true;
+  }
+  input.style.borderColor = ""; return false;
+}
+
+$("submitBtn").addEventListener("click", function(){
+  if(graded) return;
+  var nameI = $("studentName"), classI = $("studentClass");
+  if(need(nameI, "Em nhớ điền họ và tên trước khi nộp bài nhé!")) return;
+  if(need(classI, "Em nhớ điền lớp trước khi nộp bài nhé!")) return;
+  $("warn").style.display = "none";
+  graded = true;
+  $("submitBtn").disabled = true;
+
+  var earned = 0, possible = 0, rows = "";
+  cards.forEach(function(card){
+    var r = gradeCard(card);
+    card.classList.add("graded");
+    if(r.possible > 0){
+      earned += r.earned; possible += r.possible;
+      card.classList.add(r.earned===r.possible ? "correct" : "incorrect");
+      rows += "<tr><td>"+card.getAttribute("data-label")+"</td><td>"+r.earned+" / "+r.possible+"</td></tr>";
+    }
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".q-card input, .q-card textarea"), function(i){
+    if(i.type==="radio") i.disabled = true; else i.readOnly = true;
+  });
+
+  try{
+    fetch(SHEET_URL, {
+      method: "POST", mode: "no-cors",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify({ bai: BAI, hoten: norm(nameI.value), lop: norm(classI.value), diem: earned, tongdiem: possible })
+    }).catch(function(){});
+  }catch(e){}
+
+  var pct = Math.round(earned/possible*100), emo, msg;
+  if(pct>=90){ emo="🌟"; msg="tuyệt vời! Hàng rào của em không còn một vết đinh nào!"; }
+  else if(pct>=70){ emo="😊"; msg="rất tốt! Chỉ còn vài chiếc đinh nhỏ cần nhổ thôi."; }
+  else if(pct>=50){ emo="💪"; msg="khá lắm! Em xem lại đáp án rồi thử lần nữa nhé."; }
+  else { emo="🌱"; msg="đừng lo, em đọc lại bài và làm lại, chắc chắn sẽ tiến bộ!"; }
+  $("resultEmoji").textContent = emo;
+  $("resultScore").textContent = earned+" / "+possible+" điểm";
+  $("resultMsg").textContent = norm(nameI.value)+" ơi, "+msg;
+  $("resultTable").innerHTML = rows;
+  $("resultPanel").classList.add("show");
+  $("resultPanel").scrollIntoView({behavior:"smooth", block:"center"});
+});
+
+$("retryBtn").addEventListener("click", function(){
+  graded = false;
+  $("submitBtn").disabled = false;
+  Array.prototype.forEach.call(document.querySelectorAll("input[type=text], textarea"), function(i){ i.value=""; i.readOnly=false; i.style.borderColor=""; });
+  Array.prototype.forEach.call(document.querySelectorAll("input[type=radio]"), function(r){ r.checked=false; r.disabled=false; });
+  Array.prototype.forEach.call(document.querySelectorAll(".opt"), function(o){ o.classList.remove("picked","right","wrong"); });
+  Array.prototype.forEach.call(document.querySelectorAll(".tk"), function(s){ s.classList.remove("sel","mc","mr","ok","bad","miss"); s.removeAttribute("title"); });
+  Array.prototype.forEach.call(document.querySelectorAll(".sbtn"), function(b){ b.classList.remove("on"); });
+  Array.prototype.forEach.call(document.querySelectorAll(".sort-row, .fill .cell"), function(r){ r.classList.remove("ok","bad"); });
+  cards.forEach(function(c){ c.classList.remove("graded","correct","incorrect"); });
+  $("resultPanel").classList.remove("show");
+  updateProgress();
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+
+updateProgress();
+})();
+</script>
+</body>
+</html>

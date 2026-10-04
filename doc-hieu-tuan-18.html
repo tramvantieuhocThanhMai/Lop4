@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đọc hiểu tuần 18</title>
+<style>
+:root{--ink:#22304a;--night:#1b2550;--night2:#34408a;--star:#ffd45e;--paper:#fffaf0;--card:#ffffff;--line:#e8dfcb;--ok:#1f9d61;--okbg:#e3f6ea;--bad:#d64545;--badbg:#fde8e6;--accent:#ef7b45;--dt:#2b7bd6;--dgt:#e0662f;--tt:#8a4fd3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:18px;line-height:1.65}
+.wrap{max-width:820px;margin:0 auto;padding:0 14px 60px}
+header{background:linear-gradient(180deg,var(--night),var(--night2));color:#fff;text-align:center;padding:22px 14px 0;border-radius:0 0 28px 28px}
+header .wk{display:inline-block;background:var(--star);color:var(--night);font-weight:800;padding:3px 16px;border-radius:99px;font-size:15px;letter-spacing:.5px}
+header h1{margin:8px 0 2px;font-size:30px;line-height:1.2}
+header p{margin:0;opacity:.85;font-size:15px}
+header svg{display:block;width:100%;max-width:640px;margin:6px auto 0;height:auto}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:18px;margin-top:18px;box-shadow:0 3px 0 var(--line)}
+h2{font-size:22px;margin:30px 0 0;color:var(--night);display:flex;align-items:center;gap:10px}
+h2 span{background:var(--accent);color:#fff;border-radius:10px;padding:2px 12px;font-size:17px}
+.info{display:grid;grid-template-columns:2fr 1fr;gap:10px}
+.info label{font-size:14px;font-weight:700;display:block}
+input[type=text],select,textarea{width:100%;font:inherit;padding:9px 11px;border:1.5px solid #cdbf9f;border-radius:10px;background:#fffdf7;color:var(--ink)}
+textarea{min-height:70px;resize:vertical}
+select{width:auto;max-width:100%}
+.story h3{text-align:center;color:var(--accent);margin:4px 0 10px;font-size:22px}
+.story p{margin:8px 0;text-indent:1.2em}
+.story .au{text-align:right;font-style:italic;text-indent:0}
+.pig{float:right;width:110px;margin:0 0 4px 10px}
+.q{font-weight:700;margin:0 0 8px}
+.q b{display:inline-block;background:var(--night);color:#fff;border-radius:8px;padding:0 9px;margin-right:6px}
+.hint{font-size:15px;color:#6b6f80;margin:0 0 8px;font-weight:400}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1.5px solid var(--line);border-radius:12px;margin:7px 0;cursor:pointer}
+.opt input{margin-top:7px;transform:scale(1.3)}
+.opt.sel{border-color:var(--night2);background:#eef0ff}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.passage{background:#fff8e6;border-radius:12px;padding:12px;line-height:2.5}
+.tok{display:inline-block;padding:0 5px;border-radius:7px;cursor:pointer;line-height:1.5;border:1.5px solid transparent;user-select:none}
+.tok:hover{background:#f1e7cc}
+.tok.sel{background:var(--star);border-color:#d9a916;font-weight:700}
+.tok.ok{background:var(--okbg);border-color:var(--ok);font-weight:700}
+.tok.bad{background:var(--badbg);border-color:var(--bad);text-decoration:line-through}
+.tok.miss{border:1.5px dashed var(--ok);font-weight:700}
+.lab{display:inline-block;text-align:center;cursor:pointer;vertical-align:top;line-height:1.3;margin:0 2px;user-select:none}
+.lab u{font-weight:700;text-underline-offset:3px}
+.lab i{display:block;font-style:normal;font-size:13px;font-weight:800;border-radius:6px;background:#eee;color:#777;padding:0 6px;margin-top:2px;min-width:34px}
+.lab[data-v=DT] i{background:var(--dt);color:#fff}.lab[data-v="ĐT"] i{background:var(--dgt);color:#fff}.lab[data-v=TT] i{background:var(--tt);color:#fff}
+.lab.ok i{outline:3px solid var(--ok)}.lab.bad i{outline:3px solid var(--bad)}
+.lab em{display:block;font-style:normal;font-size:12px;color:var(--ok);font-weight:800}
+.legend{font-size:14px;margin:0 0 8px}
+.legend b{color:#fff;border-radius:6px;padding:1px 7px;margin-right:3px}
+.row{margin:10px 0}
+.poem{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;background:#fff8e6;border-radius:12px;padding:12px;line-height:2.9}
+table{width:100%;border-collapse:collapse}
+td,th{border:1.5px solid var(--line);padding:8px;text-align:left;font-size:17px}
+th{background:#fff3d6}
+.verse{background:#eef7ff;border-radius:12px;padding:10px 16px;font-style:italic;margin-bottom:10px}
+.pics{display:grid;gap:14px}
+.pic{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center}
+.pic svg{width:110px;height:110px}
+.fb{display:none;margin-top:10px;padding:10px 12px;border-radius:12px;font-size:16px;background:#f3f6ff;border-left:5px solid var(--night2)}
+.done .fb{display:block}
+.fb.good{background:var(--okbg);border-color:var(--ok)}.fb.wrong{background:var(--badbg);border-color:var(--bad)}
+.illus{float:right;width:96px;margin:0 0 6px 10px}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+button{font:inherit;font-weight:800;border:0;border-radius:14px;padding:13px 24px;cursor:pointer;background:var(--accent);color:#fff;box-shadow:0 4px 0 #b9562a}
+button.alt{background:#fff;color:var(--night);border:2px solid var(--night);box-shadow:none}
+#result{display:none;text-align:center;background:linear-gradient(180deg,var(--night),var(--night2));color:#fff;border:0}
+#result .sc{font-size:54px;font-weight:900;color:var(--star);line-height:1.1}
+#result ul{list-style:none;padding:0;margin:10px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;font-size:15px;text-align:left}
+@media(max-width:560px){body{font-size:17px}.info,.poem,#result ul{grid-template-columns:1fr}.poem{line-height:2.8}.pic{grid-template-columns:80px 1fr}.pic svg{width:80px;height:80px}header h1{font-size:25px}}
+</style>
+</head>
+<body>
+<header>
+  <span class="wk">TIẾNG VIỆT 4 · TUẦN 18</span>
+  <h1>Đọc hiểu tuần 18</h1>
+  <p>Điều mong ước kỳ diệu · Luyện từ và câu</p>
+  <svg viewBox="0 0 640 200" role="img" aria-label="Hai chị em ngồi ngắm sao đổi ngôi trong đêm hè">
+    <g fill="#fff"><circle cx="40" cy="30" r="2"/><circle cx="120" cy="60" r="1.5"/><circle cx="200" cy="25" r="2"/><circle cx="300" cy="50" r="1.5"/><circle cx="560" cy="40" r="2"/><circle cx="610" cy="90" r="1.5"/><circle cx="80" cy="100" r="1.5"/><circle cx="480" cy="20" r="1.5"/><circle cx="250" cy="90" r="1.5"/></g>
+    <circle cx="560" cy="70" r="26" fill="#ffe9a8"/><circle cx="572" cy="62" r="24" fill="#2a3470"/>
+    <defs><linearGradient id="tail" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd45e" stop-opacity="0"/><stop offset="1" stop-color="#ffd45e"/></linearGradient></defs>
+    <path d="M150 20 L400 78" stroke="url(#tail)" stroke-width="5" stroke-linecap="round"/>
+    <path d="M404 66l4 9 10 1-7.500 7 2 10-8.500-5-8.500 5 2-10-7.500-7 10-1z" fill="#ffd45e"/>
+    <path d="M0 200V160q160-40 320-12t320-8v60z" fill="#101737"/>
+    <!-- chị -->
+    <g transform="translate(250 100)"><path d="M-6 6q-14 30-8 52h44q4-26-8-52z" fill="#f06a8a"/><circle cx="8" cy="-6" r="15" fill="#ffd9b8"/><path d="M-8-8q2-16 16-16t16 16q-4-6-16-6t-16 30z" fill="#3a2418"/><path d="M-14 58h44l6 14h-56z" fill="#3b4a9a"/></g>
+    <!-- em -->
+    <g transform="translate(320 116)"><path d="M-6 4q-10 22-6 40h36q4-20-6-40z" fill="#4fc3c8"/><circle cx="6" cy="-6" r="13" fill="#ffd9b8"/><path d="M-7-9q3-11 13-11t13 11q-6-4-13-4t-13 4z" fill="#3a2418"/><path d="M14 8l22-26" stroke="#ffd9b8" stroke-width="6" stroke-linecap="round"/><path d="M-12 44h36l5 12h-46z" fill="#6b4a2a"/></g>
+    <path d="M60 162q4-22 0-40m10 40q8-18 14-30m-34 30q-6-16-14-24" stroke="#1d7a4c" stroke-width="3" fill="none"/>
+  </svg>
+</header>
+
+<div class="wrap" id="app">
+  <div class="card info">
+    <div><label for="ten">Họ và tên học sinh</label><input type="text" id="ten" placeholder="Ví dụ: Nguyễn Minh An"></div>
+    <div><label for="lop">Lớp</label><input type="text" id="lop" placeholder="4A"></div>
+  </div>
+
+  <h2><span>I</span> ĐỌC</h2>
+  <div class="card story">
+    <p class="hint" style="text-indent:0">Em hãy đọc thầm văn bản sau:</p>
+    <h3>ĐIỀU MONG ƯỚC KỲ DIỆU</h3>
+    <p>Đêm hè nóng nực, hai chị em ngồi hóng mát, giữa màn đêm mịt mùng lúc ấy bỗng có một ngôi sao vụt sáng, rạch qua bầu trời như một nhát kiếm chói lòa. Cậu em giật áo chị và nói:</p>
+    <p>- Chị ơi, em nghe người ta nói khi thấy sao đổi ngôi, mình mong ước điều gì thì hãy nói lên điều ước ấy. Thế nào cũng linh nghiệm!</p>
+    <p>Cô bé quay lại dịu dàng hỏi:</p>
+    <p>- Thế em muốn ước gì?</p>
+    <p>Nhớ đến bố con ông lão diễn trò ủ rũ bên đường hồi chiều, cậu em thủ thỉ:</p>
+    <p>- Ước gì… giấy trong thùng của ông lão biến thành tiền thật.</p>
+    <p>Cô chị bèn cầm lấy tay em và nói với giọng đầy cảm động:</p>
+    <p>- À, chị bảo điều này…</p>
+    <p>- Gì ạ?</p>
+    <p>Không hiểu sao cô bé bỗng đâm ra lúng túng:</p>
+    <p>- À… à… không có gì. Chị chỉ nghĩ… ông cụ chắc cần tiền lắm!</p>
+    <svg class="pig" viewBox="0 0 120 100" role="img" aria-label="Con lợn đất tiết kiệm"><ellipse cx="60" cy="58" rx="40" ry="30" fill="#f79aa9"/><path d="M30 34l-4-16 16 8z M78 30l10-13 6 17z" fill="#ee7f92"/><ellipse cx="24" cy="60" rx="10" ry="8" fill="#ee7f92"/><circle cx="21" cy="59" r="1.800" fill="#7a2f3c"/><circle cx="27" cy="59" r="1.800" fill="#7a2f3c"/><circle cx="40" cy="46" r="3" fill="#3a2418"/><rect x="52" y="27" width="22" height="5" rx="2.500" fill="#7a2f3c"/><circle cx="63" cy="16" r="9" fill="#ffd45e" stroke="#d9a916" stroke-width="2"/><path d="M40 84v10h9V86zm34 0v10h9V84z" fill="#ee7f92"/><path d="M100 54q10-4 8 6t-8 2" fill="none" stroke="#ee7f92" stroke-width="3"/></svg>
+    <p>Trong trí óc non nớt của cô bé bỗng hiện lên hình ảnh con lợn đất đựng tiền tiết kiệm cô để dành từ một năm nay trong góc tủ. Cô bé muốn dành cho bố con ông lão và cả em mình một niềm vui bất ngờ.</p>
+    <p class="au">Theo Hồ Phước</p>
+  </div>
+  <div id="doc"></div>
+
+  <h2><span>II</span> LUYỆN TỪ VÀ CÂU</h2>
+
+  <div class="card" id="b1">
+    <p class="q"><b>1</b>Đọc đoạn văn và thực hiện yêu cầu</p>
+    <p class="q">a. Chạm vào tất cả các <span style="color:var(--dgt)">động từ</span> trong đoạn văn:</p>
+    <div class="passage" id="b1a"></div>
+    <p class="hint">Em đã chọn <strong id="c1a">0</strong> từ.</p>
+    <p class="q" style="margin-top:14px">b. Chạm vào tất cả các <span style="color:var(--tt)">tính từ</span> trong đoạn văn:</p>
+    <div class="passage" id="b1b"></div>
+    <p class="hint">Em đã chọn <strong id="c1b">0</strong> từ.</p>
+    <div class="fb" id="f1"></div>
+  </div>
+
+  <div class="card" id="b2">
+    <p class="q"><b>2</b>Ghi DT (danh từ), ĐT (động từ), TT (tính từ) dưới các từ được gạch chân</p>
+    <p class="legend">Chạm vào từ gạch chân nhiều lần để đổi nhãn: <b style="background:var(--dt)">DT</b><b style="background:var(--dgt)">ĐT</b><b style="background:var(--tt)">TT</b></p>
+    <div class="passage" id="b2p" style="line-height:2.9"></div>
+    <div class="fb" id="f2"></div>
+  </div>
+
+  <div class="card" id="b3">
+    <p class="q"><b>3</b>Chạm vào từ <u>không phải tính từ</u> trong mỗi dãy từ</p>
+    <div id="b3p"></div>
+    <div class="fb" id="f3"></div>
+  </div>
+
+  <div class="card" id="b4">
+    <svg class="illus" viewBox="0 0 100 80" role="img" aria-label="Phong thư ghi địa chỉ"><rect x="6" y="14" width="88" height="56" rx="6" fill="#fff3d6" stroke="#cdbf9f" stroke-width="2"/><path d="M6 18l44 30 44-30" fill="none" stroke="#cdbf9f" stroke-width="2"/><rect x="72" y="20" width="16" height="18" fill="#ef7b45"/><path d="M16 52h34M16 60h24" stroke="#22304a" stroke-width="2.500" stroke-linecap="round"/></svg>
+    <p class="q"><b>4</b>Những địa chỉ nào viết đúng quy tắc?</p>
+    <p class="hint">Có thể chọn nhiều đáp án.</p>
+    <div id="b4p"></div>
+    <div class="fb" id="f4"></div>
+  </div>
+
+  <div class="card" id="b5">
+    <p class="q"><b>5</b>Từ “quyết định” trong mỗi câu sau là động từ hay danh từ?</p>
+    <div id="b5p"></div>
+    <div class="fb" id="f5"></div>
+  </div>
+
+  <div class="card" id="b6">
+    <svg class="illus" viewBox="0 0 100 100" role="img" aria-label="Quả cầu đá"><path d="M50 62L30 14q8-8 14 2 6-12 12 0 6-10 14-2z" fill="#fff" stroke="#2b7bd6" stroke-width="2.500"/><path d="M44 16l4 44M56 16l-4 44" stroke="#2b7bd6" stroke-width="1.500"/><ellipse cx="50" cy="70" rx="15" ry="11" fill="#ef7b45"/><ellipse cx="50" cy="66" rx="15" ry="5" fill="#ffd45e"/><path d="M14 90q10-8 20 0M66 92q10-8 20 0" stroke="#cdbf9f" stroke-width="2.500" fill="none"/></svg>
+    <p class="q"><b>6</b>Xác định từ loại của các từ gạch chân trong đoạn thơ tả trò chơi đá cầu</p>
+    <p class="legend">Chạm vào từ gạch chân để đổi nhãn: <b style="background:var(--dt)">DT</b><b style="background:var(--dgt)">ĐT</b><b style="background:var(--tt)">TT</b></p>
+    <div class="poem" id="b6p"></div>
+    <div class="fb" id="f6"></div>
+  </div>
+
+  <div class="card" id="b7">
+    <svg class="illus" viewBox="0 0 100 100" role="img" aria-label="Mặt trời mùa hạ và chùm vải"><circle cx="70" cy="28" r="15" fill="#ffd45e"/><g stroke="#ffd45e" stroke-width="3" stroke-linecap="round"><path d="M70 4v6M92 28h6M48 28h-6M86 12l4-4M54 12l-4-4M86 44l4 4"/></g><path d="M20 30q14 4 16 22" stroke="#6b4a2a" stroke-width="3" fill="none"/><path d="M20 30q14-12 26 0-14 8-26 0z" fill="#3aa35c"/><g fill="#d8344a"><circle cx="30" cy="62" r="11"/><circle cx="46" cy="72" r="11"/><circle cx="28" cy="82" r="11"/></g><g fill="#f4899a"><circle cx="27" cy="59" r="2"/><circle cx="43" cy="69" r="2"/><circle cx="25" cy="79" r="2"/></g></svg>
+    <p class="q"><b>7</b>Tìm từ ngữ nhân hoá trong các câu thơ và chọn cho phù hợp</p>
+    <div class="verse">Bà ơi, mùa hạ đi đâu?<br>Chùm vải trọc đầu trốn biệt trên cây.<br>Tiếng sấm trốn lẩn vào mây<br>Quạt nan nằm nhớ bàn tay của bà.<br>Sông gầy, dê doãi chân ra<br>Mặt trời ngủ sớm, tiếng gà dậy trưa…</div>
+    <table><thead><tr><th>Sự vật, hiện tượng được nhân hoá</th><th>Từ ngữ tả, kể về sự vật như tả người</th></tr></thead><tbody id="b7p"></tbody></table>
+    <div class="fb" id="f7"></div>
+  </div>
+
+  <div class="card" id="b8">
+    <p class="q"><b>8</b>Viết câu có sử dụng biện pháp nhân hoá cho mỗi sự vật trong tranh</p>
+    <div class="pics">
+      <div class="pic">
+        <svg viewBox="0 0 110 110" role="img" aria-label="Gia đình rùa"><ellipse cx="55" cy="96" rx="48" ry="8" fill="#f6c36a"/><path d="M22 84q0-34 34-34t34 34z" fill="#3f8f4a"/><path d="M34 84q4-22 22-22t22 22z" fill="#62b56a"/><path d="M56 50v34M40 62l32 0" stroke="#2f6f3a" stroke-width="2"/><circle cx="92" cy="62" r="13" fill="#9bd66e"/><circle cx="96" cy="58" r="4" fill="#fff"/><circle cx="97" cy="58" r="2" fill="#22304a"/><path d="M88 68q5 4 10 0" stroke="#22304a" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M24 84h14v8H24zM74 84h14v8H74z" fill="#9bd66e"/><path d="M8 92q0-14 14-14t14 14z" fill="#3f8f4a"/><circle cx="8" cy="84" r="6" fill="#9bd66e"/><circle cx="6" cy="83" r="1.500" fill="#22304a"/></svg>
+        <div><label for="w1" class="hint">Tranh 1: chú rùa</label><textarea id="w1" data-k="rùa" placeholder="Viết câu của em về chú rùa…"></textarea></div>
+      </div>
+      <div class="pic">
+        <svg viewBox="0 0 110 110" role="img" aria-label="Bông hoa hướng dương"><path d="M55 60v46" stroke="#3aa35c" stroke-width="5"/><path d="M55 84q-22-14-30 2 18 10 30-2zM55 92q20-14 28 0-16 10-28 0z" fill="#3aa35c"/><g fill="#ffc21f"><g id="pt"><ellipse cx="55" cy="14" rx="8" ry="15"/></g><use href="#pt" transform="rotate(30 55 42)"/><use href="#pt" transform="rotate(60 55 42)"/><use href="#pt" transform="rotate(90 55 42)"/><use href="#pt" transform="rotate(120 55 42)"/><use href="#pt" transform="rotate(150 55 42)"/><use href="#pt" transform="rotate(180 55 42)"/><use href="#pt" transform="rotate(210 55 42)"/><use href="#pt" transform="rotate(240 55 42)"/><use href="#pt" transform="rotate(270 55 42)"/><use href="#pt" transform="rotate(300 55 42)"/><use href="#pt" transform="rotate(330 55 42)"/></g><circle cx="55" cy="42" r="17" fill="#7a4a1e"/><circle cx="49" cy="39" r="2" fill="#fff"/><circle cx="61" cy="39" r="2" fill="#fff"/><path d="M48 47q7 6 14 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        <div><label for="w2" class="hint">Tranh 2: hoa hướng dương</label><textarea id="w2" data-k="hoa|hướng dương" placeholder="Viết câu của em về hoa hướng dương…"></textarea></div>
+      </div>
+      <div class="pic">
+        <svg viewBox="0 0 110 110" role="img" aria-label="Chiếc cặp sách"><path d="M38 22q0-14 17-14t17 14" fill="none" stroke="#d64545" stroke-width="5"/><rect x="20" y="20" width="70" height="82" rx="14" fill="#2b7bd6"/><rect x="20" y="20" width="70" height="30" rx="14" fill="#ffc21f"/><rect x="30" y="66" width="50" height="28" rx="8" fill="#ffc21f" stroke="#d64545" stroke-width="2.500"/><circle cx="43" cy="42" r="6" fill="#fff"/><circle cx="67" cy="42" r="6" fill="#fff"/><circle cx="44" cy="43" r="2.500" fill="#22304a"/><circle cx="68" cy="43" r="2.500" fill="#22304a"/><path d="M45 54q10 9 20 0z" fill="#d64545"/><path d="M90 60q12-4 12-16" stroke="#2b7bd6" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="102" cy="42" r="6" fill="#fff" stroke="#22304a" stroke-width="1.500"/><path d="M12 70l6 22 4-2-6-22z" fill="#ef5aa0"/></svg>
+        <div><label for="w3" class="hint">Tranh 3: chiếc cặp sách</label><textarea id="w3" data-k="cặp|ba lô|balo" placeholder="Viết câu của em về chiếc cặp sách…"></textarea></div>
+      </div>
+    </div>
+    <div class="fb" id="f8"></div>
+  </div>
+
+  <div class="btns"><button id="nop">Nộp bài</button><button class="alt" id="lai">Làm lại</button></div>
+  <div class="card" id="result"></div>
+</div>
+
+<script>
+/* ====== CÀI ĐẶT CHO GIÁO VIÊN ======
+   Dán link Web App của Google Apps Script vào đây để nhận điểm về Google Sheets.
+   Để trống "" thì trang vẫn chấm điểm bình thường, chỉ không gửi kết quả. */
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec";
+const TEN_BAI = "Đọc hiểu tuần 18";
+
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const el = (t, c, h) => { const e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; };
+
+/* ---------- I. ĐỌC ---------- */
+const DOC = [
+ {q:"Khi thấy sao đổi ngôi, cậu em đã làm gì?",o:["Ngồi hóng mát và giật mình sợ hãi.","Ngồi hóng mát và thích thú reo vang.","Giật áo chị, nói với chị điều mình được nghe người ta nói."],a:2,e:"Trong bài: “Cậu em giật áo chị và nói: Chị ơi, em nghe người ta nói khi thấy sao đổi ngôi…”"},
+ {q:"Cậu bé ước điều gì? Tại sao?",o:["Được đi diễn trò để giúp đỡ bố con ông lão bớt nghèo khổ.","Giấy trong thùng của ông lão thành tiền thật, vì thương bố con ông.","Ước bố con ông lão giàu có, vì cậu muốn mọi người đều giàu có."],a:1,e:"Cậu nhớ đến bố con ông lão diễn trò ủ rũ bên đường nên ước giấy trong thùng biến thành tiền thật."},
+ {q:"Cô chị đã nghĩ gì trước ý muốn của cậu em trai?",o:["Dùng tiền tiết kiệm của mình để giúp ông lão.","Tìm cách giúp em trai mình đạt được ước muốn.","Cảm động trước ước muốn giấy biến thành tiền thật."],a:0,e:"Cô bé nghĩ đến con lợn đất đựng tiền tiết kiệm và muốn dành cho bố con ông lão một niềm vui bất ngờ."},
+ {q:"Theo em, hai chị em trong câu chuyện trên có phẩm chất đáng quý gì?",o:["Thích xem sao đổi ngôi, tin vào những điều kỳ diệu.","Tiết kiệm, biết dành dụm.","Thương người, biết mang lại niềm vui cho người khác."],a:2,e:"Cả hai chị em đều thương bố con ông lão và muốn mang niềm vui đến cho người khác."},
+ {q:"Thành ngữ, tục ngữ nào dưới đây thể hiện đúng tình cảm và suy nghĩ của hai chị em trong câu chuyện?",o:["Thương người như thể thương thân","Một giọt máu đào hơn ao nước lã","Bán anh em xa mua láng giềng gần"],a:0,e:"“Thương người như thể thương thân” nói về lòng yêu thương, sẵn sàng giúp đỡ người khác."}
+];
+DOC.forEach((d,i)=>{
+  const c = el("div","card mc"); c.dataset.a = d.a;
+  c.innerHTML = `<p class="q"><b>${i+1}</b>${d.q}</p>` + d.o.map((t,j)=>`<label class="opt"><input type="radio" name="d${i}" value="${j}"><span><strong>${"ABC"[j]}.</strong> ${t}</span></label>`).join("") + `<div class="fb"></div>`;
+  c.querySelector(".fb").dataset.e = d.e;
+  $("#doc").append(c);
+});
+document.addEventListener("change",e=>{ if(e.target.matches(".opt input")){ const box=e.target.closest(".card"); box.querySelectorAll(".opt").forEach(o=>o.classList.toggle("sel",o.querySelector("input").checked)); }});
+
+/* ---------- Bài 1: chọn từ trong đoạn văn ---------- */
+const P1 = "Đêm hè {nóng nực}, hai chị em ngồi {hóng mát}, giữa màn đêm {mịt mùng} lúc ấy bỗng có một {ngôi sao} {vụt sáng}, rạch qua {bầu trời} như một nhát kiếm {chói lòa}. Cậu em giật áo chị và nói: “Chị ơi, em nghe {người ta} nói khi thấy sao {đổi ngôi}, mình {mong ước} điều gì thì hãy nói lên {điều ước} ấy. Thế nào cũng {linh nghiệm}!”";
+const K1 = {
+  b1a:{need:["ngồi","hóng mát","rạch","giật","nói","nghe","thấy","đổi ngôi","mong ước"],opt:[]},
+  b1b:{need:["nóng nực","mịt mùng","chói lòa","linh nghiệm"],opt:[]}
+};
+function buildPassage(id){
+  const box=$("#"+id);
+  P1.match(/\{[^}]+\}[^\s]*|[^\s{]+/g).forEach(raw=>{
+    const m = raw.replace(/[{}]/g,"").match(/^([“"]?)(.*?)([.,:!?”"]*)$/);
+    box.append(m[1]); const s=el("span","tok",m[2]); s.dataset.w=m[2].toLowerCase(); box.append(s); box.append(m[3]+" ");
+  });
+}
+buildPassage("b1a"); buildPassage("b1b");
+
+/* ---------- Bài 2 & 6: gắn nhãn từ loại ---------- */
+function labHTML(t){ return t.replace(/\[([^|\]]+)\|([^\]]+)\]/g,(m,w,a)=>`<span class="lab" data-a="${a}" data-v=""><u>${w}</u><i>?</i></span>`); }
+$("#b2p").innerHTML = labHTML("[Mục đích|DT] của anh ấy là [trở thành|ĐT] một [cầu thủ|DT] đỉnh cao. [Giấc mơ|DT] đó [buộc|ĐT] anh phải [thực hành|ĐT] mỗi ngày, [luyện tập|ĐT], luyện tập và không ngừng luyện tập. Mọi [việc|DT] chẳng phải lúc nào cũng [dễ dàng|TT] cả đâu, nhưng rất [đáng|TT] để bạn phải [nỗ lực|ĐT] đấy!");
+$("#b6p").innerHTML = ["Anh [nhìn|ĐT] cho [tinh|TT] [mắt|DT]","Trong [nắng|DT] [vàng|TT] [tươi mát|TT]","Tôi [đá|ĐT] thật [dẻo|TT] [chân|DT]","Cùng [chơi|ĐT] cho [khỏe|TT] [người|DT]","Cho [cầu|DT] [bay|ĐT] trên [sân|DT]","[Tiếng cười|DT] xen [tiếng hát|DT]","Đừng để [rơi|ĐT] xuống [đất|DT]","Chơi vui học càng vui"].map(l=>`<div>${labHTML(l)}</div>`).join("");
+
+/* ---------- Bài 3 ---------- */
+const B3 = [
+ ["a","xanh lè, đỏ ối, vàng xuộm, đen kịt, thấp tè, cao vút, nằm co, thơm phức, mỏng dính","nằm co"],
+ ["b","thông minh, ngoan ngoãn, nghỉ ngơi, xấu xa, giỏi giang, đẹp đẽ","nghỉ ngơi"],
+ ["c","cao, thấp, nông, sâu, dài, ngắn, thức, nặng, nhẹ, to, nhỏ","thức"]];
+B3.forEach(([k,ws,a])=>{ const r=el("div","row one"); r.dataset.a=a; r.innerHTML=`<strong>${k})</strong> `+ws.split(", ").map(w=>`<span class="tok" data-w="${w}">${w}</span>`).join(" "); $("#b3p").append(r); });
+
+/* ---------- Bài 4 ---------- */
+const B4 = [["Thôn Văn la, xã Vạn thọ, huyện Vạn Xuân, tỉnh Thanh Hoá",0],["Ấp 6, xã Hoà Bình, huyện trảng Bàng, tỉnh Tây Ninh",0],["Thôn Nghĩa Lộ, xã Yên Nghĩa, quận Hà Đông, thành phố Hà Nội",1],["Bản Luông, xã Nậm Thi, huyện Yên Châu, tỉnh Sơn La",1]];
+$("#b4p").innerHTML = B4.map((o,j)=>`<label class="opt" data-ok="${o[1]}"><input type="checkbox"><span><strong>${"ABCD"[j]}.</strong> ${o[0]}</span></label>`).join("");
+
+/* ---------- Bài 5 ---------- */
+const B5 = [["Tôi <u>quyết định</u> về nhà gặp bố mẹ để xin lỗi và nói với bố tôi rằng tôi yêu ông ấy.","Động từ"],["<u>Quyết định</u> ấy dường như đã làm giảm đi phần nào áp lực nặng nề trong lòng tôi.","Danh từ"],["Tôi rất hài lòng với <u>quyết định</u> của mình.","Danh từ"]];
+$("#b5p").innerHTML = B5.map((o,j)=>`<div class="row"><strong>${"abc"[j]}.</strong> ${o[0]}<br><select data-a="${o[1]}"><option value="">— chọn —</option><option>Động từ</option><option>Danh từ</option></select></div>`).join("");
+
+/* ---------- Bài 7 ---------- */
+const B7 = [["mùa hạ","đi đâu"],["chùm vải","trọc đầu, trốn biệt"],["tiếng sấm","trốn lẩn"],["quạt nan","nằm nhớ"],["sông","gầy"],["dê","doãi chân ra"],["mặt trời","ngủ sớm"],["tiếng gà","dậy trưa"]];
+const opts7 = B7.map(x=>x[1]).sort((a,b)=>a.localeCompare(b,"vi"));
+$("#b7p").innerHTML = B7.map(o=>`<tr><td><strong>${o[0]}</strong></td><td><select data-a="${o[1]}"><option value="">— chọn —</option>${opts7.map(t=>`<option>${t}</option>`).join("")}</select></td></tr>`).join("");
+
+/* ---------- Tương tác ---------- */
+let done=false;
+document.addEventListener("click",e=>{
+  if(done) return;
+  const t=e.target.closest(".tok"), l=e.target.closest(".lab");
+  if(t){
+    const one=t.closest(".one");
+    if(one){ one.querySelectorAll(".tok").forEach(x=>x.classList.toggle("sel",x===t&&!t.classList.contains("sel"))); }
+    else { t.classList.toggle("sel"); ["b1a","b1b"].forEach(id=>$("#c"+id.slice(1)).textContent=$$("#"+id+" .tok.sel").length); }
+  }
+  if(l){ const seq=["","DT","ĐT","TT"]; const v=seq[(seq.indexOf(l.dataset.v)+1)%4]; l.dataset.v=v; l.querySelector("i").textContent=v||"?"; }
+});
+
+/* ---------- Chấm điểm ---------- */
+function fb(node,ok,html){ node.className="fb "+(ok===true?"good":ok===false?"wrong":""); node.innerHTML=html; }
+function gradeLabs(sel){ let r=0; const ls=$$(sel+" .lab"); ls.forEach(l=>{ const ok=l.dataset.v===l.dataset.a; r+=ok; l.classList.add(ok?"ok":"bad"); if(!ok) l.append(el("em","","→ "+l.dataset.a)); }); return [r,ls.length]; }
+function gradePick(id){
+  const k=K1[id], sel=$$("#"+id+" .tok.sel"), words=new Set(sel.map(s=>s.dataset.w));
+  const hit=k.need.filter(w=>words.has(w)).length, wrong=[...words].filter(w=>!k.need.includes(w)&&!k.opt.includes(w)).length;
+  $$("#"+id+" .tok").forEach(s=>{ const need=k.need.includes(s.dataset.w), opt=k.opt.includes(s.dataset.w), on=s.classList.contains("sel");
+    if(on) s.classList.add(need||opt?"ok":"bad"); else if(need&&!words.has(s.dataset.w)) s.classList.add("miss"); });
+  return Math.max(0,hit-wrong)/k.need.length;
+}
+function grade(){
+  const ten=$("#ten").value.trim();
+  if(!ten){ alert("Em hãy điền họ và tên trước khi nộp bài nhé!"); $("#ten").focus(); return; }
+  if(!$("#lop").value.trim()){ alert("Em hãy điền lớp trước khi nộp bài nhé!"); $("#lop").focus(); return; }
+  done=true; $("#app").classList.add("done");
+  const parts=[]; let raw=0,max=0; const add=(n,p,m)=>{ parts.push([n,p,m]); raw+=p; max+=m; };
+
+  let d=0; $$(".mc").forEach(c=>{ const a=+c.dataset.a, ch=c.querySelector("input:checked"), ok=ch&&+ch.value===a; d+=ok?1:0;
+    c.querySelectorAll(".opt").forEach((o,j)=>{ if(j===a) o.classList.add("ok"); else if(o.querySelector("input").checked) o.classList.add("bad"); });
+    const f=c.querySelector(".fb"); fb(f,!!ok,(ok?"✔ Chính xác! ":"✘ Đáp án đúng là <strong>"+"ABC"[a]+"</strong>. ")+f.dataset.e); });
+  add("Đọc hiểu",d,5);
+
+  const a1=gradePick("b1a"), b1=gradePick("b1b");
+  add("Bài 1",2*a1+2*b1,4);
+  fb($("#f1"),a1===1&&b1===1,"<strong>a.</strong> Động từ: ngồi, hóng mát, rạch, giật, nói, nghe, thấy, đổi ngôi, mong ước.<br><strong>b.</strong> Tính từ: nóng nực, mịt mùng, chói lòa, linh nghiệm.<br>Từ viền nét đứt là từ em còn bỏ sót.");
+
+  const [r2,n2]=gradeLabs("#b2p"); add("Bài 2",2*r2/n2,2);
+  fb($("#f2"),r2===n2,`Em gắn đúng ${r2}/${n2} từ. <strong>DT:</strong> mục đích, cầu thủ, giấc mơ, việc · <strong>ĐT:</strong> trở thành, buộc, thực hành, luyện tập, nỗ lực · <strong>TT:</strong> dễ dàng, đáng.`);
+
+  let r3=0; $$("#b3p .one").forEach(r=>{ r.querySelectorAll(".tok").forEach(t=>{ const isA=t.dataset.w===r.dataset.a; if(t.classList.contains("sel")){ t.classList.add(isA?"ok":"bad"); r3+=isA; } else if(isA) t.classList.add("miss"); }); });
+  add("Bài 3",r3,3);
+  fb($("#f3"),r3===3,"a) <strong>nằm co</strong> · b) <strong>nghỉ ngơi</strong> · c) <strong>thức</strong>. Đây đều là động từ (chỉ hoạt động, trạng thái), các từ còn lại là tính từ.");
+
+  let good=0,bad=0; $$("#b4p .opt").forEach(o=>{ const ck=o.querySelector("input").checked, ok=o.dataset.ok==="1"; if(ok) o.classList.add("ok"); if(ck&&ok) good++; if(ck&&!ok){ bad++; o.classList.add("bad"); } });
+  const p4=bad?0:good/2; add("Bài 4",p4,1);
+  fb($("#f4"),p4===1,"Đáp án đúng: <strong>C và D</strong>. Câu A viết sai “Văn la”, “Vạn thọ” (phải là Văn La, Vạn Thọ); câu B viết sai “trảng Bàng” (phải là Trảng Bàng). Tên riêng phải viết hoa chữ cái đầu của mỗi tiếng.");
+
+  const sel=(q)=>{ let r=0; const ss=$$(q+" select"); ss.forEach(s=>{ const ok=s.value===s.dataset.a; r+=ok; s.style.borderColor=ok?"var(--ok)":"var(--bad)"; s.style.background=ok?"var(--okbg)":"var(--badbg)"; }); return [r,ss.length]; };
+  const [r5]=sel("#b5p"); add("Bài 5",r5*.5,1.5);
+  fb($("#f5"),r5===3,"a. <strong>Động từ</strong> (chỉ hoạt động của “tôi”) · b. <strong>Danh từ</strong> (đi với “ấy”, làm chủ ngữ) · c. <strong>Danh từ</strong> (đi sau “với”, có “của mình” bổ sung).");
+
+  const [r6,n6]=gradeLabs("#b6p"); add("Bài 6",3*r6/n6,3);
+  fb($("#f6"),r6===n6,`Em gắn đúng ${r6}/${n6} từ. <strong>a. Danh từ:</strong> mắt, chân, cầu, sân, đất, nắng, người, tiếng cười, tiếng hát · <strong>b. Động từ:</strong> nhìn, đá, bay, rơi, chơi · <strong>c. Tính từ:</strong> tinh, dẻo, vàng, tươi mát, khỏe.`);
+
+  const [r7]=sel("#b7p"); add("Bài 7",r7*.5,4);
+  fb($("#f7"),r7===8,"mùa hạ – đi đâu · chùm vải – trọc đầu, trốn biệt · tiếng sấm – trốn lẩn · quạt nan – nằm nhớ · sông – gầy · dê – doãi chân ra · mặt trời – ngủ sớm · tiếng gà – dậy trưa.");
+
+  let r8=0; const notes=[]; $$("#b8 textarea").forEach((t,i)=>{ const v=t.value.trim(), lv=v.toLowerCase(); let p=0;
+    if(v.split(/\s+/).length>=5){ p+=.5; if(new RegExp(t.dataset.k).test(lv)) p+=.5; else notes.push(`Câu ${i+1} chưa nhắc đến sự vật trong tranh.`); } else notes.push(`Câu ${i+1} còn quá ngắn hoặc chưa viết.`);
+    r8+=p; t.readOnly=true; t.style.borderColor=p===1?"var(--ok)":"var(--bad)"; });
+  add("Bài 8",r8,3);
+  fb($("#f8"),null,(notes.length?notes.join(" ")+"<br>":"")+"<strong>Câu mẫu:</strong> Cả nhà chú rùa quây quần trò chuyện vui vẻ bên nhau. · Chị hoa hướng dương mỉm cười chào ông mặt trời. · Bạn cặp sách chăm chỉ cõng sách vở cùng em đến trường.<br><em>Phần này máy chỉ kiểm tra em đã viết đủ câu, đúng sự vật; thầy cô sẽ đọc và nhận xét thêm cách dùng nhân hoá.</em>");
+
+  const diem=Math.round(raw/max*100)/10;
+  const msg=diem>=9?"Xuất sắc! Em làm bài rất tốt.":diem>=7?"Khá lắm! Em xem lại vài chỗ sai nhé.":diem>=5?"Em đã cố gắng. Hãy đọc kỹ lời giải rồi làm lại nhé.":"Em hãy đọc lại bài và thử lại lần nữa nhé!";
+  const R=$("#result"); R.style.display="block";
+  R.innerHTML=`<div>Kết quả của <strong>${ten.replace(/</g,"&lt;")}</strong></div><div class="sc">${diem.toString().replace(".",",")}<span style="font-size:24px">/10</span></div><div>${msg}</div><ul>${parts.map(p=>`<li>${p[0]}: <strong>${(Math.round(p[1]*10)/10).toString().replace(".",",")}/${p[2].toString().replace(".",",")}</strong></li>`).join("")}</ul><div id="gui" style="font-size:14px;margin-top:8px;opacity:.85"></div>`;
+  R.scrollIntoView({behavior:"smooth"});
+  $("#nop").disabled=true; $("#nop").style.opacity=.5;
+
+  if(SHEET_URL){
+    const data={bai:TEN_BAI,hoten:ten,lop:$("#lop").value.trim(),diem:diem,tongdiem:10,tuluan:"BÀI 8:\n"+$$("#b8 textarea").map((t,i)=>(i+1)+". "+(t.value.trim()||"(bỏ trống)")).join("\n")+"\n\nCHI TIẾT: "+parts.map(p=>p[0]+": "+Math.round(p[1]*10)/10+"/"+p[2]).join("; ")};
+    fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(data)}).then(()=>$("#gui").textContent="Đã gửi kết quả cho thầy cô.").catch(()=>$("#gui").textContent="Chưa gửi được kết quả, em hãy chụp màn hình gửi thầy cô nhé.");
+  } else $("#gui").textContent="Em hãy chụp màn hình kết quả gửi cho thầy cô nhé.";
+}
+$("#nop").onclick=grade;
+$("#lai").onclick=()=>{ if(confirm("Em muốn xoá hết và làm lại từ đầu?")) location.reload(); };
+</script>
+</body>
+</html>

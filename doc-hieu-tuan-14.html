@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đọc hiểu tuần 14 — Người lính dũng cảm — Tiếng Việt Lớp 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#eaf6ff;
+    --sky-deep:#cdeaff;
+    --sun:#ffc93c;
+    --sun-deep:#ffab00;
+    --coral:#ff6b6b;
+    --coral-deep:#e8523f;
+    --leaf:#3fb083;
+    --leaf-deep:#2f9270;
+    --plum:#8675a9;
+    --ink:#2d3142;
+    --ink-soft:#5a5f75;
+    --paper:#ffffff;
+    --paper-line:#e7edf5;
+    --radius:22px;
+    --shadow: 0 10px 26px rgba(45,49,66,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Quicksand',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 12% 8%, #fff6da 0%, transparent 45%),
+      radial-gradient(circle at 90% 4%, #ffe1e1 0%, transparent 40%),
+      linear-gradient(180deg, var(--sky) 0%, #f5fbff 60%, #fdf9ef 100%);
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
+
+  /* ---------- Header / hero ---------- */
+  .hero{
+    position:relative;
+    padding:38px 18px 30px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-badge{
+    display:inline-block;
+    background:var(--paper);
+    border:2px dashed var(--sun-deep);
+    color:var(--coral-deep);
+    font-weight:700;
+    font-size:14px;
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:14px;
+    letter-spacing:.5px;
+  }
+  .hero h1{
+    font-size:clamp(28px,6vw,44px);
+    margin:0 0 8px;
+    color:var(--ink);
+    line-height:1.15;
+  }
+  .hero h1 span{color:var(--coral-deep);}
+  .hero p.sub{
+    max-width:520px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-weight:600;
+    font-size:16px;
+  }
+  .path-icons{display:flex;justify-content:center;gap:10px;margin-top:18px;}
+  .path-icons svg{width:34px;height:34px;}
+
+  /* ---------- Name card ---------- */
+  .name-card{
+    max-width:400px;margin:22px auto 0;
+    background:var(--paper);border-radius:18px;box-shadow:var(--shadow);
+    padding:16px 20px;border:2px solid #ffe2a8;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .name-card label{font-weight:700;font-size:14px;color:var(--plum);display:flex;align-items:center;gap:6px;}
+  .name-card input{
+    border:2px solid #eaeff6;border-radius:12px;padding:10px 12px;
+    font-family:'Quicksand',sans-serif;font-weight:700;font-size:16px;color:var(--ink);
+  }
+  .name-card input:focus{outline:none;border-color:var(--sun-deep);}
+
+  /* ---------- Fog progress bar (signature element) ---------- */
+  .progress-wrap{
+    max-width:640px;
+    margin:26px auto 0;
+    padding:0 18px;
+  }
+  .progress-label{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-weight:700;color:var(--ink-soft);font-size:14px;margin-bottom:8px;
+  }
+  #progress-count{color:var(--coral-deep);font-size:16px;}
+  .progress-track{
+    position:relative;
+    height:34px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#dfe9f2,#eef3f8);
+    border:2px solid #d9e3ee;
+    overflow:hidden;
+    box-shadow: inset 0 2px 5px rgba(45,49,66,0.08);
+  }
+  .progress-fill{
+    position:absolute;left:0;top:0;bottom:0;
+    width:0%;
+    background:linear-gradient(90deg, var(--sun) 0%, var(--coral) 100%);
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,1.4,.6,1);
+  }
+  .progress-walker{
+    position:absolute;top:50%;
+    transform:translate(-50%,-50%);
+    left:0%;
+    font-size:20px;
+    transition:left .5s cubic-bezier(.4,1.4,.6,1);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+  }
+
+  /* ---------- Container ---------- */
+  .wrap{max-width:640px;margin:32px auto 0;padding:0 18px;display:flex;flex-direction:column;gap:22px;}
+
+  /* ---------- Story card ---------- */
+  .story-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:26px 24px;
+    position:relative;
+    border-top:6px solid var(--plum);
+  }
+  .story-card h2{
+    margin:0 0 4px;
+    font-size:22px;
+    color:var(--plum);
+    display:flex;align-items:center;gap:8px;
+  }
+  .story-card .story-meta{
+    font-size:13px;color:var(--ink-soft);font-weight:600;margin-bottom:14px;
+  }
+  .story-card p{
+    line-height:1.75;
+    font-size:15.5px;
+    margin:0 0 12px;
+    color:#3a3f52;
+  }
+  .story-card p:first-of-type::first-letter{
+    font-family:'Baloo 2',sans-serif;
+    font-size:44px;
+    color:var(--coral-deep);
+    float:left;
+    line-height:0.8;
+    padding-right:8px;
+    padding-top:4px;
+  }
+  details.story-toggle summary{
+    cursor:pointer;font-weight:700;color:var(--plum);list-style:none;
+    display:flex;align-items:center;gap:6px;font-size:15px;
+  }
+  details.story-toggle summary::-webkit-details-marker{display:none;}
+  details.story-toggle summary .chev{transition:transform .25s;}
+  details.story-toggle[open] summary .chev{transform:rotate(90deg);}
+
+  /* ---------- Question card ---------- */
+  .q-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 22px 24px;
+    border:2px solid transparent;
+    transition:border-color .25s, transform .2s;
+    scroll-margin-top:20px;
+  }
+  .q-card.answered{border-color:#ffe2a8;}
+  .q-card.correct{border-color:var(--leaf) !important;background:#f2fbf7;}
+  .q-card.incorrect{border-color:var(--coral) !important;background:#fff4f3;}
+
+  .q-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .q-num{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--sun);color:#7a4b00;font-family:'Baloo 2',sans-serif;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;
+    flex:none;
+  }
+  .q-tag{
+    font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;
+    background:#eef1fb;color:var(--plum);letter-spacing:.3px;
+  }
+  .q-tag.tag-fill{background:#fff0e0;color:#b5610a;}
+  .q-tag.tag-match{background:#e4f7ee;color:var(--leaf-deep);}
+  .q-text{font-weight:700;font-size:16px;margin:0 0 14px;color:var(--ink);line-height:1.5;}
+
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;border-radius:14px;
+    background:#f7f9fc;border:2px solid #eaeff6;
+    cursor:pointer;transition:all .15s;font-weight:600;font-size:15px;
+  }
+  .opt:hover{background:#eef4ff;border-color:#c9dcff;}
+  .opt input{accent-color:var(--coral);width:18px;height:18px;flex:none;}
+  .opt.picked{background:#fff2d6;border-color:var(--sun-deep);}
+  .q-card.correct .opt.picked{background:#dcf5e9;border-color:var(--leaf);}
+  .q-card.incorrect .opt.picked{background:#ffe1de;border-color:var(--coral);}
+  .q-card.incorrect .opt.correct-answer{background:#dcf5e9;border-color:var(--leaf);}
+
+  .match-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .match-left{
+    background:#f7f9fc;border:2px solid #eaeff6;border-radius:12px;
+    padding:9px 12px;font-weight:700;min-width:150px;flex:1;
+  }
+  .match-row select{
+    flex:1;min-width:160px;padding:9px 10px;border-radius:12px;
+    border:2px solid #eaeff6;background:#fff;font-family:'Quicksand',sans-serif;
+    font-weight:600;font-size:14.5px;color:var(--ink);
+  }
+  .match-row select:focus{outline:2px solid var(--sun-deep);}
+
+  .fill-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px;line-height:1.9;}
+  .fill-line .txt{font-weight:600;font-size:15px;}
+  .fill-line input[type=text]{
+    border:none;border-bottom:3px dotted #b9c3d4;
+    background:transparent;font-family:'Quicksand',sans-serif;
+    font-weight:700;font-size:15px;color:var(--coral-deep);
+    padding:4px 6px;min-width:120px;text-align:center;
+  }
+  .fill-line input[type=text]:focus{outline:none;border-bottom-color:var(--sun-deep);}
+  .word-bank{
+    margin-top:6px;background:#fffaf0;border:2px dashed #ffdb9b;border-radius:14px;
+    padding:10px 14px;font-size:13.5px;color:#8a5a00;font-weight:600;
+  }
+
+  .feedback{
+    margin-top:14px;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;
+    display:none;line-height:1.6;
+  }
+  .q-card.correct .feedback{display:block;background:#e4f7ee;color:#1d7a52;}
+  .q-card.incorrect .feedback{display:block;background:#ffe9e6;color:#b3392a;}
+
+  /* ---------- Submit bar ---------- */
+  .submit-zone{
+    position:sticky;bottom:14px;
+    display:flex;justify-content:center;margin-top:6px;z-index:20;
+  }
+  .btn-submit{
+    background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+    color:#fff;border:none;padding:16px 38px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:19px;font-weight:700;
+    box-shadow:0 10px 22px rgba(232,82,63,.35);cursor:pointer;
+    transition:transform .15s;
+  }
+  .btn-submit:hover{transform:translateY(-2px) scale(1.02);}
+  .btn-submit:active{transform:translateY(0) scale(.98);}
+  .btn-submit:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+
+  /* ---------- Result panel ---------- */
+  .result-panel{
+    background:linear-gradient(160deg,#fff,#fef8ee);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:30px 24px;text-align:center;border-top:6px solid var(--leaf);
+    display:none;
+  }
+  .result-panel.show{display:block;animation:pop .5s;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .result-emoji{font-size:52px;margin-bottom:6px;}
+  .result-score{font-family:'Baloo 2',sans-serif;font-size:46px;color:var(--coral-deep);margin:4px 0;}
+  .result-msg{font-weight:700;font-size:17px;color:var(--ink);margin-bottom:16px;}
+  .btn-retry{
+    background:var(--plum);color:#fff;border:none;padding:12px 28px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:16px;font-weight:700;cursor:pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+  }
+  footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:28px;font-weight:600;}
+
+  .hero-art{max-width:560px;margin:18px auto 0;border-radius:24px;overflow:hidden;box-shadow:var(--shadow);border:4px solid #fff;}
+  .hero-art svg{display:block;width:100%;height:auto;}
+  .dfly{animation:hover 3s ease-in-out infinite;transform-origin:center;}
+  @keyframes hover{0%,100%{transform:translate(0,0)}50%{transform:translate(-8px,-10px)}}
+  .section-title{font-family:'Baloo 2',sans-serif;font-size:21px;font-weight:800;color:#fff;border-radius:16px;padding:10px 18px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);}
+  .section-title.s1{background:linear-gradient(135deg,#8675a9,#6d5c94);}
+  .section-title.s2{background:linear-gradient(135deg,#3fb083,#2f9270);}
+  .story-card .dlg{padding-left:14px;border-left:3px solid #ffe2a8;}
+  .story-card .author{text-align:right;font-style:italic;font-weight:700;color:var(--ink-soft);}
+  .q-img{display:block;max-width:100%;height:auto;margin:0 auto 14px;border-radius:14px;border:2px dashed #cfe0f2;background:#fff;padding:6px;}
+  .hint{font-size:13.5px;color:#8a5a00;background:#fffaf0;border:2px dashed #ffdb9b;border-radius:14px;padding:10px 14px;font-weight:600;margin-bottom:12px;line-height:1.6;}
+  .sent-line{display:flex;gap:8px;align-items:center;margin-bottom:10px;}
+  .sent-line .n{font-weight:800;color:var(--plum);flex:none;}
+  .sent-line input{flex:1;min-width:0;border:2px solid #eaeff6;border-radius:12px;padding:10px 12px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:var(--ink);}
+  .sent-line input:focus{outline:none;border-color:var(--sun-deep);}
+  .color-table{display:flex;flex-direction:column;gap:10px;}
+  .color-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+  .cell{border-radius:14px;padding:8px 6px;text-align:center;font-weight:800;font-size:15px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:2px solid rgba(0,0,0,.06);}
+  .cell .chip{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.18);}
+  .cell input[type=text]{width:100%;border:none;border-bottom:3px dotted #b9c3d4;background:rgba(255,255,255,.85);border-radius:8px 8px 0 0;font-family:'Quicksand',sans-serif;font-weight:700;font-size:14.5px;color:var(--coral-deep);padding:4px 2px;text-align:center;}
+  .cell input[type=text]:focus{outline:none;border-bottom-color:var(--sun-deep);}
+  .arrow-head{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:12.5px;font-weight:700;color:var(--ink-soft);text-align:center;margin-bottom:6px;}
+  .fill-line select{border:2px solid #eaeff6;border-radius:12px;padding:6px 8px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:var(--coral-deep);background:#fff;max-width:100%;}
+  .fill-line select:focus{outline:2px solid var(--sun-deep);}
+  .fill-line input[type=text]{min-width:70px;width:84px;}
+  .idiom-ico{font-size:22px;flex:none;}
+  .story-toggle p:first-of-type::first-letter{font-family:inherit;font-size:inherit;color:inherit;float:none;line-height:inherit;padding:0;}
+  .send-status{font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:12px;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-badge">TIẾNG VIỆT · LỚP 4 · TUẦN 14</span>
+  <h1>Đọc hiểu tuần 14: <span>Người lính dũng cảm</span></h1>
+  <p class="sub">Đọc câu chuyện về chú lính nhỏ, rồi làm các bài tập bên dưới nhé. Mỗi câu con làm xong, con tiến thêm một bước về phía lá cờ chiến thắng!</p>
+  <div class="hero-art"><svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vườn trường có hàng rào nứa, luống hoa mười giờ, chú chuồn chuồn ngô và chú lính nhỏ">
+  <defs>
+    <linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe6ff"/><stop offset="1" stop-color="#eefaff"/></linearGradient>
+    <pattern id="lat" width="34" height="34" patternUnits="userSpaceOnUse">
+      <path d="M0 0L34 34M34 0L0 34" stroke="#c9a15a" stroke-width="5" stroke-linecap="round"/>
+      <path d="M0 0L34 34M34 0L0 34" stroke="#e6c583" stroke-width="2"/>
+    </pattern>
+  </defs>
+  <rect width="560" height="250" fill="url(#sk)"/>
+  <circle cx="490" cy="48" r="26" fill="#ffd95a"/><circle cx="490" cy="48" r="34" fill="#ffd95a" opacity=".3"/>
+  <g fill="#fff"><ellipse cx="90" cy="45" rx="38" ry="14"/><ellipse cx="115" cy="36" rx="24" ry="13"/><ellipse cx="330" cy="30" rx="30" ry="11"/><ellipse cx="350" cy="23" rx="18" ry="10"/></g>
+  <path d="M0 190 Q140 160 280 185 T560 175 V250 H0Z" fill="#9fdc8f"/>
+  <rect x="20" y="96" width="330" height="92" fill="url(#lat)"/>
+  <rect x="14" y="92" width="342" height="7" rx="3.5" fill="#b98a42"/><rect x="14" y="184" width="342" height="7" rx="3.5" fill="#b98a42"/>
+  <path d="M0 200 Q200 180 560 196 V250 H0Z" fill="#7cc66f"/>
+  <g>
+    <g id="fl"><circle cx="0" cy="-6" r="5" fill="#ff7eb0"/><circle cx="6" cy="-2" r="5" fill="#ff7eb0"/><circle cx="4" cy="5" r="5" fill="#ff7eb0"/><circle cx="-4" cy="5" r="5" fill="#ff7eb0"/><circle cx="-6" cy="-2" r="5" fill="#ff7eb0"/><circle r="3.4" fill="#ffd95a"/></g>
+    <use href="#fl" x="60" y="218"/><use href="#fl" x="100" y="228"/><use href="#fl" x="145" y="216"/><use href="#fl" x="190" y="230"/><use href="#fl" x="235" y="218"/><use href="#fl" x="285" y="229"/><use href="#fl" x="330" y="217"/><use href="#fl" x="30" y="232"/>
+  </g>
+  <g class="dfly" transform="translate(0,0)">
+    <g transform="translate(250,70) rotate(-12)">
+      <ellipse cx="-20" cy="-9" rx="24" ry="7" fill="#dff6ff" stroke="#6fb7dd" stroke-width="1.5" opacity=".9"/>
+      <ellipse cx="-20" cy="9" rx="24" ry="7" fill="#dff6ff" stroke="#6fb7dd" stroke-width="1.5" opacity=".9"/>
+      <ellipse cx="14" cy="-9" rx="20" ry="6" fill="#dff6ff" stroke="#6fb7dd" stroke-width="1.5" opacity=".9"/>
+      <ellipse cx="14" cy="9" rx="20" ry="6" fill="#dff6ff" stroke="#6fb7dd" stroke-width="1.5" opacity=".9"/>
+      <rect x="-52" y="-3" width="56" height="6" rx="3" fill="#e0a021"/>
+      <path d="M-44 -3v6M-34 -3v6M-24 -3v6M-14 -3v6" stroke="#8a5a00" stroke-width="1.5"/>
+      <ellipse cx="6" cy="0" rx="9" ry="6" fill="#c98512"/>
+      <circle cx="18" cy="0" r="7" fill="#7a4b00"/><circle cx="20" cy="-3" r="2.6" fill="#fff"/><circle cx="20" cy="3" r="2.6" fill="#fff"/>
+    </g>
+  </g>
+  <g transform="translate(445,150)">
+    <rect x="-17" y="34" width="34" height="40" rx="12" fill="#4f9d69"/>
+    <path d="M-17 48l-14 16M17 48l14 -18" stroke="#f6c9a0" stroke-width="8" stroke-linecap="round"/>
+    <rect x="-13" y="70" width="10" height="24" rx="5" fill="#3b5b8c"/><rect x="3" y="70" width="10" height="24" rx="5" fill="#3b5b8c"/>
+    <circle cx="0" cy="18" r="19" fill="#f6c9a0"/>
+    <path d="M-24 8 L0 -22 L24 8Z" fill="#fff" stroke="#3fb083" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M0 -12l2.6 5.4 6 .8-4.4 4.1 1.1 5.9L0 1.4-5.3 4.2l1.1-5.9-4.4-4.1 6-.8z" fill="#e8523f"/>
+    <circle cx="-7" cy="18" r="2.2" fill="#2d3142"/><circle cx="7" cy="18" r="2.2" fill="#2d3142"/>
+    <path d="M-6 26q6 5 12 0" stroke="#e8523f" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <circle cx="-12" cy="24" r="3" fill="#ffb3a7" opacity=".7"/><circle cx="12" cy="24" r="3" fill="#ffb3a7" opacity=".7"/>
+  </g>
+</svg></div>
+</div>
+
+<div class="name-card">
+  <label for="studentName">✏️ Họ và tên của con là gì?</label>
+  <input type="text" id="studentName" placeholder="Nhập họ và tên của em...">
+  <label for="studentClass" style="margin-top:8px;">🏫 Con học lớp mấy?</label>
+  <input type="text" id="studentClass" placeholder="VD: 4A">
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label"><span>Đường hành quân của em 🚩</span><span id="progress-count">0 / 9 câu</span></div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+    <div class="progress-walker" id="progress-walker">🚶</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="section-title s1">📖 I. ĐỌC</div>
+
+  <div class="story-card">
+    <h2>🪖 Người lính dũng cảm</h2>
+    <div class="story-meta">Con hãy đọc thầm câu chuyện thật kĩ trước khi trả lời câu hỏi.</div>
+    <p>Bắn thêm một loạt đạn mà vẫn không diệt được máy bay địch. Viên tướng hạ lệnh:</p>
+    <p class="dlg">– Vượt rào, bắt sống nó!</p>
+    <p>Hàng rào là những cây nứa tép dựng xiên ô quả trám. Cậu lính bé nhất nhìn thủ lĩnh, ngập ngừng:</p>
+    <p class="dlg">– Chui vào à?</p>
+    <p>Nghe tiếng "chui", viên tướng thấy chối tai:</p>
+    <p class="dlg">– Chỉ những thằng hèn mới chui.</p>
+    <details class="story-toggle" open>
+      <summary><span class="chev">▶</span> Đọc tiếp câu chuyện</summary>
+      <p style="margin-top:12px">Cả tốp leo lên hàng rào, trừ chú lính nhỏ. Chú nhìn cái lỗ hổng dưới chân hàng rào rồi quyết định chui qua đó. Nhưng chú mới chui được nửa người thì hàng rào đổ. Tướng sĩ ngã đè lên luống hoa mười giờ. Hàng rào thì đè lên chú lính.</p>
+      <p>Chiếc máy bay (là một chú chuồn chuồn ngô) giật mình cất cánh. Quân tướng hoảng sợ lao ra khỏi vườn.</p>
+      <p>Giờ học hôm sau, thầy giáo nghiêm giọng hỏi:</p>
+      <p class="dlg">– Hôm qua em nào phá đổ hàng rào, làm giập hoa trong vườn trường?</p>
+      <p>Thầy nhìn một lượt những gương mặt học trò, chờ đợi sự can đảm nhận lỗi. Chú lính nhỏ run lên. Chú sắp phun ra bí mật thì một cú véo nhắc chú ngồi yên. Thầy giáo lắc đầu buồn bã:</p>
+      <p class="dlg">– Thầy mong em nào phạm lỗi sẽ sửa lại hàng rào và luống hoa.</p>
+      <p>Khi tất cả túa ra khỏi lớp, chú lính nhỏ đợi viên tướng ở cửa, nói khẽ: "Ra vườn đi!" Viên tướng khoát tay:</p>
+      <p class="dlg">– Về thôi!</p>
+      <p class="dlg">– Nhưng như vậy là hèn.</p>
+      <p>Nói rồi, chú lính quả quyết bước về phía vườn trường. Những người lính và viên tướng đứng sững lại nhìn chú lính nhỏ. Rồi, cả đội bước nhanh theo chú, như là bước theo một người chỉ huy dũng cảm.</p>
+      <p class="author">Theo Đặng Ái</p>
+    </details>
+  </div>
+
+  <div class="q-card" data-qid="q1">
+    <div class="q-top"><div class="q-num">1</div><span class="q-tag">Trắc nghiệm</span></div>
+    <p class="q-text">Máy bay địch trong câu chuyện là con vật gì?</p>
+    <div class="options" data-type="mc" data-correct="B">
+      <label class="opt"><input type="radio" name="q1" value="A"> <span><b>A.</b> Là chiếc máy bay nhỏ, đời mới nhất</span></label>
+      <label class="opt"><input type="radio" name="q1" value="B"> <span><b>B.</b> Là chú chuồn chuồn ngô</span></label>
+      <label class="opt"><input type="radio" name="q1" value="C"> <span><b>C.</b> Là mấy chú bướm đang nhởn nhơ trên luống hoa</span></label>
+    </div>
+    <div class="feedback" data-explain="Bài đọc viết: “Chiếc máy bay (là một chú chuồn chuồn ngô) giật mình cất cánh.”"></div>
+  </div>
+  <div class="q-card" data-qid="q2">
+    <div class="q-top"><div class="q-num">2</div><span class="q-tag">Trắc nghiệm</span></div>
+    <p class="q-text">Vì sao chú lính nhỏ lại chui qua hàng rào?</p>
+    <div class="options" data-type="mc" data-correct="A">
+      <label class="opt"><input type="radio" name="q2" value="A"> <span><b>A.</b> Vì chú sợ trèo lên hàng rào sẽ bị đổ.</span></label>
+      <label class="opt"><input type="radio" name="q2" value="B"> <span><b>B.</b> Vì chú thấp bé quá không trèo lên được.</span></label>
+      <label class="opt"><input type="radio" name="q2" value="C"> <span><b>C.</b> Vì chú nghĩ chui qua sẽ không bị ai phát hiện.</span></label>
+    </div>
+    <div class="feedback" data-explain="Chú lính nhỏ ngập ngừng, không leo cùng cả tốp vì chú sợ trèo lên sẽ làm đổ hàng rào của vườn trường."></div>
+  </div>
+  <div class="q-card" data-qid="q3">
+    <div class="q-top"><div class="q-num">3</div><span class="q-tag">Trắc nghiệm</span></div>
+    <p class="q-text">Khi phát hiện hàng rào bị đổ, thầy giáo mong chờ điều gì ở học sinh trong lớp?</p>
+    <div class="options" data-type="mc" data-correct="C">
+      <label class="opt"><input type="radio" name="q3" value="A"> <span><b>A.</b> Thầy mong ai đó sẽ phát hiện ra bạn mắc lỗi và thưa thầy.</span></label>
+      <label class="opt"><input type="radio" name="q3" value="B"> <span><b>B.</b> Thầy mong bạn nào mắc lỗi sẽ nhận lỗi.</span></label>
+      <label class="opt"><input type="radio" name="q3" value="C"> <span><b>C.</b> Thầy mong bạn nào mắc lỗi sẽ dũng cảm nhận lỗi và sẵn sàng sửa lỗi.</span></label>
+    </div>
+    <div class="feedback" data-explain="Thầy “chờ đợi sự can đảm nhận lỗi” và nói: “Thầy mong em nào phạm lỗi sẽ sửa lại hàng rào và luống hoa.” — tức là vừa dũng cảm nhận lỗi, vừa sửa lỗi."></div>
+  </div>
+  <div class="q-card" data-qid="q4">
+    <div class="q-top"><div class="q-num">4</div><span class="q-tag">Trắc nghiệm</span></div>
+    <p class="q-text">Vì sao tác giả gọi “chú lính nhỏ” là “người chỉ huy dũng cảm”?</p>
+    <div class="options" data-type="mc" data-correct="B">
+      <label class="opt"><input type="radio" name="q4" value="A"> <span><b>A.</b> Vì chú là người bé nhất nhưng chạy nhanh nhất đội.</span></label>
+      <label class="opt"><input type="radio" name="q4" value="B"> <span><b>B.</b> Vì chú dám nhận lỗi, quả quyết đi sửa lỗi và khiến cả đội bước theo.</span></label>
+      <label class="opt"><input type="radio" name="q4" value="C"> <span><b>C.</b> Vì chú đã bắt sống được chiếc máy bay địch.</span></label>
+      <label class="opt"><input type="radio" name="q4" value="D"> <span><b>D.</b> Vì chú được thầy giáo cử làm chỉ huy thay viên tướng.</span></label>
+    </div>
+    <div class="feedback" data-explain="Chú lính nhỏ dám nói “Nhưng như vậy là hèn” rồi quả quyết ra vườn sửa hàng rào. Hành động dũng cảm ấy khiến cả đội bước theo chú như theo một người chỉ huy."></div>
+  </div>
+  <div class="q-card" data-qid="q5">
+    <div class="q-top"><div class="q-num">5</div><span class="q-tag">Trắc nghiệm</span></div>
+    <p class="q-text">Em học được điều gì từ câu chuyện trên?</p>
+    <div class="options" data-type="mc" data-correct="C">
+      <label class="opt"><input type="radio" name="q5" value="A"> <span><b>A.</b> Không nên chơi trò đánh trận cùng các bạn.</span></label>
+      <label class="opt"><input type="radio" name="q5" value="B"> <span><b>B.</b> Khi mắc lỗi, nên im lặng để không bị thầy cô phạt.</span></label>
+      <label class="opt"><input type="radio" name="q5" value="C"> <span><b>C.</b> Khi mắc lỗi, cần dũng cảm nhận lỗi và sửa lỗi.</span></label>
+      <label class="opt"><input type="radio" name="q5" value="D"> <span><b>D.</b> Nên làm theo mọi điều mà bạn chỉ huy nói.</span></label>
+    </div>
+    <div class="feedback" data-explain="Dũng cảm không chỉ là xông pha, mà còn là dám nhận lỗi và sửa lỗi khi mình làm sai."></div>
+  </div>
+
+  <div class="section-title s2">🧩 II. LUYỆN TỪ VÀ CÂU</div>
+
+  <div class="q-card" data-qid="q6">
+    <div class="q-top"><div class="q-num">1</div><span class="q-tag tag-fill">Đặt câu</span></div>
+    <p class="q-text">Đặt 3 câu có dùng từ <i>hơi, khá, rất, quá, lắm</i> kết hợp với từ <i>nhỏ</i> hoặc <i>to</i> để tả đặc điểm của các con vật trong tranh.</p>
+    <img class="q-img" alt="Tranh: con kiến, con hà mã và con voi" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAygAAAEiCAMAAAAlLgaMAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAMAUExURf///wAAAPf39+/v7wAICN7m3hAZGRAICN7W3iEhISkhKTEpKZyUnNbO1lpSUpylpa2tpUI6Qs7OxcXFxbW1vUpSUnt7ezE6OnNra4SEjFpaY0pKSq21tVJavRlavWNrY5SMjIR7hM5aQoxalM5aEM5a71Ja7xla785axVoQSlpaEKXenM7vY1rvYzHe5lqtY1reMZTvY1oxGVrOYxkIOvfWxVqUzlrOpRCMpRmMEL3e5lpaMaXevSlSEJze5ghSENat3qWMzowQnIwQc1rO5hCM5lqMEM7OEFIQc5TOEBkQc1pajISca5wpQpwpEFIpvRkpvZwIQpwIEFIIvRkIvYxaQoxaENYZnJwZ79YZc5wZxVqU71rvpRCtpRmMMRDvpSmMYyneEHuUznvOpTGMpRmtELUZnHsZ77UZc3sZxRDOpQiMYwjeEDpacxBac84pQtaMnBAhQs4pEKWM71qlnBBjQs4IQrWMnM4IEFqEnBBCQtZanNala86lOlIp75xa74wxnBkp784p75SlOtbvpYwxc9Zac62la86lEJxaxc4pxZSlEFrv5hCt5lqMMc7OMVIQlJTOMRkQlM7OcxDv5lqMc1rvEJTOc2sQGXvO5jGM5lqtEM7vEFIxc5TvEBkxc7VanNaEa86EOlII73ta7xkI784I75SEOtbOpbVac62Ea86EEHtaxc4IxZSEEM7OUhDO5lqMUlrOEJTOUkoQGXuU73vvpTGtpRmtMTHvpSmtYyneMSnvYwjvYzHOpQitYwjeMSnOYwjOY61aQqW15q1aENaMzvdajPdaOjpalPcZjPcZOvecjPecOpRaaxBalPdaY/daEPcZY/cZEPecY/ecEHvv5jGt5lqtMc7vMVIxlJTvMRkxlM61nPdC5vcQ5vdCtfcQtfdz5vdztffejGM6SvfeOvfeY/feENaM7/el5oSlnPeltTFaQikhCNbmxffO997O7/f/OgghCPf/vWtrUjEhSoR7Y97v95ytlCkICCEIABAhKe///wAIAAAAAO7k9HsAAAEAdFJOU////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////wBT9wclAAAACXBIWXMAACHVAAAh1QEEnLSdAAA95UlEQVR4Xu2d63KbvNPALWTLUkwUwPzB2J4hz0W8X3r/d9OZePohM02mybwrIcxRgDDGTqLfcyhtE8cG7VGr3YXFYrFYLBaLxWKxWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8XyLaFbN0r9OGaMEUTWSCKuGItjP30OqfpCi+XHgYPQS0A+QDZy1v/e/70TIR0gH/BP/PLvXf1V/OpacbH8LDDdRv4nrH7yzhhPI9d1gyDA6m8b4OCY8Ae2FOICX+zRXxRrv9hi+R5gV5oQtvcw/lB/NgjHCSMmjItgTQhPQvU3Fss3g8qlzt3tWIuAvSgGKfPciMcQyxDm7yMvXKm/nRgMvuGr78ebmAAs3vj+Id1HyTFQX2CxXAEnhDVOuKd+OxoaxSQVaxUH7o77TAT/jHNwysKQ6j04E+jWi3xpuoTxYmyz2YC8QPD0rgIqxpNpfpLFUoNCVEJc9ZsLcXaIlUL7AJY1WYqoRxJHHh29ijFNMhEhaz/y2qSBHuGnia9gnqP+yGKZiggWcDjhwgpjEqnLMxivaBC4qQxlwFdKEy8YmiqjgeemsYyfXvZuQHH3e3X+BBF8LePWrlimJAH9qy6nYstJohMDGro7/xz6M/L+j/kxhBviX75/3fMkiuDfKILfxL7YvpFf56fPnkESOnD9TxQnVwqRLD+QELErqF58WEd/1XUrFKxEyrNtGQmEG4yxf+8E/gXpEZs2D5s45unoCN2L14jb6N4yDYRcx5139ihRl2Mwyk9rAa+SWVGxTEC6vporf0qbscrshD6Kp/YsLT+PLbrmWg7iycMfc8ID8rfq2mIZhUOIuroSIXm4ffIJx4jbajTLBaRoou0TLThF/PZ7Go9seUnAZPnhhOh6EcqZkLGj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">
+    <div class="hint">💡 Mỗi câu cần có: tên một con vật trong tranh (<b>kiến, hà mã, voi</b>) và một cụm từ chỉ mức độ như <b>rất nhỏ, hơi to, khá to, to quá, nhỏ lắm…</b> Con nhớ gõ tiếng Việt có dấu nhé!</div>
+    <div class="sent-group" data-type="sentence">
+      <div class="sent-line"><span class="n">a.</span><input type="text" data-key="s1" placeholder="Viết câu thứ nhất..." autocomplete="off"></div>
+      <div class="sent-line"><span class="n">b.</span><input type="text" data-key="s2" placeholder="Viết câu thứ hai..." autocomplete="off"></div>
+      <div class="sent-line"><span class="n">c.</span><input type="text" data-key="s3" placeholder="Viết câu thứ ba..." autocomplete="off"></div>
+    </div>
+    <div class="feedback" data-explain="Gợi ý: Con kiến rất nhỏ. · Con hà mã khá to. · Con voi to quá! (Mỗi câu đúng cần có tên con vật trong tranh và cụm từ chỉ mức độ đi với “nhỏ” hoặc “to”; ba câu không được giống nhau.)"></div>
+  </div>
+
+  <div class="q-card" data-qid="q7">
+    <div class="q-top"><div class="q-num">2</div><span class="q-tag tag-fill">Điền từ</span></div>
+    <p class="q-text">Viết các từ ngữ thích hợp vào bảng, biết các từ được sắp xếp theo mức độ màu sắc tăng dần từ trái sang phải:</p>
+    <div class="arrow-head"><span>nhạt hơn</span><span>bình thường</span><span>đậm hơn ➜</span></div>
+    <div class="fill-group color-table" data-type="fill">
+      <div class="color-row"><div class="cell" style="background:#ffe9e6;color:#2d3142"><span class="chip" style="background:#f6a9a0"></span>đo đỏ</div><div class="cell" style="background:#ffd0ca;color:#2d3142"><span class="chip" style="background:#e53935"></span>đỏ</div><div class="cell" style="background:#ffb3aa;color:#2d3142"><span class="chip" style="background:#b71c1c"></span><input type="text" data-key="c1" data-answers="đỏ rực|đỏ thắm|đỏ chót|đỏ au|đỏ chói|đỏ ối|đỏ lòm|đỏ lừ|đỏ tươi|đỏ thẫm|đỏ sẫm|đỏ đậm|đỏ hỏn|đỏ quạch|đỏ lựng|đỏ gay|đỏ bừng|đỏ ửng|đỏ chon chót|đỏ rừng rực|đỏ rực rỡ|đỏ son|đỏ ngầu|đỏ khé|đỏ lự|đỏ hoe hoét|đỏ choét|đỏ chói lọi|đỏ lửa|đỏ như son|đỏ như máu|đỏ như gấc|rất đỏ|đỏ lắm|đỏ quá" placeholder="đỏ ..." autocomplete="off" autocapitalize="off" spellcheck="false"></div></div>
+      <div class="color-row"><div class="cell" style="background:#f3ebff;color:#2d3142"><span class="chip" style="background:#cdb6f0"></span><input type="text" data-key="c2" data-answers="tim tím|tím tím|tím nhạt|hơi tím|tím phớt|phơn phớt tím" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"></div><div class="cell" style="background:#e4d4fb;color:#2d3142"><span class="chip" style="background:#8e44ad"></span>tím</div><div class="cell" style="background:#d2b9f5;color:#2d3142"><span class="chip" style="background:#5b2c83"></span>tím biếc</div></div>
+      <div class="color-row"><div class="cell" style="background:#fffbe0;color:#2d3142"><span class="chip" style="background:#fff0a0"></span><input type="text" data-key="c3" data-answers="vàng vàng|vàng nhạt|hơi vàng|vàng hoe|vàng phớt|vàng mơ|vàng chanh" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"></div><div class="cell" style="background:#fff3b0;color:#2d3142"><span class="chip" style="background:#f9c80e"></span>vàng</div><div class="cell" style="background:#ffe680;color:#2d3142"><span class="chip" style="background:#e0a000"></span><input type="text" data-key="c4" data-answers="vàng rực|vàng óng|vàng tươi|vàng xuộm|vàng chóe|vàng choé|vàng ươm|vàng khè|vàng đậm|vàng sẫm|vàng thẫm|vàng chói|vàng lịm|vàng giòn|vàng ối|vàng rộm|vàng ruộm|vàng hươm|vàng óng ả|vàng rực rỡ|vàng xọng|vàng hực|vàng khé|vàng au|vàng ánh|vàng chói lọi|vàng ong|vàng suộm|vàng mượt|vàng mới|rất vàng|vàng lắm|vàng quá" placeholder="vàng ..." autocomplete="off" autocapitalize="off" spellcheck="false"></div></div>
+      <div class="color-row"><div class="cell" style="background:#f1f2f4;color:#2d3142"><span class="chip" style="background:#9aa0aa"></span><input type="text" data-key="c5" data-answers="đen đen|hơi đen|đen nhạt|đen mờ|đen nhờ|nhờ nhờ đen" placeholder="..." autocomplete="off" autocapitalize="off" spellcheck="false"></div><div class="cell" style="background:#dcdee3;color:#2d3142"><span class="chip" style="background:#3a3d45"></span>đen</div><div class="cell" style="background:#c4c7ce;color:#2d3142"><span class="chip" style="background:#000"></span><input type="text" data-key="c6" data-answers="đen sì|đen kịt|đen nhánh|đen láy|đen thui|đen tuyền|đen ngòm|đen nhẻm|đen trũi|đen giòn|đen bóng|đen đúa|đen huyền|đen xì|đen thẫm|đen sẫm|đen đậm|đen như mực|đen sì sì|đen kìn kịt|đen thùi lùi|đen thủi đen thui|đen nhức|đen lánh|đen nhưng nhức|đen như than|đen đặc|đen sịt|đen xịt|đen óng|đen mun|rất đen|đen lắm|đen quá" placeholder="đen ..." autocomplete="off" autocapitalize="off" spellcheck="false"></div></div>
+    </div>
+    <div class="feedback" data-explain="Gợi ý: đo đỏ → đỏ → đỏ rực (đỏ thắm, đỏ chót…) · tim tím → tím → tím biếc · vàng vàng (vàng nhạt) → vàng → vàng rực (vàng óng, vàng xuộm…) · đen đen (hơi đen) → đen → đen sì (đen kịt, đen nhánh…). Nếu con viết một từ khác mà con thấy vẫn đúng, hãy nhắn thầy/cô xem giúp nhé!"></div>
+  </div>
+
+  <div class="q-card" data-qid="q8">
+    <div class="q-top"><div class="q-num">3</div><span class="q-tag tag-fill">Điền từ</span></div>
+    <p class="q-text">Điền tính từ chỉ màu sắc để hoàn thiện các thành ngữ sau:</p>
+    <div class="fill-group" data-type="fill">
+      <div class="fill-line"><span class="idiom-ico">🥚</span><span class="txt">a.</span><input type="text" data-key="t1" data-answers="trắng" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="txt">như trứng gà bóc</span></div>
+      <div class="fill-line"><span class="idiom-ico">🔥</span><span class="txt">b.</span><input type="text" data-key="t2" data-answers="đen" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="txt">như cột nhà cháy</span></div>
+      <div class="fill-line"><span class="idiom-ico">🍉</span><span class="txt">c.</span><input type="text" data-key="t3" data-answers="xanh" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="txt">vỏ</span><input type="text" data-key="t4" data-answers="đỏ" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="txt">lòng</span></div>
+      <div class="fill-line"><span class="idiom-ico">🌾</span><span class="txt">d.</span><input type="text" data-key="t5" data-answers="xanh" placeholder="" autocomplete="off" autocapitalize="off" spellcheck="false"><span class="txt">nhà hơn già đồng</span></div>
+    </div>
+    <div class="feedback" data-explain="a. Trắng như trứng gà bóc · b. Đen như cột nhà cháy · c. Xanh vỏ đỏ lòng · d. Xanh nhà hơn già đồng."></div>
+  </div>
+
+  <div class="q-card" data-qid="q9">
+    <div class="q-top"><div class="q-num">4</div><span class="q-tag tag-fill">Chọn tính từ</span></div>
+    <p class="q-text">Tìm tính từ điền vào chỗ chấm để hoàn thiện câu/đoạn cho phù hợp:</p>
+    <div class="word-bank">🎒 Giỏ tính từ (mỗi từ dùng một lần): lững lờ, đen láy, vui vẻ, rực rỡ, chói chang, xám xịt, vời vợi</div>
+    <div class="fill-group" data-type="fill" style="margin-top:12px;">
+      <div class="fill-line"><span class="txt">☁️ a. Trên bầu trời, những đám mây</span><select data-key="d1" data-answers="lững lờ"><option value="">— chọn —</option><option value="lững lờ">lững lờ</option><option value="đen láy">đen láy</option><option value="vui vẻ">vui vẻ</option><option value="rực rỡ">rực rỡ</option><option value="chói chang">chói chang</option><option value="xám xịt">xám xịt</option><option value="vời vợi">vời vợi</option></select><span class="txt">trôi.</span></div>
+      <div class="fill-line"><span class="txt">👀 b. Đôi mắt em Lam</span><select data-key="d2" data-answers="đen láy"><option value="">— chọn —</option><option value="lững lờ">lững lờ</option><option value="đen láy">đen láy</option><option value="vui vẻ">vui vẻ</option><option value="rực rỡ">rực rỡ</option><option value="chói chang">chói chang</option><option value="xám xịt">xám xịt</option><option value="vời vợi">vời vợi</option></select><span class="txt">, đôi hàng mi cong vút.</span></div>
+      <div class="fill-line"><span class="txt">🍚 c. Trong bữa cơm tối, mọi người cười nói</span><select data-key="d3" data-answers="vui vẻ"><option value="">— chọn —</option><option value="lững lờ">lững lờ</option><option value="đen láy">đen láy</option><option value="vui vẻ">vui vẻ</option><option value="rực rỡ">rực rỡ</option><option value="chói chang">chói chang</option><option value="xám xịt">xám xịt</option><option value="vời vợi">vời vợi</option></select><span class="txt">.</span></div>
+      <div class="fill-line"><span class="txt">☀️ d. Mặt trời</span><select data-key="d4" data-answers="rực rỡ|chói chang"><option value="">— chọn —</option><option value="lững lờ">lững lờ</option><option value="đen láy">đen láy</option><option value="vui vẻ">vui vẻ</option><option value="rực rỡ">rực rỡ</option><option value="chói chang">chói chang</option><option value="xám xịt">xám xịt</option><option value="vời vợi">vời vợi</option></select><span class="txt">. Nắng</span><select data-key="d5" data-answers="chói chang|rực rỡ"><option value="">— chọn —</option><option value="lững lờ">lững lờ</option><option value="đen láy">đen láy</option><option value="vui vẻ">vui vẻ</option><option value="rực rỡ">rực rỡ</option><option value="chói chang">chói chang</option><option value="xám xịt">xám xịt</option><option value="vời vợi">vời vợi</option></select><span class="txt">. Hé mắt nhìn lên khoảng không, Minh không còn thấy những đám mây</span><select data-key="d6" data-answers="xám xịt"><option value="">— chọn —</option><option value="lững lờ">lững lờ</option><option value="đen láy">đen láy</option><option value="vui vẻ">vui vẻ</option><option value="rực rỡ">rực rỡ</option><option value="chói chang">chói chang</option><option value="xám xịt">xám xịt</option><option value="vời vợi">vời vợi</option></select><span class="txt">nữa. Thay vào đó, cả bầu trời là một màu xanh, cao</span><select data-key="d7" data-answers="vời vợi"><option value="">— chọn —</option><option value="lững lờ">lững lờ</option><option value="đen láy">đen láy</option><option value="vui vẻ">vui vẻ</option><option value="rực rỡ">rực rỡ</option><option value="chói chang">chói chang</option><option value="xám xịt">xám xịt</option><option value="vời vợi">vời vợi</option></select><span class="txt">.</span></div>
+    </div>
+    <div class="feedback" data-explain="a. lững lờ · b. đen láy · c. vui vẻ · d. Mặt trời rực rỡ. Nắng chói chang. (hoặc đổi chỗ hai từ này) … những đám mây xám xịt … cao vời vợi."></div>
+  </div>
+
+</div>
+
+<div class="wrap">
+  <div class="submit-zone">
+    <button class="btn-submit" id="submitBtn">🎉 Nộp bài</button>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-emoji" id="resultEmoji">🚩</div>
+    <div class="result-score" id="resultScore">0 / 26 điểm</div>
+    <div class="result-msg" id="resultMsg"></div>
+    <div class="send-status">Các câu đúng tô màu xanh, câu sai tô màu đỏ kèm lời giải thích. Con kéo lên xem lại và sửa lỗi nhé!</div>
+    <button class="btn-retry" id="retryBtn">↺ Làm lại</button>
+  </div>
+</div>
+
+<footer>Đọc hiểu tuần 14 · Tiếng Việt lớp 4 · Chúc em học vui! 🌈</footer>
+
+<script>
+const qCards = Array.from(document.querySelectorAll('.q-card'));
+const totalGroups = qCards.length;
+
+function normalize(s){
+  return (s||'').toString().normalize('NFC').trim().toLowerCase().replace(/[.,!?;:"'“”()…]/g,' ').replace(/–/g,'-').replace(/\s+/g,' ').trim();
+}
+const DEG_BEFORE=['hơi','khá','rất','quá'], DEG_AFTER=['quá','lắm'], SIZE=['nhỏ','to'];
+function sentenceOk(v){
+  const n = normalize(v); const w = n.split(' ');
+  if(w.length < 4) return false;
+  const animal = w.includes('kiến') || w.includes('voi') || n.includes('hà mã');
+  let combo = false;
+  for(let i=0;i<w.length-1;i++){
+    if(DEG_BEFORE.includes(w[i]) && SIZE.includes(w[i+1])) combo = true;
+    if(SIZE.includes(w[i]) && DEG_AFTER.includes(w[i+1])) combo = true;
+  }
+  return animal && combo;
+}
+function fillFields(group){ return Array.from(group.querySelectorAll('input[type=text], select')); }
+
+function isGroupTouched(card){
+  const mc = card.querySelector('.options[data-type="mc"]');
+  if(mc){ return !!mc.querySelector('input:checked'); }
+  const g = card.querySelector('[data-type="fill"], [data-type="sentence"]');
+  if(g){ return fillFields(g).some(i=>i.value.trim()!==''); }
+  return false;
+}
+function updateProgress(){
+  let answered = 0;
+  qCards.forEach(card=>{ if(isGroupTouched(card)) answered++; });
+  const pct = Math.round((answered/totalGroups)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-walker').style.left = Math.min(96,Math.max(4,pct))+'%';
+  document.getElementById('progress-count').textContent = answered+' / '+totalGroups+' câu';
+}
+qCards.forEach(card=>{
+  card.addEventListener('change', ()=>{
+    card.querySelectorAll('.opt').forEach(o=>{ o.classList.toggle('picked', o.querySelector('input').checked); });
+    updateProgress();
+  });
+  card.addEventListener('input', updateProgress);
+});
+
+function paint(el, ok){
+  const empty = el.value.trim()==='';
+  const col = empty ? '#b9c3d4' : (ok ? '#3fb083' : '#ff6b6b');
+  if(el.tagName==='SELECT' || el.closest('.sent-line')){ el.style.borderColor = col; }
+  else { el.style.borderBottomColor = col; }
+  el.style.color = empty ? '' : (ok ? '#1d7a52' : '#e8523f');
+}
+
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  const nameInput = document.getElementById('studentName');
+  if(nameInput.value.trim()===''){
+    nameInput.style.borderColor = 'var(--coral)'; nameInput.focus();
+    nameInput.placeholder = 'Em nhớ điền tên trước khi nộp bài nhé!';
+    nameInput.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  nameInput.style.borderColor = '#eaeff6';
+  const classInput = document.getElementById('studentClass');
+  if(classInput.value.trim()===''){
+    classInput.style.borderColor = 'var(--coral)'; classInput.focus();
+    classInput.placeholder = 'Em nhớ điền lớp trước khi nộp bài nhé!';
+    classInput.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  classInput.style.borderColor = '#eaeff6';
+
+  const sBtn = document.getElementById('submitBtn');
+  if(sBtn.disabled) return;
+  sBtn.disabled = true;
+  let earned = 0, possible = 0;
+  qCards.forEach(card=>{
+    let groupCorrect = true;
+    const mc = card.querySelector('.options[data-type="mc"]');
+    if(mc){
+      possible += 1;
+      const checked = mc.querySelector('input:checked');
+      const correctVal = mc.getAttribute('data-correct');
+      const isCorrect = !!checked && checked.value === correctVal;
+      if(isCorrect) earned += 1;
+      mc.querySelectorAll('.opt').forEach(o=>{
+        o.classList.toggle('correct-answer', o.querySelector('input').value === correctVal);
+      });
+      groupCorrect = isCorrect;
+    }
+    const fill = card.querySelector('[data-type="fill"]');
+    if(fill){
+      const fields = fillFields(fill);
+      possible += fields.length;
+      const usedSel = [];
+      fields.forEach(f=>{
+        const accepted = (f.getAttribute('data-answers')||'').split('|').map(normalize);
+        let ok = f.value.trim()!=='' && accepted.includes(normalize(f.value));
+        if(f.tagName==='SELECT' && ok){ if(usedSel.includes(f.value)) ok = false; else usedSel.push(f.value); }
+        if(ok) earned += 1; else groupCorrect = false;
+        paint(f, ok);
+      });
+    }
+    const sent = card.querySelector('[data-type="sentence"]');
+    if(sent){
+      const fields = fillFields(sent);
+      possible += fields.length;
+      const seen = [];
+      fields.forEach(f=>{
+        const n = normalize(f.value);
+        const ok = sentenceOk(f.value) && !seen.includes(n);
+        if(n) seen.push(n);
+        if(ok) earned += 1; else groupCorrect = false;
+        paint(f, ok);
+      });
+    }
+    const fb = card.querySelector('.feedback');
+    fb.textContent = (groupCorrect ? '✅ Chính xác! ' : '💡 Chưa đúng hết. ') + fb.getAttribute('data-explain');
+    card.classList.remove('answered','correct','incorrect');
+    card.classList.add(groupCorrect ? 'correct' : 'incorrect');
+  });
+  updateProgress();
+
+  // Gửi kết quả về Google Sheet của giáo viên
+  try {
+    fetch("https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec", {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        bai: "Đọc hiểu tuần 14 - Người lính dũng cảm",
+        hoten: nameInput.value.trim(),
+        lop: classInput.value.trim(),
+        diem: earned,
+        tongdiem: possible
+      })
+    }).catch(()=>{});
+  } catch(e) {}
+
+  const pct = Math.round((earned/possible)*100);
+  document.getElementById('resultScore').textContent = earned+' / '+possible+' điểm';
+  let emoji, msg;
+  if(pct >= 90){ emoji='🏅'; msg='Tuyệt vời! Em đúng là một người lính dũng cảm và giỏi giang!'; }
+  else if(pct >= 70){ emoji='🚩'; msg='Rất tốt! Em sắp chạm tới lá cờ chiến thắng rồi.'; }
+  else if(pct >= 50){ emoji='💪'; msg='Khá lắm! Xem lại vài câu để giỏi hơn nữa nhé.'; }
+  else { emoji='🌱'; msg='Đừng lo, hãy đọc lại bài và thử lần nữa nhé!'; }
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultMsg').textContent = nameInput.value.trim()+' ơi, '+msg;
+  const resultPanel = document.getElementById('resultPanel');
+  resultPanel.classList.add('show');
+  resultPanel.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+document.getElementById('retryBtn').addEventListener('click', ()=>{
+  document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.q-card input[type=text]').forEach(i=>{i.value='';i.style.color='';i.style.borderColor='';i.style.borderBottomColor='';});
+  document.querySelectorAll('select').forEach(s=>{s.value='';s.style.borderColor='';s.style.color='';});
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('picked','correct-answer'));
+  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('answered','correct','incorrect'));
+  document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+  document.getElementById('submitBtn').disabled = false;
+  document.getElementById('resultPanel').classList.remove('show');
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+updateProgress();
+</script>
+</body>
+</html>

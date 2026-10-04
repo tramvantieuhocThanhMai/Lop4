@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Đọc hiểu tuần 9 – Nói lời cổ vũ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1c2145; --ink2:#4a5078; --ivory:#fff8ea; --paper:#ffffff;
+  --flame:#ff7a2f; --gold:#ffc640; --plum:#6b3fa0;
+  --noun:#0f9aa0; --nounbg:#d6f4f3; --verb:#f0651a; --verbbg:#ffe3cf;
+  --err:#d92c6b; --errbg:#ffdbe8; --ok:#1f9d63; --okbg:#dcf6e8; --line:#e9e1cf;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:"Be Vietnam Pro",system-ui,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.7}
+h1,h2,h3,.disp{font-family:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;line-height:1.2;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+
+/* hero */
+.hero{background:radial-gradient(120% 90% at 50% 0%,#3b2f7d 0%,#1c2145 70%);color:#fff;padding:28px 0 0;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:12px;align-items:center}
+.hero .week{display:inline-block;background:var(--gold);color:var(--ink);font-weight:700;border-radius:999px;padding:2px 14px;font-size:15px}
+.hero h1{font-size:clamp(34px,7vw,58px);font-weight:800;margin:10px 0 6px;color:#fff}
+.hero p{margin:0 0 18px;color:#d9d6f5;max-width:34ch}
+.hero svg{width:100%;height:auto;display:block}
+.keys{height:34px;background:
+  repeating-linear-gradient(90deg,transparent 0 26px,#1c2145 26px 28px),
+  #fffdf6;position:relative;border-top:4px solid var(--flame)}
+.keys::before{content:"";position:absolute;left:0;right:0;top:0;height:20px;background:
+  repeating-linear-gradient(90deg,transparent 0 19px,#1c2145 19px 35px,transparent 35px 47px,#1c2145 47px 63px,transparent 63px 103px,#1c2145 103px 119px,transparent 119px 131px,#1c2145 131px 147px,transparent 147px 159px,#1c2145 159px 175px,transparent 175px 196px)}
+@media(max-width:640px){.hero .wrap{grid-template-columns:1fr}.hero p{max-width:none}}
+
+/* sticky progress */
+.bar{position:sticky;top:0;z-index:20;background:rgba(255,248,234,.96);border-bottom:1px solid var(--line);padding:8px 0}
+.bar .wrap{display:flex;align-items:center;gap:12px}
+.track{flex:1;height:12px;background:#efe6d2;border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--flame));border-radius:99px;transition:width .3s}
+.count{font-weight:700;font-size:14px;white-space:nowrap}
+
+/* student */
+.student{background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:16px 18px;margin:22px 0;display:grid;grid-template-columns:2fr 1fr;gap:12px;box-shadow:5px 5px 0 var(--gold)}
+.student label{font-weight:700;font-size:14px;display:block}
+.student input{width:100%;font:inherit;padding:9px 12px;border:2px solid #d9d2bf;border-radius:10px;background:#fffdf7;color:var(--ink)}
+@media(max-width:520px){.student{grid-template-columns:1fr}}
+input:focus,textarea:focus,.tok:focus-visible,button:focus-visible{outline:3px solid var(--plum);outline-offset:2px}
+
+.part{display:flex;align-items:center;gap:12px;margin:34px 0 14px}
+.part h2{font-size:30px;font-weight:800}
+.part .note{font-size:28px}
+
+/* reading */
+.story{background:var(--paper);border-radius:20px;padding:22px clamp(16px,4vw,34px);border:1px solid var(--line);position:relative}
+.story h3{font-size:28px;text-align:center;color:var(--plum);margin-bottom:10px}
+.story p{margin:0 0 12px;text-indent:1.6em;text-align:justify}
+.story .by{text-align:right;text-indent:0;margin:0}
+.story .quote{background:#fff3d6;border-left:6px solid var(--flame);border-radius:0 14px 14px 0;padding:10px 14px;text-indent:0;font-weight:600}
+
+/* cards */
+.q{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:18px clamp(14px,3.5vw,24px);margin:16px 0;border-left:8px solid var(--gold)}
+.q.correct{border-left-color:var(--ok)} .q.incorrect{border-left-color:var(--err)}
+.q .qt{font-weight:700;margin:0 0 10px}
+.q .num{display:inline-grid;place-items:center;min-width:32px;height:32px;padding:0 6px;border-radius:10px;background:var(--ink);color:#fff;font-family:"Baloo 2",sans-serif;margin-right:8px}
+.q .sub{font-weight:700;margin:14px 0 6px}
+.q .art{float:right;width:150px;margin:0 0 8px 14px}
+.q .art svg{width:100%;height:auto;display:block}
+@media(max-width:520px){.q .art{float:none;margin:0 auto 10px;width:170px}}
+.clear{clear:both}
+
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:2px solid #ece5d3;border-radius:12px;margin:8px 0;cursor:pointer;background:#fffdf7}
+.opt input{margin-top:7px;accent-color:var(--plum);width:17px;height:17px;flex:none}
+.opt.picked{border-color:var(--plum);background:#f3ecfb}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--err);background:var(--errbg)}
+.explain{display:none;margin-top:8px;padding:8px 12px;border-radius:10px;background:#f1f5ff;font-size:15px}
+.graded .explain{display:block}
+
+textarea{width:100%;min-height:86px;font:inherit;padding:10px 12px;border:2px dashed #cdbf9c;border-radius:12px;background:#fffdf7;color:var(--ink);resize:vertical}
+.free{font-size:14px;color:var(--ink2);margin:6px 0 0}
+
+/* pen board */
+.pens{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 10px}
+.pen{font:inherit;font-weight:700;border:2px solid currentColor;border-radius:999px;padding:4px 14px;background:#fff;cursor:pointer}
+.pen[data-pen=n]{color:var(--noun)} .pen[data-pen=v]{color:var(--verb)} .pen[data-pen=x]{color:var(--err)}
+.pen.on[data-pen=n]{background:var(--noun);color:#fff;border-color:var(--noun)}
+.pen.on[data-pen=v]{background:var(--verb);color:#fff;border-color:var(--verb)}
+.pen.on[data-pen=x]{background:var(--err);color:#fff;border-color:var(--err)}
+.board{background:#fffdf5;border:2px solid #efe6d2;border-radius:14px;padding:14px 16px;line-height:2.25;font-size:18px}
+.board .ttl{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:20px;text-align:center;display:block;line-height:1.4}
+.tok{cursor:pointer;border-radius:7px;padding:2px 3px;border-bottom:2px dotted #c9bd9f;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background .15s}
+.tok:hover{background:#f4ecd8}
+.tok.m-n{background:var(--nounbg);border-bottom:3px solid var(--noun)}
+.tok.m-v{background:var(--verbbg);border-bottom:3px solid var(--verb)}
+.tok.m-x{background:var(--errbg);border-bottom:3px solid var(--err)}
+.tok.g-ok::after{content:" ✓";color:var(--ok);font-weight:700}
+.tok.g-bad{text-decoration:line-through;text-decoration-color:var(--err);text-decoration-thickness:2px}
+.tok.g-bad::after{content:" ✗";color:var(--err);font-weight:700}
+.tok.g-miss{outline:2px dashed var(--plum);outline-offset:1px}
+.bfb{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;background:#f1f5ff;font-size:15px;line-height:1.6}
+.bfb.show{display:block}
+.by2{text-align:right;font-style:italic;margin:4px 0 0}
+
+/* text answers */
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+.ans{font:inherit;padding:7px 10px;border:none;border-bottom:3px solid #c9bd9f;background:#fffdf5;border-radius:8px 8px 0 0;min-width:150px;flex:1 1 180px;max-width:100%;color:var(--ink)}
+.ans.short{flex:0 1 170px}
+.ans.ok{border-bottom-color:var(--ok);background:var(--okbg);color:#12673f;font-weight:600}
+.ans.no{border-bottom-color:var(--err);background:var(--errbg);color:#a31a4c}
+.fb{flex-basis:100%;font-size:14.5px;display:none}
+.fb.show{display:block}
+.fb b{color:var(--ok)}
+.riddles{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.riddle{background:#f4f8ff;border-radius:14px;padding:12px 14px;border:2px solid #dbe6fb}
+.riddle svg{width:100%;height:auto;border-radius:10px;display:block;margin-bottom:8px}
+.riddle .poem{font-style:italic;margin:0 0 6px;line-height:1.6}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 18px}
+.pair .w{font-weight:700;min-width:84px}
+.verse{background:#fffdf5;border:2px solid #efe6d2;border-radius:14px;padding:10px 16px;font-size:18px;line-height:2.1;margin:6px 0}
+
+/* submit + result */
+.submit{display:block;margin:30px auto 10px;font-family:"Baloo 2",sans-serif;font-size:24px;font-weight:800;color:var(--ink);background:var(--gold);border:3px solid var(--ink);border-radius:18px;padding:10px 34px;cursor:pointer;box-shadow:5px 5px 0 var(--ink)}
+.submit:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.warn{text-align:center;color:var(--err);font-weight:700;min-height:1.6em}
+.result{display:none;background:radial-gradient(120% 120% at 50% 0%,#3b2f7d,#1c2145);color:#fff;border-radius:22px;padding:26px 20px;text-align:center;margin:18px 0 40px}
+.result.show{display:block}
+.result .big{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:46px;color:var(--gold)}
+.result .emo{font-size:52px;line-height:1}
+.result table{margin:14px auto 0;border-collapse:collapse;font-size:15px}
+.result td{padding:3px 12px;border-bottom:1px solid rgba(255,255,255,.18);text-align:left}
+.result td:last-child{text-align:right;font-weight:700}
+.retry{margin-top:16px;font:inherit;font-weight:700;background:#fff;color:var(--ink);border:none;border-radius:12px;padding:9px 20px;cursor:pointer}
+footer{height:30px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <span class="week">Tiếng Việt 4 · Đọc hiểu tuần 9</span>
+      <h1>Nói lời cổ vũ</h1>
+      <p>Một lời động viên có thể thắp lên ngọn lửa đam mê. Em hãy đọc truyện rồi làm bài nhé!</p>
+    </div>
+    <svg viewBox="0 0 420 300" role="img" aria-label="Cậu bé ngồi chơi đàn dương cầm, những nốt nhạc bay lên">
+      <ellipse cx="210" cy="150" rx="190" ry="140" fill="#ffc640" opacity=".13"/>
+      <ellipse cx="210" cy="278" rx="180" ry="16" fill="#0f1230" opacity=".6"/>
+      <!-- grand piano -->
+      <path d="M150 150 q10 -58 90 -62 q70 -2 96 30 q20 26 44 28 v40 h-230z" fill="#0f1230" stroke="#ffc640" stroke-width="3"/>
+      <path d="M168 100 l150 -70 l6 8 l-112 68z" fill="#2b2f63" stroke="#ffc640" stroke-width="2"/>
+      <line x1="300" y1="42" x2="300" y2="118" stroke="#ffc640" stroke-width="3"/>
+      <rect x="140" y="186" width="244" height="22" rx="4" fill="#fffdf6" stroke="#0f1230" stroke-width="2"/>
+      <g fill="#0f1230"><rect x="152" y="186" width="8" height="13"/><rect x="168" y="186" width="8" height="13"/><rect x="194" y="186" width="8" height="13"/><rect x="210" y="186" width="8" height="13"/><rect x="226" y="186" width="8" height="13"/><rect x="252" y="186" width="8" height="13"/><rect x="268" y="186" width="8" height="13"/><rect x="294" y="186" width="8" height="13"/><rect x="310" y="186" width="8" height="13"/><rect x="326" y="186" width="8" height="13"/><rect x="352" y="186" width="8" height="13"/><rect x="368" y="186" width="8" height="13"/></g>
+      <rect x="140" y="208" width="244" height="14" fill="#0f1230"/>
+      <rect x="158" y="222" width="10" height="54" fill="#0f1230"/><rect x="356" y="222" width="10" height="54" fill="#0f1230"/><rect x="262" y="222" width="8" height="50" fill="#0f1230"/>
+      <!-- stool + boy -->
+      <rect x="52" y="226" width="62" height="10" rx="4" fill="#ff7a2f"/><rect x="60" y="236" width="7" height="40" fill="#c9541a"/><rect x="99" y="236" width="7" height="40" fill="#c9541a"/>
+      <path d="M62 226 q-4 -62 26 -66 q28 2 24 66z" fill="#5ac8c0"/>
+      <path d="M98 176 q30 2 52 16" stroke="#5ac8c0" stroke-width="13" stroke-linecap="round" fill="none"/>
+      <circle cx="153" cy="193" r="7" fill="#ffd9b5"/>
+      <path d="M72 226 h36 q22 2 22 22 v28 h-14 v-24 h-44z" fill="#2b2f63"/>
+      <ellipse cx="124" cy="277" rx="13" ry="6" fill="#0f1230"/>
+      <circle cx="88" cy="134" r="27" fill="#ffd9b5"/>
+      <path d="M61 132 q0 -32 29 -31 q28 2 26 26 q-18 -2 -28 -14 q-8 14 -27 19z" fill="#5a3418"/>
+      <circle cx="98" cy="137" r="3" fill="#1c2145"/><path d="M94 148 q7 6 14 0" stroke="#c9541a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <circle cx="104" cy="144" r="5" fill="#ff9e7a" opacity=".6"/>
+      <!-- notes -->
+      <g fill="#ffc640"><ellipse cx="196" cy="62" rx="9" ry="7"/><rect x="203" y="26" width="3.5" height="37"/><path d="M203 26 q16 4 14 20 q-4 -9 -14 -9z"/></g>
+      <g fill="#ff7a2f"><ellipse cx="352" cy="74" rx="8" ry="6"/><ellipse cx="378" cy="66" rx="8" ry="6"/><rect x="357" y="38" width="3" height="37"/><rect x="383" y="30" width="3" height="37"/><path d="M357 38 l29 -8 v8 l-29 8z"/></g>
+      <g fill="#fff"><ellipse cx="60" cy="72" rx="7" ry="5.5"/><rect x="65" y="44" width="3" height="29"/></g>
+      <path d="M262 30 l3 8 l8 3 l-8 3 l-3 8 l-3 -8 l-8 -3 l8 -3z" fill="#fff"/><path d="M120 40 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2z" fill="#ffc640"/>
+    </svg>
+  </div>
+  <div class="keys" aria-hidden="true"></div>
+</header>
+
+<div class="bar"><div class="wrap">
+  <span aria-hidden="true">🎵</span>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <span class="count" id="count">0 / 12 câu</span>
+</div></div>
+
+<main class="wrap">
+
+<section class="student">
+  <div><label for="studentName">Họ và tên</label><input id="studentName" type="text" placeholder="Nhập họ và tên của em..." autocomplete="name"></div>
+  <div><label for="studentClass">Lớp</label><input id="studentClass" type="text" placeholder="VD: 4A"></div>
+</section>
+
+<div class="part"><span class="note">📖</span><h2>I. Đọc</h2></div>
+<p><i>Em hãy đọc thầm văn bản sau:</i></p>
+
+<article class="story">
+  <h3>Nói lời cổ vũ</h3>
+  <p>Một cậu bé người Ba Lan muốn học đàn dương cầm, thế nhưng cha cậu lại bảo mấy ngón tay của cậu múp míp và ngắn quá, không thể nào chơi đàn hay được. Ông khuyên cậu hãy thử học chơi kèn, thế rồi sau đó một nhạc công chuyên nghiệp lại nói rằng cậu không có được đôi môi thích hợp.</p>
+  <p>Một ngày kia, cậu được gặp gỡ nhạc sĩ dương cầm lừng danh An-tôn Ru-bin-xtên. Con người nổi tiếng này đã trao cho cậu một lời khích lệ mà trước đây cậu chưa từng được nghe:</p>
+  <p class="quote">“Này chú bé, chú có thể chơi pi-a-nô được đấy! Ta nghĩ là chú có thể chơi được... nếu như chú chịu khó luyện tập 7 tiếng mỗi ngày.”</p>
+  <p>Ôi chao, đó mới thực sự là nguồn cổ vũ lớn lao mà cậu cần đến. Ru-bin-xtên vĩ đại đã bảo là cậu có thể chơi đàn được! Cậu sẽ phải bỏ rất nhiều thời gian để luyện tập nếu muốn chơi đàn, nhưng mà cậu có thể chơi được! Thậm chí có thể chơi giỏi! An-tôn Ru-bin-xtên đã nói như vậy mà!</p>
+  <p>Cậu bé về miệt mài tập luyện, cậu bỏ ra nhiều giờ mỗi ngày, và sau nhiều năm, công lao khó nhọc của cậu đã được tặng thưởng: Gian Pa-đơ-riêu-xki trở thành một trong những nghệ sĩ dương cầm lừng danh nhất thời bấy giờ. Một lời động viên đơn giản đã mang đến nội lực làm bừng lên ngọn lửa đam mê trong lòng một cậu bé, ngọn lửa ấy vẫn cháy sáng mãi trong nhiều năm trời.</p>
+  <p>Hãy nhớ rằng những lời động viên mà bạn đang trao gửi hôm nay đôi khi làm thay đổi được mãi mãi một cuộc đời của người đã đón nhận nó.</p>
+  <p class="by"><i>Theo</i> Thu Hà</p>
+</article>
+
+<p style="margin-top:22px"><i>Dựa vào nội dung bài đọc, em hãy chọn câu trả lời đúng nhất hoặc làm theo yêu cầu:</i></p>
+
+<section class="q" data-kind="mc" data-correct="A">
+  <p class="qt"><span class="num">1</span>Cậu bé trong câu chuyện đã học chơi những loại nhạc cụ nào?</p>
+  <label class="opt"><input type="radio" name="q1" value="A"><span><b>A.</b> dương cầm, kèn</span></label>
+  <label class="opt"><input type="radio" name="q1" value="B"><span><b>B.</b> kèn, vi-ô-lông</span></label>
+  <label class="opt"><input type="radio" name="q1" value="C"><span><b>C.</b> vi-ô-lông, dương cầm</span></label>
+  <div class="explain">Đáp án <b>A</b>. Cậu muốn học đàn dương cầm, sau đó cha khuyên cậu thử học chơi kèn.</div>
+</section>
+
+<section class="q" data-kind="mc" data-correct="B">
+  <p class="qt"><span class="num">2</span>Vì sao cha cậu khuyên cậu không nên học đàn dương cầm?</p>
+  <label class="opt"><input type="radio" name="q2" value="A"><span><b>A.</b> Vì cậu không có đôi môi thích hợp.</span></label>
+  <label class="opt"><input type="radio" name="q2" value="B"><span><b>B.</b> Vì các ngón tay của cậu múp míp và ngắn quá.</span></label>
+  <label class="opt"><input type="radio" name="q2" value="C"><span><b>C.</b> Vì cậu không có năng khiếu.</span></label>
+  <div class="explain">Đáp án <b>B</b>. Cha bảo mấy ngón tay của cậu múp míp và ngắn quá. (Đôi môi không thích hợp là lời của người nhạc công nói về việc thổi kèn.)</div>
+</section>
+
+<section class="q" data-kind="mc" data-correct="A">
+  <p class="qt"><span class="num">3</span>Nhờ đâu sau này cậu trở thành một nghệ sĩ dương cầm lừng danh?</p>
+  <label class="opt"><input type="radio" name="q3" value="A"><span><b>A.</b> Vì lời động viên lớn lao của nghệ sĩ pi-a-nô An-tôn Ru-bin-xtên đã khiến cậu tự tin và luyện tập miệt mài.</span></label>
+  <label class="opt"><input type="radio" name="q3" value="B"><span><b>B.</b> Vì cậu có năng khiếu đặc biệt.</span></label>
+  <label class="opt"><input type="radio" name="q3" value="C"><span><b>C.</b> Vì cậu có thầy giáo giỏi.</span></label>
+  <div class="explain">Đáp án <b>A</b>. Lời khích lệ của Ru-bin-xtên là nguồn cổ vũ lớn lao, giúp cậu miệt mài tập luyện nhiều năm.</div>
+</section>
+
+<section class="q" data-kind="mc" data-correct="B">
+  <p class="qt"><span class="num">4</span>Câu chuyện muốn nói với em điều gì?</p>
+  <label class="opt"><input type="radio" name="q4" value="A"><span><b>A.</b> Hãy luôn dành lời khen mọi người, những lời khen ấy làm cho người khác phấn khởi và tự tin trong cuộc sống.</span></label>
+  <label class="opt"><input type="radio" name="q4" value="B"><span><b>B.</b> Hãy biết nói những lời động viên mọi người vì có thể những lời động viên đó sẽ làm thay đổi cuộc đời của một con người.</span></label>
+  <label class="opt"><input type="radio" name="q4" value="C"><span><b>C.</b> Hãy miệt mài học tập thì sẽ đạt được thành công.</span></label>
+  <div class="explain">Đáp án <b>B</b>. Câu cuối bài nhắc: lời động viên hôm nay có thể làm thay đổi mãi mãi một cuộc đời.</div>
+</section>
+
+<section class="q" data-kind="free">
+  <p class="qt"><span class="num">5</span>Hãy nhớ lại và ghi lại lời động viên em dành cho người khác hoặc người khác đã dành cho em.</p>
+  <textarea aria-label="Câu trả lời câu 5" placeholder="Em viết ở đây nhé..."></textarea>
+  <p class="free">✍️ Câu này em tự viết theo trải nghiệm của mình, máy không chấm điểm.</p>
+  <div class="explain">Gợi ý: “Con cứ bình tĩnh, mẹ tin con làm được!” – “Cố lên, cậu sắp về đích rồi!” – “Lần này chưa được thì mình thử lại, tớ luôn ủng hộ cậu.”</div>
+</section>
+
+<div class="part"><span class="note">🎹</span><h2>II. Luyện tập</h2></div>
+
+<section class="q" data-kind="board" data-board="b1">
+  <p class="qt"><span class="num">1</span>Đọc đoạn văn dưới đây và thực hiện yêu cầu:</p>
+  <p style="margin:0"><b>a.</b> Chọn <b style="color:var(--verb)">bút cam</b> rồi bấm vào các <b>động từ</b> để gạch dưới.<br><b>b.</b> Chọn <b style="color:var(--noun)">bút xanh</b> rồi bấm vào các <b>danh từ</b>.</p>
+  <p class="free" style="margin-bottom:6px">Bấm lại vào từ một lần nữa để xoá dấu.</p>
+  <div id="b1"></div>
+</section>
+
+<section class="q" data-kind="sets">
+  <p class="qt"><span class="num">2</span>Tìm trong bài đọc “Nói lời cổ vũ” 3 danh từ riêng và ghi lại:</p>
+  <p class="free" style="margin-top:0">Em nhớ viết hoa đúng quy tắc nhé.</p>
+  <div class="row" data-set="s2">
+    <input class="ans" aria-label="Danh từ riêng thứ nhất" placeholder="Danh từ riêng 1"><input class="ans" aria-label="Danh từ riêng thứ hai" placeholder="Danh từ riêng 2"><input class="ans" aria-label="Danh từ riêng thứ ba" placeholder="Danh từ riêng 3">
+    <div class="fb"></div>
+  </div>
+</section>
+
+<section class="q" data-kind="board" data-board="b3">
+  <div class="art"><svg viewBox="0 0 200 150" role="img" aria-label="Giàn mướp bắc ra mặt ao">
+    <rect width="200" height="150" rx="14" fill="#dff3ff"/><circle cx="168" cy="28" r="15" fill="#ffc640"/>
+    <rect y="108" width="200" height="42" fill="#7cc9e8"/><path d="M0 118 q25 -8 50 0 t50 0 t50 0 t50 0" stroke="#fff" stroke-width="2" fill="none" opacity=".7"/>
+    <path d="M0 108 h70 v42 h-70z" fill="#8a5a2b" opacity=".0"/>
+    <rect x="22" y="48" width="5" height="90" fill="#8a5a2b"/><rect x="150" y="48" width="5" height="90" fill="#8a5a2b"/><rect x="86" y="48" width="5" height="80" fill="#8a5a2b"/>
+    <rect x="12" y="44" width="156" height="6" rx="3" fill="#a06a34"/>
+    <g fill="#3fae5a"><ellipse cx="34" cy="40" rx="20" ry="11"/><ellipse cx="70" cy="36" rx="22" ry="12"/><ellipse cx="108" cy="40" rx="22" ry="11"/><ellipse cx="144" cy="37" rx="20" ry="12"/></g>
+    <g fill="#2c8f47"><ellipse cx="52" cy="46" rx="14" ry="7"/><ellipse cx="126" cy="46" rx="14" ry="7"/></g>
+    <g fill="#ffd93b"><circle cx="46" cy="32" r="5"/><circle cx="98" cy="30" r="5"/><circle cx="140" cy="46" r="5"/></g>
+    <g fill="#6cc24a" stroke="#2c8f47" stroke-width="1.5"><rect x="56" y="50" width="10" height="34" rx="5"/><rect x="112" y="50" width="10" height="42" rx="5"/><rect x="134" y="52" width="9" height="26" rx="4.5"/></g>
+    <path d="M30 50 q-8 12 0 20 q6 6 -2 14" stroke="#2c8f47" stroke-width="2" fill="none"/>
+  </svg></div>
+  <p class="qt"><span class="num">3</span>Tìm các danh từ và động từ có trong đoạn văn dưới đây:</p>
+  <p style="margin:0">Chọn <b style="color:var(--noun)">bút xanh</b> để tô <b>danh từ</b>, <b style="color:var(--verb)">bút cam</b> để tô <b>động từ</b>, rồi bấm vào từ.</p>
+  <div class="clear"></div>
+  <div id="b3"></div>
+  <p class="by2">Theo Vũ Tú Nam</p>
+</section>
+
+<section class="q" data-kind="board+sets" data-board="b4">
+  <div class="art"><svg viewBox="0 0 200 150" role="img" aria-label="Ngôi trường trên đảo giữa biển">
+    <rect width="200" height="150" rx="14" fill="#cfeeff"/><circle cx="34" cy="30" r="14" fill="#ffc640"/>
+    <path d="M120 30 q8 -6 16 0 q8 -6 16 0" stroke="#1c2145" stroke-width="2" fill="none"/>
+    <rect y="96" width="200" height="54" fill="#2f9fd6"/>
+    <path d="M30 104 q70 -44 140 0z" fill="#f2d48a"/><path d="M52 98 q48 -30 96 0z" fill="#58b368"/>
+    <rect x="78" y="58" width="50" height="30" fill="#fff6dd" stroke="#1c2145" stroke-width="2"/><path d="M72 60 l31 -18 l31 18z" fill="#e0483e" stroke="#1c2145" stroke-width="2"/>
+    <rect x="98" y="70" width="10" height="18" fill="#8a5a2b"/><rect x="83" y="66" width="9" height="9" fill="#7cc9e8"/><rect x="114" y="66" width="9" height="9" fill="#7cc9e8"/>
+    <line x1="140" y1="34" x2="140" y2="88" stroke="#1c2145" stroke-width="2"/><rect x="140" y="34" width="22" height="15" fill="#da251d"/><path d="M151 37 l1.4 3.5 h3.6 l-2.9 2.2 l1.1 3.5 l-3.2 -2.1 l-3.2 2.1 l1.1 -3.5 l-2.9 -2.2 h3.6z" fill="#ffde00"/>
+    <circle cx="62" cy="76" r="12" fill="#2c8f47"/><rect x="60" y="84" width="4" height="12" fill="#8a5a2b"/>
+    <path d="M0 116 q25 -9 50 0 t50 0 t50 0 t50 0" stroke="#fff" stroke-width="2.5" fill="none"/><path d="M0 134 q25 -9 50 0 t50 0 t50 0 t50 0" stroke="#fff" stroke-width="2.5" fill="none" opacity=".6"/>
+  </svg></div>
+  <p class="qt"><span class="num">4</span>Bấm vào tên các cơ quan, tổ chức / danh từ riêng <u>chưa viết hoa đúng quy tắc</u>, rồi sửa lại cho đúng:</p>
+  <div class="clear"></div>
+  <div id="b4"></div>
+  <p class="by2">Phan Phùng Duy</p>
+  <p class="sub">Sửa lại (có 3 tên cần sửa):</p>
+  <div class="row" data-set="s4" style="flex-direction:column;align-items:stretch">
+    <input class="ans" style="flex:none" aria-label="Tên sửa lại thứ nhất" placeholder="Tên viết đúng thứ nhất">
+    <input class="ans" style="flex:none" aria-label="Tên sửa lại thứ hai" placeholder="Tên viết đúng thứ hai">
+    <input class="ans" style="flex:none" aria-label="Tên sửa lại thứ ba" placeholder="Tên viết đúng thứ ba">
+    <div class="fb"></div>
+  </div>
+</section>
+
+<section class="q" data-kind="board+sets" data-board="b5a,b5b">
+  <div class="art"><svg viewBox="0 0 200 150" role="img" aria-label="Chú chim hót và giàn bầu bí">
+    <rect width="200" height="150" rx="14" fill="#fff1c9"/>
+    <rect x="8" y="26" width="184" height="6" rx="3" fill="#a06a34"/>
+    <g fill="#3fae5a"><ellipse cx="40" cy="24" rx="20" ry="9"/><ellipse cx="96" cy="22" rx="24" ry="10"/><ellipse cx="156" cy="24" rx="22" ry="9"/></g>
+    <path d="M128 32 q-12 26 0 44 q-8 16 0 30 q14 12 28 0 q8 -14 0 -30 q12 -18 0 -44z" fill="#9fd66b" stroke="#2c8f47" stroke-width="2"/>
+    <ellipse cx="170" cy="62" rx="14" ry="28" fill="#ffb347" stroke="#c9541a" stroke-width="2"/>
+    <ellipse cx="62" cy="90" rx="26" ry="20" fill="#5ac8c0"/><circle cx="84" cy="74" r="14" fill="#5ac8c0"/><path d="M96 72 l14 4 l-14 5z" fill="#ff7a2f"/><circle cx="87" cy="71" r="2.5" fill="#1c2145"/>
+    <path d="M40 86 q-22 -4 -28 12 q18 6 30 -2z" fill="#2f9f98"/><path d="M52 108 v14 M68 109 v13" stroke="#ff7a2f" stroke-width="3"/>
+    <g fill="#6b3fa0"><ellipse cx="116" cy="54" rx="5" ry="4"/><rect x="119.5" y="38" width="2" height="16"/></g>
+  </svg></div>
+  <p class="qt"><span class="num">5</span>Bấm vào từ viết sai chính tả trong các thành ngữ, tục ngữ sau và viết lại cho đúng:</p>
+  <div class="clear"></div>
+  <p class="sub">a.</p>
+  <div id="b5a"></div>
+  <div class="row" data-set="s5a"><span>Viết lại cho đúng:</span><input class="ans short" aria-label="Từ viết đúng ở câu a" placeholder="từ đúng"><div class="fb"></div></div>
+  <p class="sub">b.</p>
+  <div id="b5b"></div>
+  <div class="row" data-set="s5b"><span>Viết lại cho đúng:</span><input class="ans short" aria-label="Từ viết đúng thứ nhất ở câu b" placeholder="từ đúng 1"><input class="ans short" aria-label="Từ viết đúng thứ hai ở câu b" placeholder="từ đúng 2"><div class="fb"></div></div>
+</section>
+
+<section class="q" data-kind="sets">
+  <p class="qt"><span class="num">6</span>Giải câu đố và viết lại các địa danh được nhắc đến ở mỗi câu đố:</p>
+  <div class="riddles">
+    <div class="riddle">
+      <svg viewBox="0 0 220 90" aria-hidden="true"><rect width="220" height="90" fill="#e6f6ff"/><path d="M20 62 q50 -50 110 0z" fill="#58b368"/><path d="M0 62 h220 v28 h-220z" fill="#6cc0ea"/><path d="M150 62 l4 -22 h30 l4 22z" fill="#b5533c"/><path d="M148 42 h42 l-6 -8 h-30z" fill="#ffc640"/><path d="M70 76 q10 -6 20 0 M120 80 q10 -6 20 0" stroke="#fff" stroke-width="2" fill="none"/></svg>
+      <p class="poem">Cố đô đây xứ nổi danh<br>Non xanh nước biếc như tranh hoạ đồ<br>Núi gì, sông gì điểm tô?</p>
+      <div class="row" data-set="s6a"><span>Là núi</span><input class="ans short" aria-label="Tên núi"><div class="fb"></div></div>
+      <div class="row" data-set="s6b"><span>và sông</span><input class="ans short" aria-label="Tên sông ở câu đố 1"><div class="fb"></div></div>
+    </div>
+    <div class="riddle">
+      <svg viewBox="0 0 220 90" aria-hidden="true"><rect width="220" height="90" fill="#ffe9c9"/><rect y="48" width="220" height="42" fill="#5aa9d6"/><g fill="#6b4423"><path d="M40 90 l5 -50 l5 50z"/><path d="M78 90 l5 -58 l5 58z"/><path d="M118 90 l5 -52 l5 52z"/><path d="M158 90 l5 -60 l5 60z"/><path d="M192 90 l5 -48 l5 48z"/></g><path d="M0 60 q14 -6 28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0 t28 0" stroke="#fff" stroke-width="2" fill="none"/></svg>
+      <p class="poem">Giữa dòng từng đóng cọc lim<br>Mấy đời thuyền giặc tan chìm nơi đây.</p>
+      <div class="row" data-set="s6c"><span>Là sông</span><input class="ans short" aria-label="Tên sông ở câu đố 2"><div class="fb"></div></div>
+    </div>
+    <div class="riddle">
+      <svg viewBox="0 0 220 90" aria-hidden="true"><rect width="220" height="90" fill="#dff6f1"/><rect y="56" width="220" height="34" fill="#2fb3a6"/><path d="M18 60 q6 -44 26 -40 q14 6 14 40z" fill="#5d8f6a"/><path d="M78 60 q4 -30 18 -28 q12 4 12 28z" fill="#7aa884"/><path d="M130 60 q8 -52 30 -46 q16 8 16 46z" fill="#4f7f5c"/><path d="M186 60 q4 -22 14 -20 q8 3 8 20z" fill="#7aa884"/><path d="M96 76 h34 l-6 8 h-22z" fill="#8a5a2b"/><path d="M112 76 v-22 l16 18z" fill="#e0483e"/></svg>
+      <p class="poem">Vịnh nào xanh biếc mênh mông<br>Núi non giăng hàng, ngàn ngọn gần xa<br>Kì quan thế giới chẳng ngoa<br>Năm châu khen ngợi đúng là cảnh tiên.</p>
+      <div class="row" data-set="s6d"><span>Là vịnh</span><input class="ans short" aria-label="Tên vịnh"><div class="fb"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="q" data-kind="sets">
+  <p class="qt"><span class="num">7</span>Tìm từ có nghĩa giống với mỗi từ dưới đây và đặt câu với mỗi từ vừa tìm được:</p>
+  <div class="pair">
+    <div class="row" data-set="s7a"><span class="w">lo lắng –</span><input class="ans short" aria-label="Từ có nghĩa giống lo lắng"><div class="fb"></div></div>
+    <div class="row" data-set="s7b"><span class="w">thì thào –</span><input class="ans short" aria-label="Từ có nghĩa giống thì thào"><div class="fb"></div></div>
+    <div class="row" data-set="s7c"><span class="w">ngạo mạn –</span><input class="ans short" aria-label="Từ có nghĩa giống ngạo mạn"><div class="fb"></div></div>
+    <div class="row" data-set="s7d"><span class="w">xao nhãng –</span><input class="ans short" aria-label="Từ có nghĩa giống xao nhãng"><div class="fb"></div></div>
+  </div>
+  <p class="sub">Đặt câu với mỗi từ em vừa tìm được:</p>
+  <textarea aria-label="Đặt câu ở bài 7" placeholder="Em viết 4 câu ở đây nhé..." style="min-height:120px"></textarea>
+  <p class="free">✍️ Phần đặt câu máy không chấm điểm.</p>
+  <div class="explain">Câu mẫu: Mẹ <b>lo âu</b> khi em về muộn. – Hai bạn <b>thì thầm</b> to nhỏ ở cuối lớp. – Bạn ấy học giỏi nhưng không hề <b>kiêu ngạo</b>. – Em không <b>lơ là</b> việc học.</div>
+</section>
+
+<button class="submit" id="submitBtn" type="button">🎼 Nộp bài</button>
+<p class="warn" id="warn" role="alert"></p>
+
+<section class="result" id="resultPanel" aria-live="polite">
+  <div class="emo" id="resultEmoji"></div>
+  <div class="big" id="resultScore"></div>
+  <p id="resultMsg" style="margin:6px 0 0"></p>
+  <table id="resultTable"></table>
+  <p style="font-size:14px;color:#d9d6f5;margin:12px 0 0">Em kéo lên xem lại: dấu ✓ là đúng, dấu ✗ là sai, từ có viền nét đứt là từ em còn bỏ sót.</p>
+  <button class="retry" id="retryBtn" type="button">Làm lại từ đầu</button>
+</section>
+</main>
+<footer></footer>
+
+<script>
+"use strict";
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec";
+var BAI = "Đọc hiểu tuần 9 - Nói lời cổ vũ";
+
+/* ---------- DỮ LIỆU ---------- */
+var PEN_NAME = {n:"Danh từ", v:"Động từ", x:"Viết sai"};
+var BOARDS = {
+  b1:{pens:["v","n"], text:"{Cậu bé|n} {về|v} {miệt mài} {tập luyện|v}, {cậu|n} {bỏ ra|v} {nhiều} {giờ|n} {mỗi} {ngày|n}, {và} {sau} {nhiều} {năm|n}, {công lao|n} {khó nhọc} {của} {cậu|n} {đã} {được tặng thưởng|v}: {Gian Pa-đơ-riêu-xki|n} {trở thành|v} {một} {trong} {những} {nghệ sĩ|n} {dương cầm|n} {lừng danh} {nhất} {thời|n} {bấy giờ}."},
+  b3:{pens:["n","v"], text:"{Cái giàn mướp|n} {bố|n} {tôi} {bắc|v} {chìa ra|v} {mặt ao|n} {như} {mái nhà|n}. {Mầm cây|n} {mới} {lên|v} {chỉ} {có|v} {mấy} {cái lá|n} {mảnh mai}, {màu|n} {xanh} {như} {men sứ|n}. {Ít} {hôm|n} {sau}, {mướp|n} {đã} {leo|v} {thoăn thoắt} {lên tới} {mặt giàn|n}. {Những} {tay mướp|n} {mềm mại}, {thanh mảnh}, {ngóc lên|v} {rung rinh|v} {trước} {gió|n}. {Chẳng bao lâu}, {giàn mướp|n} {đã} {xanh um} {những} {lá|n}."},
+  b4:{pens:["x"], title:"Ngôi trường nơi đầu ngọn sóng", text:"{Trường tiểu học Sinh tồn|x} nằm giữa những hàng {cây phong ba}, {cây bàng vuông} xanh thẫm trên {đảo Sinh Tồn} đầy nắng gió. Hằng năm, trường đều nhận được sự quan tâm, hỗ trợ của {uỷ ban nhân dân xã Sinh Tồn|x}, {Câu lạc bộ Vì Hoàng sa – Trường sa thân yêu|x},... Ở nơi đầu ngọn sóng, các bạn nhỏ ngày một trưởng thành và thêm yêu {biển đảo quê hương}."},
+  b5a:{pens:["x"], text:"{Chim} {khôn} {kêu} {tiếng} {dảnh dang|x}\n{Người} {khôn} {nói} {tiếng} {dịu dàng} {dễ} {nghe}"},
+  b5b:{pens:["x"], text:"{Bầu} {ơi} {thương} {lấy} {bí} {cùng}\n{Tuy} {rằng} {khác} {dống|x} {nhưng} {chung} {một} {dàn|x}."}
+};
+/* cs: phân biệt chữ hoa; strip: bỏ chữ "núi/sông/vịnh" đứng trước */
+var SETS = {
+  s2:{cs:true, entities:[["Ba Lan"],["An-tôn Ru-bin-xtên","Ru-bin-xtên","An-tôn"],["Gian Pa-đơ-riêu-xki","Pa-đơ-riêu-xki","Gian"],["Thu Hà"]], show:["Ba Lan","An-tôn Ru-bin-xtên","Gian Pa-đơ-riêu-xki"]},
+  s4:{cs:true, entities:[["Trường Tiểu học Sinh Tồn","Tiểu học Sinh Tồn"],["Uỷ ban Nhân dân xã Sinh Tồn","Uỷ ban nhân dân xã Sinh Tồn","Uỷ ban Nhân dân","Uỷ ban nhân dân"],["Câu lạc bộ Vì Hoàng Sa – Trường Sa thân yêu","Vì Hoàng Sa – Trường Sa thân yêu","Hoàng Sa – Trường Sa"]]},
+  s5a:{cs:false, entities:[["rảnh rang"]]},
+  s5b:{cs:false, entities:[["giống"],["giàn"]]},
+  s6a:{cs:true, strip:true, entities:[["Ngự","Ngự Bình"]]},
+  s6b:{cs:true, strip:true, entities:[["Hương"]]},
+  s6c:{cs:true, strip:true, entities:[["Bạch Đằng"]]},
+  s6d:{cs:true, strip:true, entities:[["Hạ Long"]]},
+  s7a:{cs:false, open:true, entities:[["lo âu","âu lo","lo sợ","lo ngại","lo nghĩ","lo toan","băn khoăn","bồn chồn","thấp thỏm","phấp phỏng","lo"]]},
+  s7b:{cs:false, open:true, entities:[["thì thầm","thầm thì","thủ thỉ","rì rầm","rầm rì","xì xào","thầm thào","thì thào thì thầm"]]},
+  s7c:{cs:false, open:true, entities:[["kiêu ngạo","kiêu căng","kiêu kì","kiêu kỳ","tự kiêu","tự cao","tự cao tự đại","kênh kiệu","ngạo nghễ","cao ngạo","vênh váo","hợm hĩnh","kiêu"]]},
+  s7d:{cs:false, open:true, entities:[["lơ là","sao nhãng","sao lãng","xao lãng","chểnh mảng","lơ đễnh","lơ đãng","bỏ bê"]]}
+};
+var SECTION_NAMES = ["I. Câu 1","I. Câu 2","I. Câu 3","I. Câu 4","I. Câu 5","II. Bài 1","II. Bài 2","II. Bài 3","II. Bài 4","II. Bài 5","II. Bài 6","II. Bài 7"];
+
+/* ---------- TIỆN ÍCH ---------- */
+function $(s,r){return (r||document).querySelector(s);}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));}
+function norm(s, strip){
+  s = (s||"").normalize("NFC").replace(/[\u2013\u2014\u2212]/g,"-").replace(/\s*-\s*/g,"-")
+      .replace(/Ủy/g,"Uỷ").replace(/ủy/g,"uỷ").replace(/ỦY/g,"UỶ")
+      .replace(/\s+/g," ").trim().replace(/^[“"'‘]+|[”"'’.,;!?…]+$/g,"").trim();
+  if(strip){ s = s.replace(/^(là\s+)?(núi|sông|vịnh)\s+/i,"").trim(); }
+  return s;
+}
+function low(s){return s.toLocaleLowerCase("vi");}
+
+/* ---------- BẢNG TÔ TỪ ---------- */
+var boardState = {};
+function buildBoard(id){
+  var cfg = BOARDS[id], host = document.getElementById(id), st = {pen:cfg.pens[0], toks:[], cfg:cfg, host:host};
+  boardState[id] = st;
+  if(cfg.pens.length>1){
+    var pens = document.createElement("div"); pens.className="pens"; pens.setAttribute("role","group"); pens.setAttribute("aria-label","Chọn bút");
+    cfg.pens.forEach(function(p){
+      var b=document.createElement("button"); b.type="button"; b.className="pen"+(p===st.pen?" on":""); b.dataset.pen=p;
+      b.textContent="🖍️ Bút "+(p==="n"?"xanh – Danh từ":"cam – Động từ"); b.setAttribute("aria-pressed", p===st.pen);
+      b.addEventListener("click",function(){ st.pen=p; $$(".pen",pens).forEach(function(x){x.classList.toggle("on",x===b); x.setAttribute("aria-pressed", x===b);}); });
+      pens.appendChild(b);
+    });
+    host.appendChild(pens);
+  }
+  var box=document.createElement("div"); box.className="board";
+  if(cfg.title){ var t=document.createElement("span"); t.className="ttl"; t.textContent=cfg.title; box.appendChild(t); }
+  var re=/\{([^}|]+)(?:\|([nvx]))?\}/g, last=0, m;
+  function addText(str){ str.split("\n").forEach(function(part,i){ if(i>0) box.appendChild(document.createElement("br")); if(part) box.appendChild(document.createTextNode(part)); }); }
+  while((m=re.exec(cfg.text))){
+    addText(cfg.text.slice(last,m.index)); last=re.lastIndex;
+    var sp=document.createElement("span"); sp.className="tok"; sp.textContent=m[1]; sp.tabIndex=0; sp.setAttribute("role","button"); sp.setAttribute("aria-pressed","false");
+    var tk={el:sp,key:m[2]||"",mark:""}; st.toks.push(tk);
+    (function(tk){
+      function toggle(){
+        tk.mark = (tk.mark===st.pen) ? "" : st.pen;
+        paint(tk); updateProgress();
+      }
+      tk.el.addEventListener("click",toggle);
+      tk.el.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); toggle(); } });
+    })(tk);
+    box.appendChild(sp);
+  }
+  addText(cfg.text.slice(last));
+  host.appendChild(box);
+  var fb=document.createElement("div"); fb.className="bfb"; host.appendChild(fb); st.fb=fb;
+}
+function paint(tk){
+  tk.el.className="tok"+(tk.mark?" m-"+tk.mark:"");
+  tk.el.setAttribute("aria-pressed", tk.mark?"true":"false");
+  if(tk.mark) tk.el.setAttribute("aria-label", tk.el.textContent+" – "+PEN_NAME[tk.mark]); else tk.el.removeAttribute("aria-label");
+}
+function boardTouched(id){ return boardState[id].toks.some(function(t){return t.mark;}); }
+function gradeBoard(id){
+  var st=boardState[id], hit=0, bad=0, possible=0, lists={n:[],v:[],x:[]};
+  st.toks.forEach(function(t){
+    paint(t);
+    if(t.key){ possible++; lists[t.key].push(t.el.textContent); }
+    if(t.mark && t.mark===t.key){ hit++; t.el.classList.add("g-ok"); }
+    else if(t.mark){ bad++; t.el.classList.add("g-bad"); }
+    else if(t.key){ t.el.classList.add("g-miss"); }
+  });
+  var earned=Math.max(0,hit-bad), html="Em tô đúng <b>"+hit+"/"+possible+"</b> từ"+(bad?(", tô nhầm <b>"+bad+"</b> từ (mỗi từ tô nhầm bị trừ 1 điểm)"):"")+".";
+  st.cfg.pens.forEach(function(p){
+    var label = p==="n"?"Danh từ":(p==="v"?"Động từ":"Viết chưa đúng");
+    html+="<br><b>"+label+":</b> "+lists[p].join(", ")+".";
+  });
+  st.fb.innerHTML=html; st.fb.classList.add("show");
+  return {earned:earned, possible:possible, perfect: hit===possible && bad===0};
+}
+function resetBoard(id){ var st=boardState[id]; st.toks.forEach(function(t){t.mark="";paint(t);}); st.fb.classList.remove("show"); st.fb.innerHTML=""; }
+
+/* ---------- Ô ĐIỀN ---------- */
+function gradeSet(row){
+  var cfg=SETS[row.dataset.set], inputs=$$("input.ans",row), fb=$(".fb",row);
+  var used=cfg.entities.map(function(){return false;}), earned=0, caseHint=false, dupHint=false, wrong=0;
+  inputs.forEach(function(inp){
+    inp.classList.remove("ok","no");
+    var raw=inp.value.trim(); if(!raw){ wrong++; return; }
+    var v=norm(raw,cfg.strip), ok=false, i, j;
+    for(i=0;i<cfg.entities.length && !ok;i++){
+      if(used[i]) continue;
+      for(j=0;j<cfg.entities[i].length;j++){
+        var f=norm(cfg.entities[i][j]);
+        if(cfg.cs ? v===f : low(v)===low(f)){ ok=true; used[i]=true; break; }
+      }
+    }
+    if(ok){ earned++; inp.classList.add("ok"); }
+    else{
+      wrong++; inp.classList.add("no");
+      var exact=false, loose=false;
+      for(i=0;i<cfg.entities.length;i++) for(j=0;j<cfg.entities[i].length;j++){ var g=norm(cfg.entities[i][j]); if(low(v)===low(g)){ loose=true; if(v===g||!cfg.cs) exact=true; } }
+      if(exact) dupHint=true; else if(loose && cfg.cs) caseHint=true;
+    }
+  });
+  var msg="";
+  if(wrong===0){ msg="<b>✓ Chính xác!</b>"; }
+  else{
+    var show = cfg.show ? cfg.show : cfg.entities.map(function(e){return e[0];});
+    if(cfg.open) msg="Gợi ý đáp án: <b>"+cfg.entities[0].slice(0,5).join(", ")+"</b>…";
+    else msg="Đáp án đúng: <b>"+show.join("; ")+"</b>.";
+    if(dupHint) msg+=" Có đáp án em viết bị trùng nhau.";
+    if(caseHint) msg+=" Em tìm đúng rồi nhưng cần <u>viết hoa</u> đúng quy tắc nhé.";
+  }
+  fb.innerHTML=msg; fb.classList.add("show");
+  return {earned:earned, possible:inputs.length, perfect:wrong===0};
+}
+
+/* ---------- TIẾN ĐỘ ---------- */
+var cards=$$(".q");
+function cardTouched(card){
+  var k=card.dataset.kind, t=false;
+  if(k==="mc") return !!$("input:checked",card);
+  if(k==="free") return $("textarea",card).value.trim()!=="";
+  if(card.dataset.board) t = card.dataset.board.split(",").some(boardTouched);
+  return t || $$("input.ans",card).some(function(i){return i.value.trim()!=="";});
+}
+function updateProgress(){
+  var n=cards.filter(cardTouched).length;
+  $("#fill").style.width=Math.round(n/cards.length*100)+"%";
+  $("#count").textContent=n+" / "+cards.length+" câu";
+}
+
+/* ---------- CHẤM BÀI ---------- */
+function gradeAll(){
+  var total={earned:0,possible:0}, rows=[];
+  cards.forEach(function(card,idx){
+    var k=card.dataset.kind, e=0, p=0, perfect=true, r;
+    card.classList.add("graded");
+    if(k==="mc"){
+      var c=$("input:checked",card), cor=card.dataset.correct; p=1;
+      $$(".opt",card).forEach(function(o){
+        var inp=$("input",o); o.classList.remove("right","wrong");
+        if(inp.value===cor) o.classList.add("right"); else if(inp.checked) o.classList.add("wrong");
+      });
+      if(c && c.value===cor) e=1; else perfect=false;
+    }
+    if(card.dataset.board){ card.dataset.board.split(",").forEach(function(id){ r=gradeBoard(id); e+=r.earned; p+=r.possible; if(!r.perfect) perfect=false; }); }
+    $$("[data-set]",card).forEach(function(row){ r=gradeSet(row); e+=r.earned; p+=r.possible; if(!r.perfect) perfect=false; });
+    card.classList.remove("correct","incorrect");
+    if(p>0){ card.classList.add(perfect?"correct":"incorrect"); rows.push([SECTION_NAMES[idx], e+" / "+p]); }
+    total.earned+=e; total.possible+=p;
+  });
+  total.rows=rows; return total;
+}
+
+$("#submitBtn").addEventListener("click",function(){
+  var name=$("#studentName"), cls=$("#studentClass"), warn=$("#warn");
+  if(name.value.trim()===""){ warn.textContent="Em nhớ điền họ và tên trước khi nộp bài nhé!"; name.style.borderColor="var(--err)"; name.focus(); return; }
+  name.style.borderColor="";
+  if(cls.value.trim()===""){ warn.textContent="Em nhớ điền lớp trước khi nộp bài nhé!"; cls.style.borderColor="var(--err)"; cls.focus(); return; }
+  cls.style.borderColor=""; warn.textContent="";
+
+  if(this.disabled) return;
+  this.disabled=true;
+  var t=gradeAll(); updateProgress();
+  try{
+    fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({bai:BAI,hoten:name.value.trim(),lop:cls.value.trim(),diem:t.earned,tongdiem:t.possible})}).catch(function(){});
+  }catch(err){}
+
+  var pct=Math.round(t.earned/t.possible*100), emo, msg;
+  if(pct>=90){emo="🏆";msg="tuyệt vời! Em chơi bản nhạc này thật xuất sắc!";}
+  else if(pct>=70){emo="🎹";msg="rất tốt! Chỉ còn vài nốt nhạc cần luyện thêm thôi.";}
+  else if(pct>=50){emo="🎵";msg="khá lắm! Em xem lại những câu sai rồi thử lần nữa nhé.";}
+  else{emo="💪";msg="đừng nản nhé! Cậu bé trong truyện cũng phải luyện tập rất nhiều. Em đọc lại bài và thử lần nữa nào!";}
+  $("#resultEmoji").textContent=emo;
+  $("#resultScore").textContent=t.earned+" / "+t.possible+" điểm";
+  $("#resultMsg").textContent=name.value.trim()+" ơi, "+msg;
+  $("#resultTable").innerHTML=t.rows.map(function(r){return "<tr><td>"+r[0]+"</td><td>"+r[1]+"</td></tr>";}).join("");
+  $("#resultPanel").classList.add("show");
+  $("#resultPanel").scrollIntoView({behavior:"smooth",block:"center"});
+});
+
+$("#retryBtn").addEventListener("click",function(){
+  $$("input[type=radio]").forEach(function(r){r.checked=false;});
+  $$("input[type=text],input.ans,textarea").forEach(function(i){i.value="";i.classList.remove("ok","no");i.style.borderColor="";});
+  $$(".opt").forEach(function(o){o.classList.remove("picked","right","wrong");});
+  $$(".fb").forEach(function(f){f.classList.remove("show");f.innerHTML="";});
+  Object.keys(boardState).forEach(resetBoard);
+  cards.forEach(function(c){c.classList.remove("graded","correct","incorrect");});
+  $("#resultPanel").classList.remove("show"); $("#warn").textContent=""; $("#submitBtn").disabled=false;
+  updateProgress(); window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* ---------- KHỞI TẠO ---------- */
+Object.keys(BOARDS).forEach(buildBoard);
+cards.forEach(function(card){
+  card.addEventListener("change",function(){
+    $$(".opt",card).forEach(function(o){o.classList.toggle("picked",$("input",o).checked);});
+    updateProgress();
+  });
+  card.addEventListener("input",updateProgress);
+});
+updateProgress();
+</script>
+</body>
+</html>

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đọc hiểu tuần 3 — Sự sẻ chia bình dị · Tiếng Việt Lớp 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#eaf6ff;
+    --sky-deep:#cdeaff;
+    --sun:#ffc93c;
+    --sun-deep:#ffab00;
+    --coral:#ff6b6b;
+    --coral-deep:#e8523f;
+    --leaf:#3fb083;
+    --leaf-deep:#2f9270;
+    --plum:#8675a9;
+    --ink:#2d3142;
+    --ink-soft:#5a5f75;
+    --paper:#ffffff;
+    --paper-line:#e7edf5;
+    --radius:22px;
+    --shadow: 0 10px 26px rgba(45,49,66,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Quicksand',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 12% 8%, #fff6da 0%, transparent 45%),
+      radial-gradient(circle at 90% 4%, #ffe1e1 0%, transparent 40%),
+      linear-gradient(180deg, var(--sky) 0%, #f5fbff 60%, #fdf9ef 100%);
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
+
+  /* ---------- Header / hero ---------- */
+  .hero{
+    position:relative;
+    padding:38px 18px 30px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-badge{
+    display:inline-block;
+    background:var(--paper);
+    border:2px dashed var(--sun-deep);
+    color:var(--coral-deep);
+    font-weight:700;
+    font-size:14px;
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:14px;
+    letter-spacing:.5px;
+  }
+  .hero h1{
+    font-size:clamp(28px,6vw,44px);
+    margin:0 0 8px;
+    color:var(--ink);
+    line-height:1.15;
+  }
+  .hero h1 span{color:var(--coral-deep);}
+  .hero p.sub{
+    max-width:520px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-weight:600;
+    font-size:16px;
+  }
+  .path-icons{display:flex;justify-content:center;gap:10px;margin-top:18px;}
+  .path-icons svg{width:34px;height:34px;}
+
+  /* ---------- Name card ---------- */
+  .name-card{
+    max-width:400px;margin:22px auto 0;
+    background:var(--paper);border-radius:18px;box-shadow:var(--shadow);
+    padding:16px 20px;border:2px solid #ffe2a8;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .name-card label{font-weight:700;font-size:14px;color:var(--plum);display:flex;align-items:center;gap:6px;}
+  .name-card input{
+    border:2px solid #eaeff6;border-radius:12px;padding:10px 12px;
+    font-family:'Quicksand',sans-serif;font-weight:700;font-size:16px;color:var(--ink);
+  }
+  .name-card input:focus{outline:none;border-color:var(--sun-deep);}
+
+  /* ---------- Fog progress bar (signature element) ---------- */
+  .progress-wrap{
+    max-width:640px;
+    margin:26px auto 0;
+    padding:0 18px;
+  }
+  .progress-label{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-weight:700;color:var(--ink-soft);font-size:14px;margin-bottom:8px;
+  }
+  #progress-count{color:var(--coral-deep);font-size:16px;}
+  .progress-track{
+    position:relative;
+    height:34px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#dfe9f2,#eef3f8);
+    border:2px solid #d9e3ee;
+    overflow:hidden;
+    box-shadow: inset 0 2px 5px rgba(45,49,66,0.08);
+  }
+  .progress-fill{
+    position:absolute;left:0;top:0;bottom:0;
+    width:0%;
+    background:linear-gradient(90deg, var(--sun) 0%, var(--coral) 100%);
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,1.4,.6,1);
+  }
+  .progress-walker{
+    position:absolute;top:50%;
+    transform:translate(-50%,-50%);
+    left:0%;
+    font-size:20px;
+    transition:left .5s cubic-bezier(.4,1.4,.6,1);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+  }
+
+  /* ---------- Container ---------- */
+  .wrap{max-width:640px;margin:32px auto 0;padding:0 18px;display:flex;flex-direction:column;gap:22px;}
+
+  /* ---------- Story card ---------- */
+  .story-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:26px 24px;
+    position:relative;
+    border-top:6px solid var(--plum);
+  }
+  .story-card h2{
+    margin:0 0 4px;
+    font-size:22px;
+    color:var(--plum);
+    display:flex;align-items:center;gap:8px;
+  }
+  .story-card .story-meta{
+    font-size:13px;color:var(--ink-soft);font-weight:600;margin-bottom:14px;
+  }
+  .story-card p{
+    line-height:1.75;
+    font-size:15.5px;
+    margin:0 0 12px;
+    color:#3a3f52;
+  }
+  .story-card p.first::first-letter{
+    font-family:'Baloo 2',sans-serif;
+    font-size:44px;
+    color:var(--coral-deep);
+    float:left;
+    line-height:0.8;
+    padding-right:8px;
+    padding-top:4px;
+  }
+  details.story-toggle summary{
+    cursor:pointer;font-weight:700;color:var(--plum);list-style:none;
+    display:flex;align-items:center;gap:6px;font-size:15px;
+  }
+  details.story-toggle summary::-webkit-details-marker{display:none;}
+  details.story-toggle summary .chev{transition:transform .25s;}
+  details.story-toggle[open] summary .chev{transform:rotate(90deg);}
+
+  /* ---------- Question card ---------- */
+  .q-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 22px 24px;
+    border:2px solid transparent;
+    transition:border-color .25s, transform .2s;
+    scroll-margin-top:20px;
+  }
+  .q-card.answered{border-color:#ffe2a8;}
+  .q-card.correct{border-color:var(--leaf) !important;background:#f2fbf7;}
+  .q-card.incorrect{border-color:var(--coral) !important;background:#fff4f3;}
+
+  .q-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .q-num{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--sun);color:#7a4b00;font-family:'Baloo 2',sans-serif;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;
+    flex:none;
+  }
+  .q-tag{
+    font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;
+    background:#eef1fb;color:var(--plum);letter-spacing:.3px;
+  }
+  .q-tag.tag-fill{background:#fff0e0;color:#b5610a;}
+  .q-tag.tag-match{background:#e4f7ee;color:var(--leaf-deep);}
+  .q-text{font-weight:700;font-size:16px;margin:0 0 14px;color:var(--ink);line-height:1.5;}
+
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;border-radius:14px;
+    background:#f7f9fc;border:2px solid #eaeff6;
+    cursor:pointer;transition:all .15s;font-weight:600;font-size:15px;
+  }
+  .opt:hover{background:#eef4ff;border-color:#c9dcff;}
+  .opt input{accent-color:var(--coral);width:18px;height:18px;flex:none;}
+  .opt.picked{background:#fff2d6;border-color:var(--sun-deep);}
+  .q-card.correct .opt.picked{background:#dcf5e9;border-color:var(--leaf);}
+  .q-card.incorrect .opt.picked{background:#ffe1de;border-color:var(--coral);}
+  .q-card.incorrect .opt.correct-answer{background:#dcf5e9;border-color:var(--leaf);}
+
+  .match-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .match-left{
+    background:#f7f9fc;border:2px solid #eaeff6;border-radius:12px;
+    padding:9px 12px;font-weight:700;min-width:150px;flex:1;
+  }
+  .match-row select{
+    flex:1;min-width:160px;padding:9px 10px;border-radius:12px;
+    border:2px solid #eaeff6;background:#fff;font-family:'Quicksand',sans-serif;
+    font-weight:600;font-size:14.5px;color:var(--ink);
+  }
+  .match-row select:focus{outline:2px solid var(--sun-deep);}
+
+  .fill-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px;line-height:1.9;}
+  .fill-line .txt{font-weight:600;font-size:15px;}
+  .fill-line input[type=text]{
+    border:none;border-bottom:3px dotted #b9c3d4;
+    background:transparent;font-family:'Quicksand',sans-serif;
+    font-weight:700;font-size:15px;color:var(--coral-deep);
+    padding:4px 6px;min-width:120px;text-align:center;
+  }
+  .fill-line input[type=text]:focus{outline:none;border-bottom-color:var(--sun-deep);}
+  .word-bank{
+    margin-top:6px;background:#fffaf0;border:2px dashed #ffdb9b;border-radius:14px;
+    padding:10px 14px;font-size:13.5px;color:#8a5a00;font-weight:600;
+  }
+
+  .feedback{
+    margin-top:14px;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;
+    display:none;line-height:1.6;
+  }
+  .q-card.correct .feedback{display:block;background:#e4f7ee;color:#1d7a52;}
+  .q-card.incorrect .feedback{display:block;background:#ffe9e6;color:#b3392a;}
+
+  /* ---------- Submit bar ---------- */
+  .submit-zone{
+    position:sticky;bottom:14px;
+    display:flex;justify-content:center;margin-top:6px;z-index:20;
+  }
+  .btn-submit{
+    background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+    color:#fff;border:none;padding:16px 38px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:19px;font-weight:700;
+    box-shadow:0 10px 22px rgba(232,82,63,.35);cursor:pointer;
+    transition:transform .15s;
+  }
+  .btn-submit:hover{transform:translateY(-2px) scale(1.02);}
+  .btn-submit:active{transform:translateY(0) scale(.98);}
+  .btn-submit:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+
+  /* ---------- Result panel ---------- */
+  .result-panel{
+    background:linear-gradient(160deg,#fff,#fef8ee);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:30px 24px;text-align:center;border-top:6px solid var(--leaf);
+    display:none;
+  }
+  .result-panel.show{display:block;animation:pop .5s;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .result-emoji{font-size:52px;margin-bottom:6px;}
+  .result-score{font-family:'Baloo 2',sans-serif;font-size:46px;color:var(--coral-deep);margin:4px 0;}
+  .result-msg{font-weight:700;font-size:17px;color:var(--ink);margin-bottom:16px;}
+  .btn-retry{
+    background:var(--plum);color:#fff;border:none;padding:12px 28px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:16px;font-weight:700;cursor:pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+  }
+  footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:28px;font-weight:600;}
+
+  .hero-art{max-width:640px;margin:18px auto 0;padding:0 18px;}
+  .hero-art svg{width:100%;height:auto;display:block;border-radius:22px;box-shadow:var(--shadow);background:#fff;}
+  .section-title{display:flex;align-items:center;gap:12px;background:var(--paper);border-radius:18px;padding:12px 16px;box-shadow:var(--shadow);border-left:8px solid var(--sun-deep);}
+  .section-title svg{width:54px;height:54px;flex:none;}
+  .section-title h2{margin:0;font-size:21px;color:var(--coral-deep);line-height:1.2;}
+  .section-title small{display:block;font-family:'Quicksand',sans-serif;font-size:13px;color:var(--ink-soft);font-weight:600;}
+  .quote{background:#fff8e6;border-left:5px solid var(--sun-deep);border-radius:12px;padding:10px 14px;font-style:italic;font-weight:600;color:#7a5a12;margin:0 0 14px;line-height:1.6;font-size:15px;}
+  .story-card .author{text-align:right;font-weight:700;font-style:italic;color:var(--ink-soft);}
+  .q-art{display:flex;justify-content:center;gap:10px;margin:0 0 12px;flex-wrap:wrap;}
+  .q-art svg{width:88px;height:88px;}
+  .q-art.wide svg{width:100%;max-width:360px;height:auto;}
+  .q-tag.tag-pick{background:#fde8f1;color:#b0326a;}
+  .q-tag.tag-free{background:#e8f0ff;color:#3a5bb8;}
+  .hint{font-size:13.5px;font-weight:600;color:var(--ink-soft);margin:-6px 0 12px;line-height:1.5;}
+  .pick-block{background:#f7f9fc;border:2px solid #eaeff6;border-radius:14px;padding:12px 12px 8px;margin-bottom:12px;}
+  .pick-label{font-family:'Baloo 2',sans-serif;font-weight:700;color:var(--plum);margin-right:4px;}
+  .pick-line{line-height:2.5;font-size:15.5px;font-weight:600;}
+  .tok{font:inherit;color:var(--ink);background:#fff;border:2px solid #dfe6f0;border-radius:10px;padding:3px 8px;margin:0 1px;cursor:pointer;transition:all .12s;}
+  .tok:hover{border-color:var(--sun-deep);}
+  .tok.on{background:#fff2d6;border-color:var(--sun-deep);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;}
+  .tok.hit{background:#dcf5e9;border-color:var(--leaf);color:#1d7a52;}
+  .tok.wrong{background:#ffe1de;border-color:var(--coral);color:#b3392a;text-decoration:line-through;}
+  .tok.missed{border:2px dashed var(--leaf);background:#f2fbf7;color:#1d7a52;}
+  .tok:disabled{cursor:default;opacity:1;}
+  .pick-score{font-size:13px;font-weight:700;color:var(--ink-soft);margin-top:4px;min-height:18px;}
+  .sort-grid .match-left{min-width:130px;}
+  .free-item{margin-bottom:14px;}
+  .free-item .txt{font-weight:700;font-size:15px;display:block;margin-bottom:6px;line-height:1.5;}
+  textarea{width:100%;border:2px solid #eaeff6;border-radius:14px;padding:10px 12px;font-family:'Quicksand',sans-serif;font-weight:600;font-size:15px;color:var(--ink);resize:vertical;min-height:54px;background:#fbfcfe;}
+  textarea:focus{outline:none;border-color:var(--sun-deep);}
+  .q-card.noted{border-color:#b9cdfb !important;background:#f5f8ff;}
+  .q-card.noted .feedback{display:block;background:#e8f0ff;color:#2c478f;}
+  .fill-line input[type=text]{min-width:96px;width:110px;}
+  .fill-line{display:block;line-height:2.4;}
+  .result-note{font-size:13.5px;font-weight:600;color:var(--ink-soft);margin-bottom:14px;line-height:1.5;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="hero-badge">TIẾNG VIỆT · LỚP 4 · TUẦN 3</span>
+  <h1>Đọc hiểu: <span>Sự sẻ chia bình dị</span></h1>
+  <p class="sub">Con đọc câu chuyện rồi làm bài nhé. Mỗi câu con làm xong, lá thư của con sẽ bay gần hơn tới hòm thư!</p>
+</div>
+<div class="hero-art"><svg viewBox="0 0 600 270" role="img" aria-label="Tranh: cô gái nhường chỗ cho mẹ con người phụ nữ ở bưu điện">
+<rect width="600" height="270" fill="#fff4dc"/><rect y="205" width="600" height="65" fill="#f1d9a7"/>
+<rect y="205" width="600" height="5" fill="#e2c284"/>
+<rect x="200" y="14" width="200" height="40" rx="12" fill="#ffc93c" stroke="#e8523f" stroke-width="3"/>
+<text x="300" y="42" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="800" font-size="24" fill="#b3392a">BƯU ĐIỆN</text>
+<circle cx="70" cy="50" r="24" fill="#fff" stroke="#8675a9" stroke-width="4"/><path d="M70 50V34M70 50l12 6" stroke="#2d3142" stroke-width="3" stroke-linecap="round"/>
+<rect x="24" y="130" width="46" height="76" rx="8" fill="#e8523f"/><rect x="18" y="120" width="58" height="18" rx="9" fill="#c93f2e"/><rect x="32" y="150" width="30" height="6" rx="3" fill="#7a1f14"/><text x="47" y="185" text-anchor="middle" font-size="18">✉️</text>
+<rect x="440" y="90" width="150" height="116" fill="#8ecae6"/><rect x="430" y="150" width="170" height="14" rx="4" fill="#5a8fb0"/><rect x="430" y="164" width="170" height="42" fill="#b9dff0"/>
+<rect x="455" y="76" width="120" height="20" rx="6" fill="#3fb083"/><text x="515" y="91" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="700" font-size="13" fill="#fff">QUẦY SỐ 1</text>
+<circle cx="535" cy="118" r="15" fill="#ffd9b3"/><path d="M520 114q15-20 30 0" fill="#5a3b28"/><rect x="515" y="132" width="40" height="20" rx="8" fill="#3fb083"/><circle cx="530" cy="118" r="1.8" fill="#2d3142"/><circle cx="540" cy="118" r="1.8" fill="#2d3142"/><path d="M530 124q5 4 10 0" stroke="#b3392a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+<!-- mẹ -->
+<g><path d="M355 150q25-12 50 0l8 56h-66z" fill="#8675a9"/><circle cx="380" cy="126" r="20" fill="#ffd9b3"/><path d="M360 124q2-26 22-24q22 0 20 28q-8-16-22-14q-12 0-20 10z" fill="#3a2a20"/><circle cx="374" cy="128" r="2" fill="#2d3142"/><circle cx="388" cy="128" r="2" fill="#2d3142"/><path d="M375 136q6 5 12 0" stroke="#b3392a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<circle cx="408" cy="160" r="12" fill="#ffe0c2"/><path d="M396 168q12-8 24 0l2 22h-28z" fill="#ffc93c"/><circle cx="404" cy="160" r="1.5" fill="#2d3142"/><circle cx="412" cy="160" r="1.5" fill="#2d3142"/><path d="M403 165q5-3 10 0" stroke="#b3392a" stroke-width="1.4" fill="none"/><path d="M400 152l-3-6M416 152l3-6" stroke="#6bb6ff" stroke-width="2" stroke-linecap="round"/></g>
+<!-- bé lớn -->
+<g><path d="M318 178q14-8 28 0l4 28h-36z" fill="#ff6b6b"/><circle cx="332" cy="162" r="13" fill="#ffd9b3"/><path d="M319 160q3-14 13-13q12 0 13 13q-13-8-26 0z" fill="#3a2a20"/><circle cx="328" cy="163" r="1.6" fill="#2d3142"/><circle cx="336" cy="163" r="1.6" fill="#2d3142"/><path d="M328 169q4-3 8 0" stroke="#b3392a" stroke-width="1.4" fill="none"/><path d="M346 182l12-6" stroke="#ffd9b3" stroke-width="6" stroke-linecap="round"/></g>
+<!-- cô gái nhường chỗ -->
+<g><path d="M205 150q25-12 50 0l8 56h-66z" fill="#3fb083"/><circle cx="230" cy="126" r="20" fill="#ffd9b3"/><path d="M209 130q-4-32 21-30q25-2 21 30q-6-18-21-18q-15 0-21 18z" fill="#5a3b28"/><circle cx="224" cy="128" r="2" fill="#2d3142"/><circle cx="237" cy="128" r="2" fill="#2d3142"/><path d="M223 135q7 7 15 0" stroke="#b3392a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<path d="M254 160l34-14" stroke="#ffd9b3" stroke-width="8" stroke-linecap="round"/><path d="M207 160l-14 18" stroke="#ffd9b3" stroke-width="8" stroke-linecap="round"/>
+<rect x="172" y="174" width="30" height="20" rx="3" fill="#fff" stroke="#8675a9" stroke-width="2"/><path d="M172 176l15 10l15-10" stroke="#8675a9" stroke-width="2" fill="none"/></g>
+<path d="M268 118h34m-10-8l10 8l-10 8" stroke="#e8523f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="150" y="62" width="150" height="34" rx="14" fill="#fff" stroke="#3fb083" stroke-width="2.5"/><path d="M225 96l6 12l8-12" fill="#fff" stroke="#3fb083" stroke-width="2.5"/><rect x="226" y="93" width="12" height="5" fill="#fff"/>
+<text x="225" y="84" text-anchor="middle" font-family="'Quicksand',sans-serif" font-weight="700" font-size="14" fill="#2f9270">Mời chị lên trước ạ!</text>
+<path d="M300 70c-6-9-18-1-10 8l10 10l10-10c8-9-4-17-10-8z" fill="#ff6b6b" transform="translate(88 22) scale(.8)"/>
+<path d="M300 70c-6-9-18-1-10 8l10 10l10-10c8-9-4-17-10-8z" fill="#ffab00" transform="translate(255 45) scale(.55)"/>
+</svg></div>
+
+<div class="name-card">
+  <label for="studentName">✏️ Họ và tên của con là gì?</label>
+  <input type="text" id="studentName" placeholder="Nhập họ và tên của em...">
+  <label for="studentClass" style="margin-top:8px;">🏫 Con học lớp mấy?</label>
+  <input type="text" id="studentClass" placeholder="VD: 4A">
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label"><span>✉️ Đường thư của em → 📮</span><span id="progress-count">0 / 9 câu</span></div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+    <div class="progress-walker" id="progress-walker">✉️</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="section-title"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#f1ecfb"/><path d="M12 20q9-5 18 0v24q-9-5-18 0z" fill="#fff" stroke="#8675a9" stroke-width="2.5"/><path d="M48 20q-9-5-18 0v24q9-5 18 0z" fill="#fff" stroke="#8675a9" stroke-width="2.5"/><path d="M17 26h8M17 32h8M35 26h8M35 32h8" stroke="#ffab00" stroke-width="2.5" stroke-linecap="round"/></svg><h2>I. ĐỌC<small>Đọc thầm câu chuyện rồi trả lời câu hỏi</small></h2></div>
+
+  <div class="story-card">
+    <h2>📖 Sự sẻ chia bình dị</h2>
+    <div class="story-meta">(Ngọc Khánh)</div>
+    <div class="quote">"Đôi khi một cử chỉ nhỏ của bạn cũng có thể làm thay đổi hoặc tạo nên sự khác biệt cho cuộc sống của người khác."</div>
+    <p class="first">Tôi đứng xếp hàng ở bưu điện để mua tem gửi thư. Ngay sau tôi là một người phụ nữ với hai đứa con còn rất nhỏ. Hai đứa nhỏ khóc lóc, không chịu đứng yên trong hàng. Bà mẹ trông cũng mệt mỏi và nhếch nhác như mấy đứa trẻ. Thấy thế, tôi liền nhường chỗ của tôi cho bà. Bà cảm ơn tôi rồi vội vã bước lên.</p>
+    <details class="story-toggle" open>
+      <summary><span class="chev">▶</span> Đọc tiếp câu chuyện</summary>
+      <p style="margin-top:12px">Nhưng đến lượt tôi thì bưu điện đóng cửa. Khi đó tôi cảm thấy thực sự rất bực mình và hối hận vì đã nhường chỗ cho người khác. Chợt người phụ nữ quay sang tôi nói: "Tôi cảm thấy rất ái ngại! Chỉ vì nhường chỗ cho tôi mà cô lại gặp khó khăn như vậy. Cô biết không, nếu hôm nay tôi không gửi phiếu thanh toán tiền ga, thì công ti điện và ga sẽ cắt hết nguồn sưởi ấm của gia đình tôi." Tôi sững người, không ngờ rằng chỉ đơn giản bằng một hành động nhường chỗ của mình, tôi đã giúp người phụ nữ ấy và hai đứa trẻ qua được một đêm giá rét.</p>
+      <p>Tôi rời khỏi bưu điện với niềm vui trong lòng. Tôi không còn có cảm giác khó chịu khi nghĩ đến việc lại phải lái xe đến bưu điện, tìm chỗ đậu xe và đứng xếp hàng nữa mà thay vào đó là cảm giác thanh thản, phấn chấn.</p>
+      <p>Kể từ ngày hôm đó, tôi cảm nhận được sự quan tâm của mình đến mọi người có giá trị như thế nào. Tôi bắt đầu biết quên mình đi và biết chia sẻ với người khác vì tôi nhận ra đôi khi chỉ một cử chỉ nhỏ, bình dị của mình cũng có thể làm ấm lòng, làm thay đổi hoặc tạo nên sự khác biệt và ý nghĩa cho cuộc sống của một người khác.</p>
+      <p class="author">Ngọc Khánh</p>
+    </details>
+  </div>
+
+<div class="q-card" data-qid="q1">
+<div class="q-top"><div class="q-num">1</div><span class="q-tag">Trắc nghiệm</span></div>
+<p class="q-text">Vì sao nhân vật "tôi" trong câu chuyện lại nhường chỗ xếp hàng cho mẹ con người phụ nữ đứng sau?</p>
+<div class="options" data-type="mc" data-correct="c">
+<label class="opt"><input type="radio" name="q1" value="a"> A. Vì thấy mình chưa vội lắm.</label>
+<label class="opt"><input type="radio" name="q1" value="b"> B. Vì người phụ nữ trình bày lí do của mình và xin được nhường chỗ.</label>
+<label class="opt"><input type="radio" name="q1" value="c"> C. Vì thấy hoàn cảnh của mẹ con người phụ nữ thật đáng thương.</label>
+</div>
+<div class="feedback">💡 Hai đứa nhỏ khóc lóc, bà mẹ trông mệt mỏi và nhếch nhác — thấy thương nên "tôi" liền nhường chỗ. Người phụ nữ không hề xin nhường.</div>
+</div>
+
+<div class="q-card" data-qid="q2">
+<div class="q-top"><div class="q-num">2</div><span class="q-tag">Trắc nghiệm</span></div>
+<p class="q-text">Sau khi nhường chỗ, vì sao nhân vật "tôi" lại cảm thấy bực mình và hối hận?</p>
+<div class="options" data-type="mc" data-correct="c">
+<label class="opt"><input type="radio" name="q2" value="a"> A. Vì thấy mẹ con họ không cảm ơn mình.</label>
+<label class="opt"><input type="radio" name="q2" value="b"> B. Vì thấy mãi không đến lượt mình.</label>
+<label class="opt"><input type="radio" name="q2" value="c"> C. Vì bưu điện chỉ làm việc đến mẹ con người phụ nữ là họ đóng cửa.</label>
+</div>
+<div class="feedback">💡 Bài đọc viết: "Nhưng đến lượt tôi thì bưu điện đóng cửa." Người phụ nữ đã cảm ơn rồi nên đáp án A không đúng.</div>
+</div>
+
+<div class="q-card" data-qid="q3">
+<div class="q-top"><div class="q-num">3</div><span class="q-tag">Trắc nghiệm</span></div>
+<p class="q-text">Việc gì xảy ra khiến nhân vật "tôi" lại rời khỏi bưu điện với "niềm vui trong lòng"?</p>
+<div class="options" data-type="mc" data-correct="a">
+<label class="opt"><input type="radio" name="q3" value="a"> A. Vì biết việc làm của mình giúp cho một gia đình tránh được một đêm đông giá rét.</label>
+<label class="opt"><input type="radio" name="q3" value="b"> B. Vì đã mua được tem thư.</label>
+<label class="opt"><input type="radio" name="q3" value="c"> C. Vì đã không phải quay lại bưu điện vào ngày hôm sau.</label>
+</div>
+<div class="feedback">💡 Nhờ được nhường chỗ, người phụ nữ kịp gửi phiếu thanh toán tiền ga nên gia đình bà không bị cắt nguồn sưởi ấm trong đêm giá rét.</div>
+</div>
+
+<div class="q-card" data-qid="q4">
+<div class="q-top"><div class="q-num">4</div><span class="q-tag">Trắc nghiệm</span></div>
+<p class="q-text">Câu chuyện muốn nói với em điều gì?</p>
+<div class="options" data-type="mc" data-correct="a">
+<label class="opt"><input type="radio" name="q4" value="a"> A. Cần phải biết quan tâm, chia sẻ, giúp đỡ người khác.</label>
+<label class="opt"><input type="radio" name="q4" value="b"> B. Muốn được người khác quan tâm, cần phải biết quan tâm giúp đỡ người khác.</label>
+<label class="opt"><input type="radio" name="q4" value="c"> C. Giúp đỡ người khác sẽ được trả ơn.</label>
+</div>
+<div class="feedback">💡 Một cử chỉ nhỏ, bình dị cũng có thể làm ấm lòng người khác. "Tôi" giúp mà không mong được quan tâm lại hay được trả ơn.</div>
+</div>
+
+  <div class="q-card" data-qid="q5">
+    <div class="q-top"><div class="q-num">5</div><span class="q-tag tag-free">Tự luận · cô chấm</span></div>
+    <div class="q-art"><svg viewBox="0 0 90 90"><circle cx="45" cy="45" r="42" fill="#ffeef0"/><path d="M45 34c-8-13-26-2-14 12l14 15l14-15c12-14-6-25-14-12z" fill="#ff6b6b"/><path d="M14 66q14-10 26 0q8 6 18 2l16-8" stroke="#ffd9b3" stroke-width="9" fill="none" stroke-linecap="round"/></svg></div>
+    <p class="q-text">Em hãy kể lại việc làm thể hiện sự chia sẻ của em hoặc một người mà em biết.</p>
+    <p class="hint">Gợi ý: Đó là việc gì? Em làm khi nào? Ở đâu? Em cảm thấy thế nào khi làm việc đó?</p>
+    <div class="free-group" data-type="free"><textarea data-key="I5" rows="5" placeholder="Em kể 3 – 5 câu vào đây nhé..."></textarea></div>
+    <div class="feedback">📝 Câu này cô sẽ đọc và nhận xét. Em tự soát lại: đã nêu rõ <b>việc gì – khi nào – ở đâu – cảm xúc của em</b> chưa? Ví dụ: "Giờ ra chơi hôm thứ Hai, bạn Minh quên mang nước, em đã rót cho bạn nửa bình nước của mình. Thấy bạn cười, em vui lắm."</div>
+  </div>
+
+  <div class="section-title"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="28" fill="#fff3d6"/><path d="M16 42l4-12l18-18l8 8l-18 18z" fill="#ffc93c" stroke="#e8523f" stroke-width="2.5" stroke-linejoin="round"/><path d="M16 42l12-4l-8-8z" fill="#2d3142"/><path d="M36 46h10" stroke="#3fb083" stroke-width="3" stroke-linecap="round"/></svg><h2>II. LUYỆN TỪ VÀ CÂU<small>Danh từ · danh từ chung · danh từ riêng</small></h2></div>
+
+  <div class="q-card" data-qid="w1">
+    <div class="q-top"><div class="q-num">1</div><span class="q-tag tag-pick">Chạm để gạch dưới</span></div>
+    <div class="q-art"><svg viewBox="0 0 90 90"><rect width="90" height="90" rx="18" fill="#23305c"/><circle cx="62" cy="26" r="15" fill="#ffe89a"/><circle cx="20" cy="18" r="1.8" fill="#fff"/><circle cx="36" cy="32" r="1.4" fill="#fff"/><circle cx="14" cy="42" r="1.4" fill="#fff"/><path d="M0 70q20-14 45-4t45-6v30H0z" fill="#2f9270"/><rect x="20" y="52" width="5" height="20" fill="#7a4b22"/><circle cx="22" cy="48" r="12" fill="#3fb083"/><path d="M50 56q8-4 16 0M56 64q8-4 16 0" stroke="#cdeaff" stroke-width="2" fill="none" stroke-linecap="round"/></svg><svg viewBox="0 0 90 90"><rect width="90" height="90" rx="18" fill="#dff1ff"/><path d="M22 40a14 14 0 0 1 8-25a18 18 0 0 1 34 4a11 11 0 0 1 2 21z" fill="#8a94ad"/><path d="M46 40l-8 14h9l-5 14l15-19h-9l5-9z" fill="#ffc93c" stroke="#e8523f" stroke-width="1.5" stroke-linejoin="round"/><g fill="#4aa3ff"><path d="M22 52q-5 8 0 10q5-2 0-10z"/><path d="M66 50q-5 8 0 10q5-2 0-10z"/><path d="M28 70q-5 8 0 10q5-2 0-10z"/><path d="M60 70q-5 8 0 10q5-2 0-10z"/></g><circle cx="20" cy="57" r="1" fill="#fff"/><circle cx="64" cy="55" r="1" fill="#fff"/></svg></div>
+    <p class="q-text">Gạch dưới các danh từ trong mỗi câu sau:</p>
+    <p class="hint">👉 Chạm vào từ nào là danh từ để gạch dưới. Chạm lần nữa để bỏ chọn. Chọn nhầm từ không phải danh từ sẽ bị trừ điểm đấy!</p>
+    <div class="pick-group" data-type="pick" id="pickGroup"></div>
+    <div class="feedback">💡 Danh từ là từ chỉ người, vật, hiện tượng tự nhiên, thời gian… <br>a. hôm nay, phiếu, tiền, ga, công ti, điện, ga, nguồn, gia đình. <br>b. ánh trăng, vườn, gió, mưa rào. <br>c. hạt mưa, ông Sấm, thùng, trẻ con, mái tôn. <br>(Ô viền xanh nét đứt là danh từ em còn bỏ sót.)</div>
+  </div>
+
+  <div class="q-card" data-qid="w2">
+    <div class="q-top"><div class="q-num">2</div><span class="q-tag tag-match">Xếp nhóm</span></div>
+    <div class="q-art"><svg viewBox="0 0 90 90"><rect width="90" height="90" rx="18" fill="#e4f7ee"/><rect x="18" y="30" width="54" height="46" rx="4" fill="#fff" stroke="#3fb083" stroke-width="3"/><rect x="34" y="14" width="22" height="22" rx="4" fill="#ff6b6b"/><path d="M45 19v12M39 25h12" stroke="#fff" stroke-width="4" stroke-linecap="round"/><rect x="26" y="44" width="10" height="10" fill="#cdeaff"/><rect x="54" y="44" width="10" height="10" fill="#cdeaff"/><rect x="39" y="56" width="12" height="20" fill="#8ecae6"/></svg><svg viewBox="0 0 90 90"><rect width="90" height="90" rx="18" fill="#fff0e0"/><circle cx="45" cy="50" r="24" fill="#fff" stroke="#ffab00" stroke-width="3"/><circle cx="45" cy="50" r="13" fill="#ffe2a8"/><path d="M12 24v18q0 6 5 6v24M12 24v12M17 24v12M22 24v18q0 6-5 6" stroke="#8675a9" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M76 72V24q-8 6-8 22h8" stroke="#8675a9" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M37 14q3 5 0 9M45 12q3 5 0 9M53 14q3 5 0 9" stroke="#e8523f" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg><svg viewBox="0 0 90 90"><rect width="90" height="90" rx="18" fill="#eef1fb"/><path d="M12 22h10l8 36h36l8-26H26" stroke="#8675a9" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="36" cy="70" r="6" fill="#e8523f"/><circle cx="62" cy="70" r="6" fill="#e8523f"/><rect x="34" y="36" width="10" height="16" rx="2" fill="#3fb083"/><rect x="47" y="30" width="10" height="22" rx="2" fill="#ffc93c"/><circle cx="64" cy="45" r="6" fill="#ff6b6b"/></svg></div>
+    <p class="q-text">Tìm danh từ chỉ người và vật cho mỗi nhóm: mỗi danh từ dưới đây thường gặp ở đâu?</p>
+    <p class="hint">👉 Mỗi nơi có đúng 5 danh từ. Em chọn nơi phù hợp nhất cho từng từ.</p>
+    <div class="match-group sort-grid" data-type="match">
+<div class="match-row" data-correct="bv"><div class="match-left">1. bác sĩ</div><select data-key="s1"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="nh"><div class="match-left">2. đầu bếp</div><select data-key="s2"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="st"><div class="match-left">3. xe đẩy hàng</div><select data-key="s3"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="bv"><div class="match-left">4. y tá</div><select data-key="s4"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="nh"><div class="match-left">5. thực đơn</div><select data-key="s5"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="st"><div class="match-left">6. nhân viên thu ngân</div><select data-key="s6"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="bv"><div class="match-left">7. bệnh nhân</div><select data-key="s7"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="st"><div class="match-left">8. kệ hàng</div><select data-key="s8"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="nh"><div class="match-left">9. thực khách</div><select data-key="s9"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="bv"><div class="match-left">10. ống nghe</div><select data-key="s10"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="st"><div class="match-left">11. giỏ mua hàng</div><select data-key="s11"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="nh"><div class="match-left">12. người phục vụ bàn</div><select data-key="s12"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="bv"><div class="match-left">13. giường bệnh</div><select data-key="s13"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="nh"><div class="match-left">14. bàn tiệc</div><select data-key="s14"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+<div class="match-row" data-correct="st"><div class="match-left">15. quầy tính tiền</div><select data-key="s15"><option value="">— chọn nơi —</option><option value="bv">🏥 Trong bệnh viện</option><option value="nh">🍽️ Trong nhà hàng</option><option value="st">🛒 Trong siêu thị</option></select></div>
+    </div>
+    <div class="feedback">💡 🏥 Bệnh viện: bác sĩ, y tá, bệnh nhân, ống nghe, giường bệnh. <br>🍽️ Nhà hàng: đầu bếp, thực đơn, thực khách, người phục vụ bàn, bàn tiệc. <br>🛒 Siêu thị: xe đẩy hàng, nhân viên thu ngân, kệ hàng, giỏ mua hàng, quầy tính tiền.</div>
+  </div>
+
+  <div class="q-card" data-qid="w3">
+    <div class="q-top"><div class="q-num">3</div><span class="q-tag tag-fill">Điền từ</span></div>
+    <div class="q-art wide"><svg viewBox="0 0 360 110"><rect width="360" height="110" rx="18" fill="#cdeaff"/><circle cx="60" cy="36" r="20" fill="#ffe89a"/><path d="M0 92q60-24 130-8t120-10t110 6v30H0z" fill="#3fb083"/><path d="M190 40a12 12 0 0 1 6-22a16 16 0 0 1 30 3a10 10 0 0 1 2 19z" fill="#fff"/><path d="M280 52a10 10 0 0 1 5-18a13 13 0 0 1 25 3a8 8 0 0 1 1 15z" fill="#5a5f75"/><path d="M120 48q6-6 12 0q6-6 12 0M150 30q5-5 10 0q5-5 10 0" stroke="#2d3142" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M96 70q10-6 20 0M238 66q10-6 20 0" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="318" y="62" width="6" height="26" fill="#7a4b22"/><circle cx="321" cy="58" r="14" fill="#2f9270"/><path d="M300 76q-4 3-2 7q4-1 2-7zM336 80q-4 3-2 7q4-1 2-7z" fill="#ffab00"/></svg></div>
+    <p class="q-text">Viết các danh từ có thể điền vào chỗ chấm trong mỗi câu văn dưới đây sao cho phù hợp:</p>
+    <p class="hint">👉 Mỗi ô em gõ một danh từ, viết đủ dấu tiếng Việt.</p>
+    <div class="fill-group" data-type="fill">
+<div class="fill-line"><span class="txt">a. Vầng</span> <input type="text" data-key="f1" data-answers="trăng" autocomplete="off"> <span class="txt">tròn quá, ánh trăng trong xanh toả khắp khu</span> <input type="text" data-key="f2" data-answers="rừng|vườn|phố|xóm|làng|đồi" autocomplete="off"><span class="txt">.</span></div>
+<div class="fill-line"><span class="txt">b.</span> <input type="text" data-key="f3" data-answers="gió|cơn gió" autocomplete="off"> <span class="txt">bắt đầu thổi mạnh, lá cây rơi nhiều, từng</span> <input type="text" data-key="f4" data-answers="đàn cò|đàn chim|đàn én|đàn cò trắng|đàn sếu|đàn vịt trời|đàn ngỗng trời|cánh chim|cánh cò|chiếc lá|đám lá|bầy chim" autocomplete="off"> <span class="txt">bay nhanh theo mây.</span></div>
+<div class="fill-line"><span class="txt">c. Mấy chú bé đi tìm chỗ ven</span> <input type="text" data-key="f5" data-answers="suối|sông|hồ|rừng|đường|đồi|bờ suối|bờ sông" autocomplete="off"> <span class="txt">để bắc bếp thổi</span> <input type="text" data-key="f6" data-answers="cơm" autocomplete="off"><span class="txt">.</span></div>
+<div class="fill-line"><span class="txt">d.</span> <input type="text" data-key="f7" data-answers="trời|bầu trời" autocomplete="off"> <span class="txt">bỗng tối sầm lại,</span> <input type="text" data-key="f8" data-answers="gió|cơn gió" autocomplete="off"> <span class="txt">thổi ù ù,</span> <input type="text" data-key="f9" data-answers="mây|đám mây|những đám mây" autocomplete="off"> <span class="txt">đen kéo đến ùn ùn như ông trời đang mặc áo giáp đen ra trận.</span></div>
+    </div>
+    <div class="feedback">💡 Gợi ý đáp án: a. trăng – rừng · b. Gió – đàn cò · c. suối – cơm · d. Trời – gió – mây. (Một số ô có thể dùng danh từ khác vẫn hợp nghĩa, ví dụ: khu vườn, đàn chim, ven sông, bầu trời.)</div>
+  </div>
+
+  <div class="q-card" data-qid="w4">
+    <div class="q-top"><div class="q-num">4</div><span class="q-tag tag-free">Tự luận · cô chấm</span></div>
+    <div class="q-art"><svg viewBox="0 0 90 90"><rect width="90" height="90" rx="18" fill="#fff3d6"/><path d="M14 44l31-26l31 26" stroke="#e8523f" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="44" width="46" height="32" fill="#fff" stroke="#e8523f" stroke-width="3"/><rect x="40" y="56" width="11" height="20" fill="#ffc93c"/><rect x="27" y="50" width="9" height="9" fill="#cdeaff"/><rect x="55" y="50" width="9" height="9" fill="#cdeaff"/></svg><svg viewBox="0 0 90 90"><rect width="90" height="90" rx="18" fill="#ffeef0"/><rect x="14" y="24" width="62" height="42" rx="4" fill="#da251d"/><path d="M45 32l3.5 9.5h10l-8 6l3 9.7l-8.5-6l-8.5 6l3-9.7l-8-6h10z" fill="#ffde00"/></svg></div>
+    <p class="q-text">Viết câu theo yêu cầu:</p>
+    <p class="hint">👉 Nhớ: danh từ riêng phải viết hoa; đầu câu viết hoa, cuối câu có dấu chấm.</p>
+    <div class="free-group" data-type="free">
+<div class="free-item"><label class="txt" for="wa">a. Có chứa danh từ chung chỉ đồ dùng trong gia đình:</label><textarea id="wa" data-key="II4a" rows="2" placeholder="Em viết câu của mình vào đây..."></textarea></div>
+<div class="free-item"><label class="txt" for="wb">b. Có chứa danh từ chung chỉ đồ dùng cá nhân:</label><textarea id="wb" data-key="II4b" rows="2" placeholder="Em viết câu của mình vào đây..."></textarea></div>
+<div class="free-item"><label class="txt" for="wc">c. Có chứa danh từ riêng chỉ tên một quốc gia:</label><textarea id="wc" data-key="II4c" rows="2" placeholder="Em viết câu của mình vào đây..."></textarea></div>
+<div class="free-item"><label class="txt" for="wd">d. Có chứa danh từ riêng chỉ tên một vị anh hùng dân tộc:</label><textarea id="wd" data-key="II4d" rows="2" placeholder="Em viết câu của mình vào đây..."></textarea></div>
+<div class="free-item"><label class="txt" for="we">e. Có chứa danh từ riêng chỉ tên một môn học em yêu thích:</label><textarea id="we" data-key="II4e" rows="2" placeholder="Em viết câu của mình vào đây..."></textarea></div>
+    </div>
+    <div class="feedback">📝 Câu này cô sẽ đọc và nhận xét. Em so với câu mẫu nhé: <br>a. Mẹ em vừa mua một chiếc <b>nồi</b> cơm điện mới. <br>b. Sáng nào em cũng dùng <b>bàn chải</b> để đánh răng. <br>c. <b>Việt Nam</b> là Tổ quốc thân yêu của em. <br>d. <b>Trần Quốc Toản</b> là vị anh hùng nhỏ tuổi mà em rất khâm phục. <br>e. Em thích học môn <b>Tiếng Việt</b> nhất.</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="submit-zone"><button class="btn-submit" id="submitBtn">📮 Nộp bài</button></div>
+  <div class="result-panel" id="resultPanel">
+    <div class="result-emoji" id="resultEmoji">📬</div>
+    <div class="result-score" id="resultScore">0 / 46 điểm</div>
+    <div class="result-msg" id="resultMsg"></div>
+    <div class="result-note">Điểm trên tính cho các câu máy chấm được. Hai câu tự luận (I.5 và II.4) cô sẽ nhận xét riêng.</div>
+    <button class="btn-retry" id="retryBtn">↺ Làm lại</button>
+  </div>
+</div>
+<footer>Đọc hiểu · Lớp 4 – Tuần 3 · Chúc em học vui! 🌈</footer>
+
+<script>
+// 1 = danh từ, 0 = không phải danh từ; chuỗi thường = dấu câu; "\n" = xuống dòng
+const PICK=[
+ {label:'a.',t:[['Cô',0],['biết',0],['không',0],',',['nếu',0],['hôm nay',1],['tôi',0],['không',0],['gửi',0],['phiếu',1],['thanh toán',0],['tiền',1],['ga',1],',',['thì',0],['công ti',1],['điện',1],['và',0],['ga',1],['sẽ',0],['cắt',0],['hết',0],['nguồn',1],['sưởi ấm',0],['của',0],['gia đình',1],['tôi',0],'.']},
+ {label:'b.',t:[['Ánh trăng',1],['vừa',0],['thực',0],['vừa',0],['hư',0],'\n',['Vườn',1],['sau',0],['gió',1],['thổi',0],['nghe',0],['như',0],['mưa rào',1],'.']},
+ {label:'c.',t:[['Hạt mưa',1],['tinh nghịch',0],['lắm',0],'\n',['Thi',0],['cùng',0],['với',0],['ông Sấm',1],'\n',['Gõ',0],['thùng',1],['với',0],['trẻ con',1],'\n',['Ào ào',0],['trên',0],['mái tôn',1],'.']}
+];
+const pickGroup=document.getElementById('pickGroup');
+PICK.forEach(s=>{
+  const blk=document.createElement('div');blk.className='pick-block';
+  const line=document.createElement('div');line.className='pick-line';
+  const lb=document.createElement('span');lb.className='pick-label';lb.textContent=s.label;line.appendChild(lb);
+  s.t.forEach(x=>{
+    if(typeof x==='string'){
+      if(x==='\n'){line.appendChild(document.createElement('br'));}
+      else{line.appendChild(document.createTextNode(x+' '));}
+      return;
+    }
+    const b=document.createElement('button');b.type='button';b.className='tok';b.textContent=x[0];b.dataset.n=String(x[1]);
+    b.addEventListener('click',()=>{ if(locked) return; b.classList.toggle('on'); updateProgress(); });
+    line.appendChild(b);line.appendChild(document.createTextNode(' '));
+  });
+  const sc=document.createElement('div');sc.className='pick-score';
+  blk.appendChild(line);blk.appendChild(sc);pickGroup.appendChild(blk);
+});
+
+let locked=false;
+const qCards = Array.from(document.querySelectorAll('.q-card'));
+const totalGroups = qCards.length;
+
+function normalize(s){
+  return (s||'').toString().normalize('NFC').trim().toLowerCase().replace(/[.,!?;:"']/g,'').replace(/–/g,'-').replace(/\s*-\s*/g,' - ').replace(/\s+/g,' ').trim();
+}
+function isGroupTouched(card){
+  const mc = card.querySelector('.options[data-type="mc"]');
+  if(mc){ return !!mc.querySelector('input:checked'); }
+  const match = card.querySelector('.match-group[data-type="match"]');
+  if(match){ return Array.from(match.querySelectorAll('select')).some(s=>s.value!==''); }
+  const fill = card.querySelector('.fill-group[data-type="fill"]');
+  if(fill){ return Array.from(fill.querySelectorAll('input[type=text]')).some(i=>i.value.trim()!==''); }
+  const pick = card.querySelector('.pick-group[data-type="pick"]');
+  if(pick){ return !!pick.querySelector('.tok.on'); }
+  const free = card.querySelector('.free-group[data-type="free"]');
+  if(free){ return Array.from(free.querySelectorAll('textarea')).some(i=>i.value.trim()!==''); }
+  return false;
+}
+function updateProgress(){
+  let answered = 0;
+  qCards.forEach(card=>{ if(isGroupTouched(card)) answered++; });
+  const pct = Math.round((answered/totalGroups)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-walker').style.left = Math.min(96,Math.max(4,pct))+'%';
+  document.getElementById('progress-count').textContent = answered+' / '+totalGroups+' câu';
+}
+qCards.forEach(card=>{
+  card.addEventListener('change', ()=>{
+    card.querySelectorAll('.opt').forEach(o=>{ o.classList.toggle('picked', o.querySelector('input').checked); });
+    updateProgress();
+  });
+  card.addEventListener('input', updateProgress);
+});
+function setLocked(v){
+  locked=v;
+  document.querySelectorAll('.q-card input, .q-card select, .q-card textarea, .tok').forEach(el=>{ el.disabled=v; });
+  document.getElementById('submitBtn').disabled=v;
+}
+
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  if(locked) return;
+  const nameInput = document.getElementById('studentName');
+  if(nameInput.value.trim()===''){
+    nameInput.style.borderColor = 'var(--coral)'; nameInput.focus();
+    nameInput.placeholder = 'Em nhớ điền tên trước khi nộp bài nhé!';
+    nameInput.scrollIntoView({behavior:'smooth',block:'center'}); return;
+  }
+  nameInput.style.borderColor = '#eaeff6';
+  const classInput = document.getElementById('studentClass');
+  if(classInput.value.trim()===''){
+    classInput.style.borderColor = 'var(--coral)'; classInput.focus();
+    classInput.placeholder = 'Em nhớ điền lớp trước khi nộp bài nhé!';
+    classInput.scrollIntoView({behavior:'smooth',block:'center'}); return;
+  }
+  classInput.style.borderColor = '#eaeff6';
+
+  let earned = 0, possible = 0;
+  const tuluan = {};
+
+  qCards.forEach(card=>{
+    let groupCorrect = true;
+    const groupTouched = isGroupTouched(card);
+    let isFree = false;
+
+    const mc = card.querySelector('.options[data-type="mc"]');
+    if(mc){
+      possible += 1;
+      const checked = mc.querySelector('input:checked');
+      const correctVal = mc.getAttribute('data-correct');
+      const isCorrect = !!checked && checked.value === correctVal;
+      if(isCorrect) earned += 1;
+      mc.querySelectorAll('.opt').forEach(o=>{ if(o.querySelector('input').value === correctVal) o.classList.add('correct-answer'); });
+      groupCorrect = isCorrect;
+    }
+    const match = card.querySelector('.match-group[data-type="match"]');
+    if(match){
+      const rows = Array.from(match.querySelectorAll('.match-row'));
+      possible += rows.length; let allOk = true;
+      rows.forEach(row=>{
+        const sel = row.querySelector('select');
+        const ok = sel.value === row.getAttribute('data-correct');
+        if(ok) earned += 1; else allOk = false;
+        sel.style.borderColor = ok ? '#3fb083' : '#ff6b6b';
+      });
+      groupCorrect = allOk;
+    }
+    const fill = card.querySelector('.fill-group[data-type="fill"]');
+    if(fill){
+      const inputs = Array.from(fill.querySelectorAll('input[type=text]'));
+      possible += inputs.length; let allOk = true;
+      inputs.forEach(inp=>{
+        const accepted = (inp.getAttribute('data-answers')||'').split('|').map(normalize);
+        const ok = accepted.includes(normalize(inp.value));
+        if(ok) earned += 1; else allOk = false;
+        inp.style.color = ok ? '#1d7a52' : '#e8523f';
+        inp.style.borderBottomColor = ok ? '#3fb083' : '#ff6b6b';
+      });
+      groupCorrect = allOk;
+    }
+    const pick = card.querySelector('.pick-group[data-type="pick"]');
+    if(pick){
+      let allOk = true;
+      pick.querySelectorAll('.pick-block').forEach(blk=>{
+        let nouns=0, hit=0, wrong=0;
+        blk.querySelectorAll('.tok').forEach(b=>{
+          const n=b.dataset.n, on=b.classList.contains('on');
+          if(n==='1'){ nouns++; if(on){hit++; b.classList.add('hit');} else b.classList.add('missed'); }
+          else if(n==='0' && on){ wrong++; b.classList.add('wrong'); }
+        });
+        const pts=Math.max(0,hit-wrong);
+        possible += nouns; earned += pts;
+        if(pts!==nouns) allOk=false;
+        blk.querySelector('.pick-score').textContent='Đúng '+hit+'/'+nouns+' danh từ'+(wrong?(' · chọn nhầm '+wrong+' từ'):'')+' → '+pts+' điểm';
+      });
+      groupCorrect = allOk;
+    }
+    const free = card.querySelector('.free-group[data-type="free"]');
+    if(free){
+      isFree = true;
+      free.querySelectorAll('textarea').forEach(t=>{ tuluan[t.dataset.key]=t.value.trim(); });
+    }
+
+    card.classList.remove('answered','correct','incorrect','noted');
+    if(isFree) card.classList.add('noted');
+    else card.classList.add(groupCorrect ? 'correct' : 'incorrect');
+  });
+
+  updateProgress();
+  setLocked(true);
+
+  try {
+    fetch("https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec", {
+      method: 'POST', mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        bai: "Đọc hiểu tuần 3 - Sự sẻ chia bình dị",
+        hoten: nameInput.value.trim(),
+        lop: classInput.value.trim(),
+        diem: earned,
+        tongdiem: possible,
+        tuluan: Object.keys(tuluan).map(k=>k+': '+(tuluan[k]||'(bỏ trống)')).join('\n')
+      })
+    }).catch(()=>{});
+  } catch(e) {}
+
+  const pct = Math.round((earned/possible)*100);
+  document.getElementById('resultScore').textContent = earned+' / '+possible+' điểm';
+  let emoji, msg;
+  if(pct >= 90){ emoji='💌'; msg='tuyệt vời! Lá thư của em đã tới nơi an toàn!'; }
+  else if(pct >= 70){ emoji='📬'; msg='rất tốt! Lá thư sắp tới hòm thư rồi.'; }
+  else if(pct >= 50){ emoji='✉️'; msg='khá lắm! Xem lại vài câu để giỏi hơn nữa nhé.'; }
+  else { emoji='🌱'; msg='đừng lo, em đọc lại bài và thử lần nữa nhé!'; }
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultMsg').textContent = nameInput.value.trim()+' ơi, '+msg;
+  const rp=document.getElementById('resultPanel');
+  rp.classList.add('show'); rp.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+document.getElementById('retryBtn').addEventListener('click', ()=>{
+  setLocked(false);
+  document.querySelectorAll('.q-card input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.q-card input[type=text]').forEach(i=>{i.value='';i.style.color='';i.style.borderBottomColor='';});
+  document.querySelectorAll('textarea').forEach(t=>t.value='');
+  document.querySelectorAll('select').forEach(s=>{s.value='';s.style.borderColor='';});
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove('picked','correct-answer'));
+  document.querySelectorAll('.tok').forEach(b=>b.classList.remove('on','hit','wrong','missed'));
+  document.querySelectorAll('.pick-score').forEach(p=>p.textContent='');
+  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('answered','correct','incorrect','noted'));
+  document.getElementById('resultPanel').classList.remove('show');
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+updateProgress();
+</script>
+</body>
+</html>

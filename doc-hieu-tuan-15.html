@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đọc hiểu tuần 15 — Không ngừng nỗ lực · Tiếng Việt lớp 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --grass:#3f9b4f; --grass-deep:#27753a; --grass-soft:#e6f5e3;
+    --dawn:#ffb347; --dawn-deep:#f08a1c; --dawn-soft:#fff3dc;
+    --flag:#e8523f; --flag-soft:#ffe9e6;
+    --sky:#dff1fb; --ink:#243342; --ink-soft:#5b6b7a;
+    --paper:#ffffff; --line:#e3ebe6;
+    --ok:#2f9270; --ok-soft:#e1f6ec;
+    --radius:22px; --shadow:0 10px 26px rgba(36,51,66,.10);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; font-family:'Quicksand','Segoe UI',Arial,sans-serif; color:var(--ink);
+    background:linear-gradient(180deg,#fdebc8 0%, var(--sky) 260px, #f1f9ee 100%);
+    min-height:100vh; padding-bottom:70px;
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2','Quicksand','Segoe UI',Arial,sans-serif;}
+  button{font-family:inherit;}
+
+  /* ---------- Hero ---------- */
+  .hero{max-width:680px;margin:0 auto;padding:26px 18px 0;text-align:center;}
+  .hero-badge{
+    display:inline-block;background:var(--paper);border:2px dashed var(--dawn-deep);
+    color:var(--flag);font-weight:700;font-size:14px;padding:6px 16px;border-radius:999px;letter-spacing:.5px;
+  }
+  .hero h1{font-size:clamp(28px,6.5vw,44px);margin:12px 0 4px;line-height:1.15;}
+  .hero h1 span{color:var(--grass-deep);}
+  .hero p.sub{max-width:520px;margin:0 auto 14px;color:var(--ink-soft);font-weight:600;font-size:16px;line-height:1.5;}
+  .hero-art{width:100%;height:auto;display:block;border-radius:26px;box-shadow:var(--shadow);}
+  .ball-fly{animation:fly 3.2s ease-in-out infinite;}
+  @keyframes fly{0%,100%{transform:translate(0,0);}50%{transform:translate(6px,-8px);}}
+  .sun-glow{animation:glow 4s ease-in-out infinite;transform-origin:560px 78px;}
+  @keyframes glow{0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
+
+  /* ---------- Name card ---------- */
+  .name-card{
+    max-width:420px;margin:22px auto 0;background:var(--paper);border-radius:18px;box-shadow:var(--shadow);
+    padding:16px 20px;border:2px solid #ffe2a8;display:flex;flex-direction:column;gap:6px;
+  }
+  .name-wrap{padding:0 18px;}
+  .name-card label{font-weight:700;font-size:14px;color:var(--grass-deep);}
+  .name-card input{
+    border:2px solid #e3ebe6;border-radius:12px;padding:10px 12px;width:100%;
+    font-family:inherit;font-weight:700;font-size:16px;color:var(--ink);
+  }
+  .name-card input:focus{outline:none;border-color:var(--dawn-deep);}
+
+  /* ---------- Progress: ball rolls to the hole ---------- */
+  .progress-wrap{max-width:640px;margin:0 auto;padding:10px 18px 8px;position:sticky;top:0;z-index:30;
+    background:linear-gradient(180deg,rgba(241,249,238,.96) 75%,rgba(241,249,238,0));}
+  .progress-label{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;color:var(--ink-soft);font-size:14px;margin-bottom:6px;}
+  #progress-count{color:var(--flag);font-size:16px;}
+  .progress-track{position:relative;height:30px;border-radius:999px;background:#cfe9c8;border:2px solid #b5d9ac;margin-right:14px;}
+  .progress-fill{position:absolute;left:0;top:0;bottom:0;width:0%;background:linear-gradient(90deg,#8fd08a,var(--grass));border-radius:999px;transition:width .5s cubic-bezier(.4,1.4,.6,1);}
+  .progress-ball{position:absolute;top:50%;left:0%;width:22px;height:22px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,#fff 0%,#f1f1f1 55%,#cfcfcf 100%);border:1.5px solid #9aa3ab;
+    transform:translate(-50%,-50%);transition:left .5s cubic-bezier(.4,1.4,.6,1);box-shadow:0 2px 3px rgba(0,0,0,.25);}
+  .progress-flag{position:absolute;right:-16px;top:-14px;font-size:24px;line-height:1;}
+
+  /* ---------- Layout ---------- */
+  .wrap{max-width:640px;margin:18px auto 0;padding:0 18px;display:flex;flex-direction:column;gap:22px;}
+  .part-head{display:flex;align-items:center;gap:12px;margin-top:10px;}
+  .part-head svg{width:58px;height:58px;flex:none;}
+  .part-head h2{margin:0;font-size:24px;line-height:1.2;}
+  .part-head small{display:block;font-family:'Quicksand',sans-serif;font-size:14px;color:var(--ink-soft);font-weight:600;}
+
+  /* ---------- Story ---------- */
+  .story-card{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 22px;border-top:6px solid var(--grass);}
+  .story-card h2{margin:0 0 2px;font-size:24px;color:var(--grass-deep);text-align:center;}
+  .story-meta{font-size:13px;color:var(--ink-soft);font-weight:600;margin-bottom:14px;text-align:center;}
+  .story-card p{line-height:1.8;font-size:16px;margin:0 0 12px;color:#33414f;}
+  .story-card p.author{text-align:right;font-style:italic;font-weight:700;color:var(--ink-soft);margin-bottom:0;}
+  .story-card p.first::first-letter{font-family:'Baloo 2',sans-serif;font-size:46px;color:var(--flag);float:left;line-height:.8;padding:4px 8px 0 0;}
+  .story-fig{display:flex;gap:10px;justify-content:center;margin:6px 0 16px;flex-wrap:wrap;}
+  .story-fig figure{margin:0;flex:1;min-width:150px;max-width:190px;background:var(--dawn-soft);border-radius:16px;padding:10px 8px 8px;text-align:center;border:2px solid #ffe2a8;}
+  .story-fig svg{width:72px;height:72px;}
+  .story-fig figcaption{font-size:13px;font-weight:700;color:#8a5a00;line-height:1.35;}
+
+  /* ---------- Rule box ---------- */
+  .rule-box{background:var(--dawn-soft);border:2px dashed #ffcf7a;border-radius:18px;padding:16px 18px;font-weight:600;line-height:1.7;font-size:15.5px;}
+  .rule-box b{color:var(--flag);}
+  .rule-box .dash{display:inline-block;background:var(--flag);color:#fff;border-radius:8px;padding:0 9px;font-weight:800;margin:0 2px;}
+
+  /* ---------- Question card ---------- */
+  .q-card{background:var(--paper);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px 20px 22px;border:2px solid transparent;transition:border-color .25s;scroll-margin-top:80px;}
+  .q-card.correct{border-color:var(--ok);background:#f4fcf8;}
+  .q-card.incorrect{border-color:var(--flag);background:#fff7f6;}
+  .q-card.reviewed{border-color:#ffcf7a;}
+  .q-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .q-num{min-width:36px;height:36px;padding:0 8px;border-radius:999px;background:var(--dawn);color:#6b3d00;font-family:'Baloo 2',sans-serif;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;flex:none;}
+  .q-tag{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--grass-soft);color:var(--grass-deep);letter-spacing:.3px;}
+  .q-tag.tag-write{background:#eef1fb;color:#5b55a0;}
+  .q-tag.tag-tap{background:var(--flag-soft);color:#b3392a;}
+  .q-score{margin-left:auto;font-weight:800;font-size:14px;color:var(--ink-soft);display:none;}
+  .q-card.correct .q-score,.q-card.incorrect .q-score{display:block;}
+  .q-card.correct .q-score{color:var(--ok);} .q-card.incorrect .q-score{color:var(--flag);}
+  .q-text{font-weight:700;font-size:16.5px;margin:0 0 14px;line-height:1.5;}
+  .q-hint{font-size:14px;font-weight:600;color:var(--ink-soft);margin:-6px 0 12px;line-height:1.5;}
+
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:#f6faf7;border:2px solid var(--line);cursor:pointer;transition:all .15s;font-weight:600;font-size:15.5px;line-height:1.45;}
+  .opt:hover{background:#eef7ee;border-color:#bfe0bd;}
+  .opt input{accent-color:var(--grass);width:19px;height:19px;flex:none;}
+  .opt.picked{background:var(--dawn-soft);border-color:var(--dawn-deep);}
+  .graded .opt{cursor:default;}
+  .graded .opt.picked.right{background:var(--ok-soft);border-color:var(--ok);}
+  .graded .opt.picked.wrong{background:var(--flag-soft);border-color:var(--flag);}
+  .graded .opt.correct-answer{background:var(--ok-soft);border-color:var(--ok);}
+  .graded .opt.correct-answer::after{content:"✓";margin-left:auto;color:var(--ok);font-weight:800;}
+
+  /* pick rows (bài 4) */
+  .pick-row{margin-bottom:16px;}
+  .pick-row:last-child{margin-bottom:0;}
+  .pick-sent{font-weight:700;font-size:15.5px;margin-bottom:8px;line-height:1.5;}
+  .pick-sent b{color:var(--flag);}
+  .pick-opts{display:flex;flex-wrap:wrap;gap:8px;}
+  .pick-opts .opt{padding:9px 14px;border-radius:999px;}
+  .pick-opts .opt input{position:absolute;opacity:0;width:0;height:0;}
+  .pick-opts .opt:focus-within{outline:2px solid var(--dawn-deep);outline-offset:2px;}
+  .graded .pick-opts .opt.correct-answer::after{margin-left:6px;}
+
+  /* tap-gap exercises */
+  .tap-box{background:#fbfdf9;border:2px solid var(--line);border-radius:16px;padding:14px 14px;line-height:2.5;font-size:16px;font-weight:600;}
+  .tap-box .plain{color:var(--ink-soft);}
+  .gap{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;
+    min-width:26px;height:30px;margin:0 3px;padding:0 4px;border-radius:9px;border:2px dashed #b9c9bd;background:#fff;
+    color:#9fb0a4;font-weight:800;font-size:15px;cursor:pointer;line-height:1;}
+  .gap:hover{border-color:var(--dawn-deep);color:var(--dawn-deep);}
+  .gap.on{background:var(--dawn);border:2px solid var(--dawn-deep);color:#5a3200;min-width:30px;font-size:18px;}
+  .gap.small{min-width:16px;height:28px;margin:0 1px;padding:0;border-width:1.5px;font-size:12px;}
+  .gap.small.on{min-width:28px;margin:0 3px;font-size:18px;}
+  .graded .gap{cursor:default;pointer-events:none;}
+  .graded .gap.on.right{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);}
+  .graded .gap.on.wrong{background:var(--flag-soft);border-color:var(--flag);color:var(--flag);text-decoration:line-through;}
+  .graded .gap.missed{border:2px solid var(--ok);color:var(--ok);background:#fff;min-width:28px;}
+  .tap-count{font-size:13.5px;font-weight:700;color:var(--ink-soft);margin-top:8px;}
+
+  textarea{width:100%;min-height:96px;border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-family:inherit;font-size:15.5px;font-weight:600;color:var(--ink);line-height:1.6;resize:vertical;background:#fbfdf9;}
+  textarea.short{min-height:58px;}
+  textarea:focus{outline:none;border-color:var(--dawn-deep);background:#fff;}
+  .write-label{font-weight:700;font-size:15px;margin:12px 0 6px;display:block;}
+  .write-label b{color:var(--flag);}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+  .chip{border:2.5px solid var(--dawn-deep);background:#fff;border-radius:14px;padding:6px 18px;font-weight:700;font-size:16px;}
+
+  .feedback{margin-top:14px;padding:12px 14px;border-radius:14px;font-size:14.5px;font-weight:600;display:none;line-height:1.65;}
+  .q-card.correct .feedback{display:block;background:var(--ok-soft);color:#1d6b4a;}
+  .q-card.incorrect .feedback{display:block;background:var(--flag-soft);color:#a23425;}
+  .q-card.reviewed .feedback{display:block;background:var(--dawn-soft);color:#7a4b00;}
+
+  /* ---------- Submit & result ---------- */
+  .submit-zone{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:6px;}
+  .btn-submit{background:linear-gradient(135deg,#ff7a59,var(--flag));color:#fff;border:none;padding:16px 40px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:20px;font-weight:700;box-shadow:0 10px 22px rgba(232,82,63,.35);cursor:pointer;transition:transform .15s;}
+  .btn-submit:hover{transform:translateY(-2px) scale(1.02);}
+  .btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none;}
+  .submit-note{font-size:14px;font-weight:700;color:var(--flag);min-height:20px;text-align:center;}
+  .result-panel{background:linear-gradient(160deg,#fff,#f3fbef);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 22px;text-align:center;border-top:6px solid var(--grass);display:none;scroll-margin-top:90px;}
+  .result-panel.show{display:block;animation:pop .5s;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .result-emoji{font-size:54px;}
+  .result-score{font-family:'Baloo 2',sans-serif;font-size:46px;color:var(--flag);margin:2px 0;font-weight:800;}
+  .result-msg{font-weight:700;font-size:17px;margin-bottom:8px;line-height:1.5;}
+  .result-sub{font-weight:600;font-size:14px;color:var(--ink-soft);margin-bottom:16px;line-height:1.5;}
+  .btn-retry{background:var(--grass-deep);color:#fff;border:none;padding:12px 28px;border-radius:999px;font-family:'Baloo 2',sans-serif;font-size:17px;font-weight:700;cursor:pointer;}
+  footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:28px;font-weight:600;padding:0 18px;}
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-badge">TIẾNG VIỆT · LỚP 4 · TUẦN 15</span>
+  <h1>Đọc hiểu: <span>Không ngừng nỗ lực</span></h1>
+  <p class="sub">Đọc câu chuyện về một gôn thủ lừng danh rồi làm bài nhé. Mỗi câu em làm xong, quả bóng sẽ lăn gần lỗ cờ hơn!</p>
+  <svg class="hero-art" viewBox="0 0 680 300" role="img" aria-label="Tranh vẽ: buổi bình minh trên sân gôn, một gôn thủ vừa đánh quả bóng bay về phía lá cờ đỏ">
+    <defs>
+      <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd58a"/><stop offset=".55" stop-color="#ffeccb"/><stop offset="1" stop-color="#d9f0fb"/></linearGradient>
+      <linearGradient id="hillG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc96f"/><stop offset="1" stop-color="#3f9b4f"/></linearGradient>
+    </defs>
+    <rect width="680" height="300" fill="url(#skyG)"/>
+    <g class="sun-glow"><circle cx="560" cy="78" r="46" fill="#fff1b8" opacity=".7"/><circle cx="560" cy="78" r="32" fill="#ffc93c"/></g>
+    <g fill="#fff" opacity=".9"><ellipse cx="120" cy="56" rx="44" ry="15"/><ellipse cx="150" cy="46" rx="28" ry="13"/><ellipse cx="400" cy="40" rx="36" ry="12"/></g>
+    <!-- clock 5:00 -->
+    <g transform="translate(60,104)"><circle r="24" fill="#fff" stroke="#f08a1c" stroke-width="4"/><path d="M0 0V-15M0 0l7.5 11" stroke="#243342" stroke-width="3.2" stroke-linecap="round"/><circle r="2.6" fill="#243342"/><text x="0" y="44" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="700" font-size="15" fill="#b5610a">5 giờ sáng</text></g>
+    <path d="M0 200 Q170 140 340 190 T680 170 V300 H0Z" fill="#a9dd9c"/>
+    <path d="M0 232 Q200 180 420 226 T680 214 V300 H0Z" fill="url(#hillG)"/>
+    <ellipse cx="548" cy="246" rx="82" ry="18" fill="#8fd67f"/>
+    <ellipse cx="560" cy="247" rx="11" ry="4" fill="#1f4f2b"/>
+    <path d="M560 247V168" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+    <path d="M562 170l42 14-42 15z" fill="#e8523f"/>
+    <!-- trajectory -->
+    <path d="M214 196 Q380 40 520 222" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="3 10" stroke-linecap="round"/>
+    <g class="ball-fly"><circle cx="386" cy="118" r="9" fill="#fff" stroke="#9aa3ab" stroke-width="1.5"/><circle cx="383" cy="115" r="1.3" fill="#c5ccd2"/><circle cx="388" cy="120" r="1.3" fill="#c5ccd2"/></g>
+    <!-- golfer -->
+    <g transform="translate(150,150)">
+      <ellipse cx="18" cy="112" rx="40" ry="7" fill="#27753a" opacity=".45"/>
+      <path d="M8 62l-12 46M26 62l14 46" stroke="#34495e" stroke-width="11" stroke-linecap="round"/>
+      <path d="M-8 108h-9M44 108h9" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+      <path d="M2 22h30l-3 44H5z" fill="#e8523f"/>
+      <path d="M6 28l30-26M30 28l8-26" stroke="#f3c9a5" stroke-width="8" stroke-linecap="round"/>
+      <path d="M38 0L66-40" stroke="#5b6b7a" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M62-44l12 2-3 8z" fill="#5b6b7a"/>
+      <circle cx="16" cy="6" r="14" fill="#f3c9a5"/>
+      <path d="M2 3a14 14 0 0 1 28 0zM28 3h12" fill="#fff" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="22" cy="8" r="1.6" fill="#243342"/><path d="M19 13q4 3 7 0" stroke="#243342" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </g>
+    <g fill="#fff" stroke="#f08a1c" stroke-width="2"><rect x="262" y="246" width="150" height="34" rx="17"/></g>
+    <text x="337" y="269" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="700" font-size="16" fill="#b5610a">1000 cú mỗi ngày!</text>
+  </svg>
+</div>
+
+<div class="name-wrap">
+  <div class="name-card">
+    <label for="studentName">✏️ Họ và tên của em</label>
+    <input type="text" id="studentName" placeholder="Nhập họ và tên của em..." autocomplete="name">
+    <label for="studentClass" style="margin-top:8px;">🏫 Lớp của em</label>
+    <input type="text" id="studentClass" placeholder="VD: 4A">
+  </div>
+</div>
+
+<div class="progress-wrap" style="margin-top:18px;">
+  <div class="progress-label"><span>Bóng đang lăn về lỗ cờ</span><span id="progress-count">0 / 11 câu</span></div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+    <div class="progress-ball" id="progress-ball"></div>
+    <div class="progress-flag" aria-hidden="true">⛳</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="part-head">
+    <svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="29" fill="#e6f5e3"/><path d="M12 20q9-5 18 0v24q-9-5-18 0z" fill="#fff" stroke="#27753a" stroke-width="2.5" stroke-linejoin="round"/><path d="M48 20q-9-5-18 0v24q9-5 18 0z" fill="#fff" stroke="#27753a" stroke-width="2.5" stroke-linejoin="round"/><path d="M17 26h8M17 31h8M35 26h8M35 31h8" stroke="#f08a1c" stroke-width="2" stroke-linecap="round"/></svg>
+    <h2>I. Đọc<small>Đọc thầm bài văn rồi trả lời câu hỏi</small></h2>
+  </div>
+
+  <div class="story-card">
+    <h2>KHÔNG NGỪNG NỖ LỰC</h2>
+    <div class="story-meta">Em đọc thật kĩ nhé — có thể kéo lên đọc lại bất cứ lúc nào.</div>
+    <div class="story-fig" aria-hidden="true">
+      <figure>
+        <svg viewBox="0 0 72 72"><circle cx="36" cy="36" r="26" fill="#fff" stroke="#f08a1c" stroke-width="4"/><path d="M36 36V19M36 36l9 13" stroke="#243342" stroke-width="3.5" stroke-linecap="round"/><circle cx="36" cy="36" r="3" fill="#243342"/></svg>
+        <figcaption>Thức dậy lúc 5 giờ sáng</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 72 72"><ellipse cx="36" cy="62" rx="24" ry="5" fill="#8fd67f"/><circle cx="36" cy="46" r="13" fill="#fff" stroke="#9aa3ab" stroke-width="2"/><circle cx="32" cy="43" r="1.5" fill="#c5ccd2"/><circle cx="39" cy="45" r="1.5" fill="#c5ccd2"/><circle cx="35" cy="50" r="1.5" fill="#c5ccd2"/><text x="36" y="24" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="800" font-size="20" fill="#e8523f">×1000</text></svg>
+        <figcaption>Đập một ngàn cú</figcaption>
+      </figure>
+      <figure>
+        <svg viewBox="0 0 72 72"><path d="M22 66V38q0-5 4-5t4 5V16q0-4 4-4t4 4v-3q0-4 4-4t4 4v5q0-4 4-4t4 4v32q0 14-10 20z" fill="#f3c9a5" stroke="#c9976d" stroke-width="2" stroke-linejoin="round"/><g transform="rotate(-20 38 44)"><rect x="24" y="39" width="28" height="11" rx="5.5" fill="#f6d9a8" stroke="#c98f3b" stroke-width="1.5"/><rect x="33" y="39" width="10" height="11" fill="#fff" stroke="#c98f3b" stroke-width="1.5"/></g></svg>
+        <figcaption>Tay rớm máu, dán băng rồi tập tiếp</figcaption>
+      </figure>
+    </div>
+    <p class="first">Ga-ri Play-ơ đã từng là một đấu thủ lừng danh trong các giải thi đánh gôn quốc gia và quốc tế trong nhiều năm trời. Mọi người thường nói với anh là: “Tôi sẽ đánh đổi bất cứ thứ gì để có thể đập được một cú gôn như anh”.</p>
+    <p>Một ngày kia, khi nghe câu nói kiểu ấy, Play-ơ nhẫn nại đáp rằng: “Không phải, bạn sẽ không làm được đâu. Bạn sẽ chỉ chơi gôn được như tôi nếu bạn thấy những việc cần làm là dễ dàng! Bạn có biết phải làm gì để có được những cú đánh như tôi không? Hằng ngày, bạn phải thức dậy lúc 5 giờ sáng để tới sân tập, và phải đập một ngàn cú! Khi đôi tay bạn bắt đầu rớm máu, bạn vào căng tin rửa tay rồi dán băng cá nhân lên đó, xong lại ra sân và đập một ngàn cú khác! Đó là bí quyết để có được những cú đánh gôn như tôi đấy bạn ạ!”</p>
+    <p>Đích nhắm của anh ấy là trở thành một cầu thủ đỉnh cao. Giấc mơ thượng thừa đó buộc anh phải thực hành mỗi ngày, luyện tập, luyện tập và không ngừng luyện tập. Nếu niềm khát khao của bạn trở nên cháy bỏng trong cuộc sống – muốn được nếm trải thật nhiều niềm vui thì bạn sẽ đặt bao nhiêu nỗ lực của mình vào những giấc mơ đó? Hãy thực hành đi, rồi những điều này sẽ trở nên khả thi hơn.</p>
+    <p>Mọi việc chẳng phải lúc nào cũng dễ dàng cả đâu, nhưng rất đáng công để bạn phải nỗ lực đấy!</p>
+    <p class="author">Theo Xti-vơ Gu-đi-ơ</p>
+  </div>
+
+  <div class="q-card" data-kind="mc" data-correct="c">
+    <div class="q-top"><div class="q-num">1</div><span class="q-tag">Trắc nghiệm</span><span class="q-score"></span></div>
+    <p class="q-text">Ga-ri Play-ơ là cầu thủ thi đấu môn thể thao gì?</p>
+    <div class="options">
+      <label class="opt"><input type="radio" name="q1" value="a"> A. Ten-nít</label>
+      <label class="opt"><input type="radio" name="q1" value="b"> B. Bóng đá</label>
+      <label class="opt"><input type="radio" name="q1" value="c"> C. Gôn</label>
+    </div>
+    <div class="feedback" data-explain="Đáp án C. Câu đầu bài viết: Ga-ri Play-ơ là “đấu thủ lừng danh trong các giải thi đánh gôn”."></div>
+  </div>
+
+  <div class="q-card" data-kind="mc" data-correct="b">
+    <div class="q-top"><div class="q-num">2</div><span class="q-tag">Trắc nghiệm</span><span class="q-score"></span></div>
+    <p class="q-text">Mọi người thường ao ước giống anh ở điểm nào?</p>
+    <div class="options">
+      <label class="opt"><input type="radio" name="q2" value="a"> A. Giàu có như anh.</label>
+      <label class="opt"><input type="radio" name="q2" value="b"> B. Đập được một cú gôn như anh.</label>
+      <label class="opt"><input type="radio" name="q2" value="c"> C. Đạt được nhiều giải thưởng như anh.</label>
+    </div>
+    <div class="feedback" data-explain="Đáp án B. Mọi người nói: “Tôi sẽ đánh đổi bất cứ thứ gì để có thể đập được một cú gôn như anh”."></div>
+  </div>
+
+  <div class="q-card" data-kind="mc" data-correct="a">
+    <div class="q-top"><div class="q-num">3</div><span class="q-tag">Trắc nghiệm</span><span class="q-score"></span></div>
+    <p class="q-text">Để thực hiện được giấc mơ trở thành một gôn thủ đỉnh cao, Ga-ri Play-ơ đã phải làm gì?</p>
+    <div class="options">
+      <label class="opt"><input type="radio" name="q3" value="a"> A. Khổ công rèn luyện</label>
+      <label class="opt"><input type="radio" name="q3" value="b"> B. Tập thể lực</label>
+      <label class="opt"><input type="radio" name="q3" value="c"> C. Có huấn luyện viên giỏi</label>
+    </div>
+    <div class="feedback" data-explain="Đáp án A. Anh dậy từ 5 giờ sáng, đập một ngàn cú, tay rớm máu thì dán băng rồi tập tiếp — đó là khổ công rèn luyện."></div>
+  </div>
+
+  <div class="q-card" data-kind="mc" data-correct="b">
+    <div class="q-top"><div class="q-num">4</div><span class="q-tag">Trắc nghiệm</span><span class="q-score"></span></div>
+    <p class="q-text">Câu chuyện muốn nói với em điều gì?</p>
+    <div class="options">
+      <label class="opt"><input type="radio" name="q4" value="a"> A. Hãy phấn đấu đánh gôn giỏi như anh Ga-ri.</label>
+      <label class="opt"><input type="radio" name="q4" value="b"> B. Khổ công rèn luyện, nỗ lực cố gắng thì mới đạt được mục tiêu.</label>
+      <label class="opt"><input type="radio" name="q4" value="c"> C. Trong cuộc sống, cần biết xác định đúng mục tiêu.</label>
+    </div>
+    <div class="feedback" data-explain="Đáp án B. Câu chuyện không chỉ nói về gôn: muốn đạt được ước mơ nào cũng phải nỗ lực, luyện tập không ngừng."></div>
+  </div>
+
+  <div class="q-card" data-kind="mc" data-correct="c">
+    <div class="q-top"><div class="q-num">5</div><span class="q-tag">Trắc nghiệm</span><span class="q-score"></span></div>
+    <p class="q-text">Theo em, nội dung câu chuyện trên phù hợp với nội dung câu tục ngữ nào?</p>
+    <div class="options">
+      <label class="opt"><input type="radio" name="q5" value="a"> A. Lửa thử vàng, gian nan thử sức.</label>
+      <label class="opt"><input type="radio" name="q5" value="b"> <span>B. Nước lã mà vã nên hồ<br>Tay không mà nổi cơ đồ mới ngoan.</span></label>
+      <label class="opt"><input type="radio" name="q5" value="c"> C. Có chí thì nên.</label>
+    </div>
+    <div class="feedback" data-explain="Đáp án C. “Có chí thì nên”: có ý chí, bền bỉ nỗ lực thì sẽ thành công — đúng như Ga-ri Play-ơ kiên trì luyện tập mỗi ngày."></div>
+  </div>
+
+  <div class="q-card" data-kind="write">
+    <div class="q-top"><div class="q-num">6</div><span class="q-tag tag-write">Tự viết</span></div>
+    <p class="q-text">Ước mơ của em là gì? Em đã và sẽ nỗ lực như thế nào để ước mơ của mình trở thành hiện thực?</p>
+    <textarea placeholder="Em viết câu trả lời vào đây..." aria-label="Câu trả lời câu 6"></textarea>
+    <div class="feedback" data-explain="Câu này không tính điểm tự động. Em tự soát: (1) Đã nêu rõ ước mơ chưa? (2) Đã kể việc em ĐÃ làm chưa? (3) Đã kể việc em SẼ làm chưa? Ví dụ: “Em ước mơ trở thành bác sĩ. Em đã chăm chỉ học tập và đọc sách về cơ thể người. Em sẽ cố gắng học tốt hơn mỗi ngày để thực hiện ước mơ ấy.”"></div>
+  </div>
+
+  <div class="part-head">
+    <svg viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="29" fill="#fff3dc"/><rect x="13" y="24" width="34" height="12" rx="6" fill="#e8523f"/><circle cx="23" cy="18" r="2.2" fill="#243342"/><circle cx="37" cy="18" r="2.2" fill="#243342"/><path d="M24 44q6 5 12 0" stroke="#243342" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>
+    <h2>II. Luyện từ và câu<small>Dấu gạch ngang · Tính từ</small></h2>
+  </div>
+
+  <div class="rule-box">
+    💡 <b>Ghi nhớ:</b> Có thể dùng <b>dấu gạch ngang</b> <span class="dash">–</span> để <b>đánh dấu các ý</b> trong một đoạn văn liệt kê và <b>nối các từ ngữ</b> trong một liên danh.
+  </div>
+
+  <div class="q-card" data-kind="tap" data-tap="t1">
+    <div class="q-top"><div class="q-num">1</div><span class="q-tag tag-tap">Chạm để thêm dấu</span><span class="q-score"></span></div>
+    <p class="q-text">Viết lại đoạn văn sau bằng cách sử dụng dấu gạch ngang để đánh dấu các ý được liệt kê.</p>
+    <p class="q-hint">Cách làm: chạm vào ô <span class="gap" style="pointer-events:none">+</span> ở chỗ em muốn <b>xuống dòng và đặt dấu gạch ngang</b>. Chạm lần nữa để bỏ.</p>
+    <div class="tap-box" id="t1"></div>
+    <div class="tap-count" id="t1-count"></div>
+    <div class="feedback" data-explain="Đoạn văn có 6 ý liệt kê, các ý ngăn cách nhau bằng dấu chấm phẩy. Mỗi ý xuống dòng và bắt đầu bằng một dấu gạch ngang:<br>Trẻ em có bổn phận sau đây:<br>– yêu quý, kính trọng, hiếu thảo với ông bà, cha mẹ;<br>– kính trọng thầy giáo, cô giáo;<br>– lễ phép với người lớn;<br>– thương yêu em nhỏ;<br>– đoàn kết với bạn bè;<br>– giúp đỡ người già yếu, người khuyết tật, tàn tật, người gặp hoàn cảnh khó khăn."></div>
+  </div>
+
+  <div class="q-card" data-kind="write">
+    <div class="q-top"><div class="q-num">2</div><span class="q-tag tag-write">Tự viết</span></div>
+    <p class="q-text">Hãy viết một đoạn văn ngắn kể về những đức tính tốt của em, trong đó có sử dụng dấu gạch ngang để đánh dấu các ý được liệt kê.</p>
+    <p class="q-hint">Mẹo: gõ dấu <b>-</b> ở đầu mỗi dòng liệt kê.</p>
+    <textarea style="min-height:150px" placeholder="Em viết đoạn văn vào đây..." aria-label="Đoạn văn bài 2"></textarea>
+    <div class="feedback" data-explain="Bài này không tính điểm tự động. Em tự soát: (1) Có câu giới thiệu trước khi liệt kê chưa? (2) Mỗi đức tính có xuống dòng và bắt đầu bằng dấu gạch ngang chưa?<br>Ví dụ: Em có một số đức tính tốt mà bố mẹ rất thích:<br>– chăm chỉ, tự giác học bài;<br>– thật thà, biết nhận lỗi;<br>– hay giúp đỡ bạn bè."></div>
+  </div>
+
+  <div class="q-card" data-kind="tap" data-tap="t3">
+    <div class="q-top"><div class="q-num">3</div><span class="q-tag tag-tap">Chạm để thêm dấu</span><span class="q-score"></span></div>
+    <p class="q-text">Viết thêm dấu gạch ngang với mục đích nối các từ ngữ trong câu sau:</p>
+    <p class="q-hint">Cách làm: chạm vào ô nhỏ giữa hai từ ở chỗ em muốn thêm dấu gạch ngang. Câu này cần <b>2 dấu</b>.</p>
+    <div class="tap-box" id="t3"></div>
+    <div class="tap-count" id="t3-count"></div>
+    <div class="feedback" data-explain="Đáp án: … nơi Mị Nương – con gái vua Hùng Vương thứ 18 – theo Sơn Tinh về trấn giữ núi cao. Hai dấu gạch ngang đặt trước và sau cụm từ “con gái vua Hùng Vương thứ 18” để gắn cụm từ này với tên “Mị Nương”."></div>
+  </div>
+
+  <div class="q-card" data-kind="pick">
+    <div class="q-top"><div class="q-num">4</div><span class="q-tag">Chọn từ</span><span class="q-score"></span></div>
+    <p class="q-text">Tìm từ ngữ phù hợp để thay thế từ ngữ in đậm giúp mỗi câu dưới đây sinh động hơn:</p>
+    <div class="pick-row" data-correct="b">
+      <div class="pick-sent">a. Mặt biển <b>rất rộng</b>.</div>
+      <div class="pick-opts">
+        <label class="opt"><input type="radio" name="p1" value="a"> rộng rãi</label>
+        <label class="opt"><input type="radio" name="p1" value="b"> mênh mông</label>
+        <label class="opt"><input type="radio" name="p1" value="c"> rộng thùng thình</label>
+      </div>
+    </div>
+    <div class="pick-row" data-correct="a">
+      <div class="pick-sent">b. Bầu trời mùa thu <b>xanh quá</b>.</div>
+      <div class="pick-opts">
+        <label class="opt"><input type="radio" name="p2" value="a"> xanh ngắt</label>
+        <label class="opt"><input type="radio" name="p2" value="b"> xanh xao</label>
+        <label class="opt"><input type="radio" name="p2" value="c"> xanh lè</label>
+      </div>
+    </div>
+    <div class="pick-row" data-correct="c">
+      <div class="pick-sent">c. Em bé có nước da <b>trắng lắm</b>.</div>
+      <div class="pick-opts">
+        <label class="opt"><input type="radio" name="p3" value="a"> trắng xoá</label>
+        <label class="opt"><input type="radio" name="p3" value="b"> trắng bệch</label>
+        <label class="opt"><input type="radio" name="p3" value="c"> trắng hồng</label>
+      </div>
+    </div>
+    <div class="pick-row" data-correct="b">
+      <div class="pick-sent">d. Cô giáo em có vóc người <b>hơi nhỏ</b>.</div>
+      <div class="pick-opts">
+        <label class="opt"><input type="radio" name="p4" value="a"> nhỏ nhen</label>
+        <label class="opt"><input type="radio" name="p4" value="b"> nhỏ nhắn</label>
+        <label class="opt"><input type="radio" name="p4" value="c"> nhỏ nhoi</label>
+      </div>
+    </div>
+    <div class="feedback" data-explain="a. Mặt biển mênh mông. (rộng rãi: nói về nhà cửa, phòng ốc; rộng thùng thình: nói về quần áo)<br>b. Bầu trời mùa thu xanh ngắt. (xanh xao: nói về nước da người ốm; xanh lè: màu xanh khó chịu)<br>c. Em bé có nước da trắng hồng. (trắng xoá: nói về tuyết, sương; trắng bệch: nước da của người ốm, người sợ hãi)<br>d. Cô giáo em có vóc người nhỏ nhắn. (nhỏ nhen: tính tình hẹp hòi; nhỏ nhoi: ít ỏi, mỏng manh)"></div>
+  </div>
+
+  <div class="q-card" data-kind="write">
+    <div class="q-top"><div class="q-num">5</div><span class="q-tag tag-write">Tự viết</span></div>
+    <p class="q-text">Đặt câu với mỗi tính từ sau:</p>
+    <div class="chips"><span class="chip">trong veo</span><span class="chip">trong sáng</span><span class="chip">trong trẻo</span></div>
+    <label class="write-label" for="w1">Câu có từ <b>trong veo</b>:</label>
+    <textarea class="short" id="w1" placeholder="Em đặt câu vào đây..."></textarea>
+    <label class="write-label" for="w2">Câu có từ <b>trong sáng</b>:</label>
+    <textarea class="short" id="w2" placeholder="Em đặt câu vào đây..."></textarea>
+    <label class="write-label" for="w3">Câu có từ <b>trong trẻo</b>:</label>
+    <textarea class="short" id="w3" placeholder="Em đặt câu vào đây..."></textarea>
+    <div class="feedback" data-explain="Bài này không tính điểm tự động. Em tự soát: câu đã viết hoa chữ đầu, có dấu chấm cuối và dùng đúng nghĩa của từ chưa?<br>Ví dụ: Nước suối trong veo, nhìn thấy cả đàn cá nhỏ. · Bạn Lan có tâm hồn trong sáng. · Tiếng chim hót trong trẻo trên cành cây."></div>
+  </div>
+
+  <div class="submit-zone">
+    <button class="btn-submit" id="submitBtn" type="button">⛳ Nộp bài</button>
+    <div class="submit-note" id="submitNote" role="status"></div>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-emoji" id="resultEmoji">⛳</div>
+    <div class="result-score" id="resultScore">0 / 17 điểm</div>
+    <div class="result-msg" id="resultMsg"></div>
+    <div class="result-sub">Kéo lên xem lại từng câu: ô xanh là đúng, ô đỏ là cần sửa, có lời giải thích ngay bên dưới. Các câu tự viết em hãy đọc gợi ý và tự soát lại nhé.</div>
+    <button class="btn-retry" id="retryBtn" type="button">↺ Làm lại</button>
+  </div>
+</div>
+
+<footer>Đọc hiểu tuần 15 · Tiếng Việt lớp 4 · Chúc em học vui! 🌈</footer>
+
+<script>
+(function(){
+  var SHEET_URL = "https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec";
+  var LESSON = "Đọc hiểu tuần 15 - Không ngừng nỗ lực";
+
+  /* ----- Dữ liệu 2 bài "chạm để thêm dấu gạch ngang" ----- */
+  var TAPS = {
+    t1: {
+      // các cụm; ô chạm nằm TRƯỚC cụm thứ i (i >= 1). Bật ô = xuống dòng + gạch ngang.
+      parts: ["Trẻ em có bổn phận sau đây:","yêu quý,","kính trọng,","hiếu thảo với ông bà,","cha mẹ;",
+              "kính trọng thầy giáo,","cô giáo;","lễ phép với người lớn;","thương yêu em nhỏ;","đoàn kết với bạn bè;",
+              "giúp đỡ người già yếu,","người khuyết tật,","tàn tật,","người gặp hoàn cảnh khó khăn."],
+      correct: [1,5,7,8,9,10], newline: true, small: false, prefix: ""
+    },
+    t3: {
+      parts: "Bên phải là đỉnh Ba Vì vời vợi, nơi Mị Nương con gái vua Hùng Vương thứ 18 theo Sơn Tinh về trấn giữ núi cao.".split(" "),
+      correct: [11,18], newline: false, small: true,
+      prefix: "Đứng ở đây, nhìn ra xa, phong cảnh thật là đẹp. "
+    }
+  };
+  var tapState = { t1: {}, t3: {} };
+  var graded = false;
+
+  function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+  function renderTap(id){
+    var cfg = TAPS[id], st = tapState[id], html = "";
+    if(cfg.prefix) html += '<span class="plain">'+esc(cfg.prefix)+'</span>';
+    for(var i=0;i<cfg.parts.length;i++){
+      if(i>0){
+        var on = !!st[i], isC = cfg.correct.indexOf(i)>=0, cls = "gap"+(cfg.small?" small":"");
+        var label = on ? "–" : (cfg.small ? "·" : "+");
+        if(on) cls += " on";
+        if(graded){
+          if(on) cls += isC ? " right" : " wrong";
+          else if(isC){ cls += " missed"; label = "–"; }
+        }
+        if(cfg.newline && (on || (graded && isC))) html += "<br>";
+        html += '<button type="button" class="'+cls+'" data-i="'+i+'" aria-pressed="'+on+'" aria-label="'+
+                (on?"Bỏ dấu gạch ngang":"Thêm dấu gạch ngang")+' trước “'+esc(cfg.parts[i])+'”">'+label+'</button>';
+      }
+      html += "<span>"+esc(cfg.parts[i])+"</span>" + (cfg.small ? "" : " ");
+    }
+    document.getElementById(id).innerHTML = html;
+    var n = Object.keys(st).filter(function(k){return st[k];}).length;
+    document.getElementById(id+"-count").textContent = "Em đã thêm "+n+" dấu gạch ngang.";
+  }
+  function scoreTap(id){
+    var cfg = TAPS[id], st = tapState[id], hit = 0, wrong = 0;
+    Object.keys(st).forEach(function(k){ if(st[k]){ if(cfg.correct.indexOf(+k)>=0) hit++; else wrong++; } });
+    return { earned: Math.max(0, hit - wrong), possible: cfg.correct.length, hit: hit, wrong: wrong };
+  }
+  ["t1","t3"].forEach(function(id){
+    document.getElementById(id).addEventListener("click", function(e){
+      var b = e.target.closest ? e.target.closest(".gap") : null;
+      if(!b || graded) return;
+      var i = +b.getAttribute("data-i");
+      tapState[id][i] = !tapState[id][i];
+      renderTap(id);
+      updateProgress();
+    });
+    renderTap(id);
+  });
+
+  /* ----- Tiến độ ----- */
+  var qCards = Array.prototype.slice.call(document.querySelectorAll(".q-card"));
+  function isTouched(card){
+    var kind = card.getAttribute("data-kind");
+    if(kind==="mc") return !!card.querySelector("input:checked");
+    if(kind==="pick") return card.querySelectorAll("input:checked").length === card.querySelectorAll(".pick-row").length;
+    if(kind==="tap"){ var st = tapState[card.getAttribute("data-tap")]; return Object.keys(st).some(function(k){return st[k];}); }
+    if(kind==="write"){
+      return Array.prototype.every.call(card.querySelectorAll("textarea"), function(t){ return t.value.trim()!==""; });
+    }
+    return false;
+  }
+  function updateProgress(){
+    var done = qCards.filter(isTouched).length, pct = Math.round(done/qCards.length*100);
+    document.getElementById("progress-fill").style.width = pct+"%";
+    document.getElementById("progress-ball").style.left = pct+"%";
+    document.getElementById("progress-count").textContent = done+" / "+qCards.length+" câu";
+    return done;
+  }
+  function refreshPicked(){
+    document.querySelectorAll(".opt").forEach(function(o){
+      o.classList.toggle("picked", o.querySelector("input").checked);
+    });
+  }
+  document.addEventListener("change", function(){ refreshPicked(); updateProgress(); });
+  document.addEventListener("input", updateProgress);
+
+  /* ----- Chấm bài ----- */
+  function setFeedback(card, cls, scoreText){
+    card.classList.remove("correct","incorrect","reviewed");
+    card.classList.add(cls);
+    var fb = card.querySelector(".feedback");
+    var head = cls==="correct" ? "✅ Chính xác! " : (cls==="incorrect" ? "✏️ Em xem lại nhé. " : "📝 ");
+    fb.innerHTML = "<b>"+head+"</b>"+fb.getAttribute("data-explain");
+    var sc = card.querySelector(".q-score");
+    if(sc) sc.textContent = scoreText || "";
+  }
+  function markRadios(scope, correctVal){
+    var ok = false;
+    scope.querySelectorAll(".opt").forEach(function(o){
+      var inp = o.querySelector("input");
+      inp.disabled = true;
+      if(inp.value===correctVal) o.classList.add("correct-answer");
+      if(inp.checked){ o.classList.add(inp.value===correctVal ? "right" : "wrong"); if(inp.value===correctVal) ok = true; }
+    });
+    return ok;
+  }
+
+  var submitBtn = document.getElementById("submitBtn");
+  var note = document.getElementById("submitNote");
+  var confirmPending = false;
+
+  submitBtn.addEventListener("click", function(){
+    var nameInput = document.getElementById("studentName"), classInput = document.getElementById("studentClass");
+    var need = [[nameInput,"Em nhớ điền họ tên trước khi nộp bài nhé!"],[classInput,"Em nhớ điền lớp trước khi nộp bài nhé!"]];
+    for(var k=0;k<need.length;k++){
+      if(need[k][0].value.trim()===""){
+        need[k][0].style.borderColor = "var(--flag)";
+        need[k][0].scrollIntoView({block:"center"});
+        need[k][0].focus();
+        note.textContent = need[k][1];
+        return;
+      }
+      need[k][0].style.borderColor = "";
+    }
+    var done = updateProgress();
+    if(done < qCards.length && !confirmPending){
+      confirmPending = true;
+      note.textContent = "Em còn "+(qCards.length-done)+" câu chưa làm xong. Kéo lên làm tiếp, hoặc bấm “Nộp bài” lần nữa nếu em vẫn muốn nộp.";
+      return;
+    }
+    confirmPending = false; note.textContent = "";
+
+    graded = true;
+    document.body.classList.add("graded");
+    var earned = 0, possible = 0;
+
+    qCards.forEach(function(card){
+      var kind = card.getAttribute("data-kind");
+      if(kind==="mc"){
+        possible += 1;
+        var ok = markRadios(card, card.getAttribute("data-correct"));
+        if(ok) earned += 1;
+        setFeedback(card, ok?"correct":"incorrect", (ok?1:0)+" / 1 điểm");
+      } else if(kind==="pick"){
+        var rows = card.querySelectorAll(".pick-row"), got = 0;
+        rows.forEach(function(r){ if(markRadios(r, r.getAttribute("data-correct"))) got++; });
+        possible += rows.length; earned += got;
+        setFeedback(card, got===rows.length?"correct":"incorrect", got+" / "+rows.length+" điểm");
+      } else if(kind==="tap"){
+        var id = card.getAttribute("data-tap"), s = scoreTap(id);
+        possible += s.possible; earned += s.earned;
+        renderTap(id);
+        setFeedback(card, (s.hit===s.possible && s.wrong===0)?"correct":"incorrect", s.earned+" / "+s.possible+" điểm");
+      } else if(kind==="write"){
+        card.querySelectorAll("textarea").forEach(function(t){ t.readOnly = true; });
+        setFeedback(card, "reviewed", "");
+      }
+    });
+
+    try{
+      fetch(SHEET_URL, {
+        method:"POST", mode:"no-cors",
+        headers:{"Content-Type":"text/plain;charset=utf-8"},
+        body: JSON.stringify({ bai: LESSON, hoten: nameInput.value.trim(), lop: classInput.value.trim(), diem: earned, tongdiem: possible })
+      }).catch(function(){});
+    }catch(e){}
+
+    var pct = Math.round(earned/possible*100), emoji, msg;
+    if(pct>=90){ emoji="🏆"; msg="Tuyệt vời! Bóng vào lỗ rồi — em nỗ lực giỏi như Ga-ri Play-ơ!"; }
+    else if(pct>=70){ emoji="⛳"; msg="Rất tốt! Bóng đã ở rất gần lỗ cờ rồi."; }
+    else if(pct>=50){ emoji="🏌️"; msg="Khá lắm! Xem lại vài câu sai để lần sau tốt hơn nhé."; }
+    else { emoji="💪"; msg="Đừng nản nhé! Đọc lại bài và thử lần nữa — có chí thì nên!"; }
+    document.getElementById("resultEmoji").textContent = emoji;
+    document.getElementById("resultScore").textContent = earned+" / "+possible+" điểm";
+    document.getElementById("resultMsg").textContent = nameInput.value.trim()+" ơi, "+msg;
+    var panel = document.getElementById("resultPanel");
+    panel.classList.add("show");
+    submitBtn.disabled = true;
+    panel.scrollIntoView({behavior:"smooth", block:"center"});
+  });
+
+  document.getElementById("retryBtn").addEventListener("click", function(){
+    graded = false; confirmPending = false; note.textContent = "";
+    document.body.classList.remove("graded");
+    tapState.t1 = {}; tapState.t3 = {};
+    renderTap("t1"); renderTap("t3");
+    document.querySelectorAll("input[type=radio]").forEach(function(r){ r.checked = false; r.disabled = false; });
+    document.querySelectorAll("textarea").forEach(function(t){ t.value = ""; t.readOnly = false; });
+    document.querySelectorAll(".opt").forEach(function(o){ o.classList.remove("picked","right","wrong","correct-answer"); });
+    qCards.forEach(function(c){
+      c.classList.remove("correct","incorrect","reviewed");
+      c.querySelector(".feedback").innerHTML = "";
+      var sc = c.querySelector(".q-score"); if(sc) sc.textContent = "";
+    });
+    document.getElementById("resultPanel").classList.remove("show");
+    submitBtn.disabled = false;
+    updateProgress();
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>
