@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trạng ngữ chỉ nguyên nhân, mục đích — Từ và câu Lớp 4 · Tuần 26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#eaf6ff;
+    --sky-deep:#cdeaff;
+    --sun:#ffc93c;
+    --sun-deep:#ffab00;
+    --coral:#ff6b6b;
+    --coral-deep:#e8523f;
+    --leaf:#3fb083;
+    --leaf-deep:#2f9270;
+    --plum:#8675a9;
+    --ink:#2d3142;
+    --ink-soft:#5a5f75;
+    --paper:#ffffff;
+    --paper-line:#e7edf5;
+    --radius:22px;
+    --shadow: 0 10px 26px rgba(45,49,66,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Quicksand',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 12% 8%, #fff6da 0%, transparent 45%),
+      radial-gradient(circle at 90% 4%, #ffe1e1 0%, transparent 40%),
+      linear-gradient(180deg, var(--sky) 0%, #f5fbff 60%, #fdf9ef 100%);
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
+
+  /* ---------- Header / hero ---------- */
+  .hero{
+    position:relative;
+    padding:38px 18px 30px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-badge{
+    display:inline-block;
+    background:var(--paper);
+    border:2px dashed var(--sun-deep);
+    color:var(--coral-deep);
+    font-weight:700;
+    font-size:14px;
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:14px;
+    letter-spacing:.5px;
+  }
+  .hero h1{
+    font-size:clamp(28px,6vw,44px);
+    margin:0 0 8px;
+    color:var(--ink);
+    line-height:1.15;
+  }
+  .hero h1 span{color:var(--coral-deep);}
+  .hero p.sub{
+    max-width:520px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-weight:600;
+    font-size:16px;
+  }
+  .path-icons{display:flex;justify-content:center;gap:10px;margin-top:18px;}
+  .path-icons svg{width:34px;height:34px;}
+
+  /* ---------- Name card ---------- */
+  .name-card{
+    max-width:400px;margin:22px auto 0;
+    background:var(--paper);border-radius:18px;box-shadow:var(--shadow);
+    padding:16px 20px;border:2px solid #ffe2a8;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .name-card label{font-weight:700;font-size:14px;color:var(--plum);display:flex;align-items:center;gap:6px;}
+  .name-card input{
+    border:2px solid #eaeff6;border-radius:12px;padding:10px 12px;
+    font-family:'Quicksand',sans-serif;font-weight:700;font-size:16px;color:var(--ink);
+  }
+  .name-card input:focus{outline:none;border-color:var(--sun-deep);}
+
+  /* ---------- Fog progress bar (signature element) ---------- */
+  .progress-wrap{
+    max-width:640px;
+    margin:26px auto 0;
+    padding:0 18px;
+  }
+  .progress-label{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-weight:700;color:var(--ink-soft);font-size:14px;margin-bottom:8px;
+  }
+  #progress-count{color:var(--coral-deep);font-size:16px;}
+  .progress-track{
+    position:relative;
+    height:34px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#dfe9f2,#eef3f8);
+    border:2px solid #d9e3ee;
+    overflow:hidden;
+    box-shadow: inset 0 2px 5px rgba(45,49,66,0.08);
+  }
+  .progress-fill{
+    position:absolute;left:0;top:0;bottom:0;
+    width:0%;
+    background:linear-gradient(90deg, var(--sun) 0%, var(--coral) 100%);
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,1.4,.6,1);
+  }
+  .progress-walker{
+    position:absolute;top:50%;
+    transform:translate(-50%,-50%);
+    left:0%;
+    font-size:20px;
+    transition:left .5s cubic-bezier(.4,1.4,.6,1);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+  }
+
+  /* ---------- Container ---------- */
+  .wrap{max-width:640px;margin:32px auto 0;padding:0 18px;display:flex;flex-direction:column;gap:22px;}
+
+  /* ---------- Story card ---------- */
+  .story-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:26px 24px;
+    position:relative;
+    border-top:6px solid var(--plum);
+  }
+  .story-card h2{
+    margin:0 0 4px;
+    font-size:22px;
+    color:var(--plum);
+    display:flex;align-items:center;gap:8px;
+  }
+  .story-card .story-meta{
+    font-size:13px;color:var(--ink-soft);font-weight:600;margin-bottom:14px;
+  }
+  .story-card p{
+    line-height:1.75;
+    font-size:15.5px;
+    margin:0 0 12px;
+    color:#3a3f52;
+  }
+  .story-card p:first-of-type::first-letter{
+    font-family:'Baloo 2',sans-serif;
+    font-size:44px;
+    color:var(--coral-deep);
+    float:left;
+    line-height:0.8;
+    padding-right:8px;
+    padding-top:4px;
+  }
+  details.story-toggle summary{
+    cursor:pointer;font-weight:700;color:var(--plum);list-style:none;
+    display:flex;align-items:center;gap:6px;font-size:15px;
+  }
+  details.story-toggle summary::-webkit-details-marker{display:none;}
+  details.story-toggle summary .chev{transition:transform .25s;}
+  details.story-toggle[open] summary .chev{transform:rotate(90deg);}
+
+  /* ---------- Question card ---------- */
+  .q-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 22px 24px;
+    border:2px solid transparent;
+    transition:border-color .25s, transform .2s;
+    scroll-margin-top:20px;
+  }
+  .q-card.answered{border-color:#ffe2a8;}
+  .q-card.correct{border-color:var(--leaf) !important;background:#f2fbf7;}
+  .q-card.incorrect{border-color:var(--coral) !important;background:#fff4f3;}
+
+  .q-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .q-num{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--sun);color:#7a4b00;font-family:'Baloo 2',sans-serif;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;
+    flex:none;
+  }
+  .q-tag{
+    font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;
+    background:#eef1fb;color:var(--plum);letter-spacing:.3px;
+  }
+  .q-tag.tag-fill{background:#fff0e0;color:#b5610a;}
+  .q-tag.tag-match{background:#e4f7ee;color:var(--leaf-deep);}
+  .q-text{font-weight:700;font-size:16px;margin:0 0 14px;color:var(--ink);line-height:1.5;}
+
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;border-radius:14px;
+    background:#f7f9fc;border:2px solid #eaeff6;
+    cursor:pointer;transition:all .15s;font-weight:600;font-size:15px;
+  }
+  .opt:hover{background:#eef4ff;border-color:#c9dcff;}
+  .opt input{accent-color:var(--coral);width:18px;height:18px;flex:none;}
+  .opt.picked{background:#fff2d6;border-color:var(--sun-deep);}
+  .q-card.correct .opt.picked{background:#dcf5e9;border-color:var(--leaf);}
+  .q-card.incorrect .opt.picked{background:#ffe1de;border-color:var(--coral);}
+  .q-card.incorrect .opt.correct-answer{background:#dcf5e9;border-color:var(--leaf);}
+
+  .match-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .match-left{
+    background:#f7f9fc;border:2px solid #eaeff6;border-radius:12px;
+    padding:9px 12px;font-weight:700;min-width:150px;flex:1;
+  }
+  .match-row select{
+    flex:1;min-width:160px;padding:9px 10px;border-radius:12px;
+    border:2px solid #eaeff6;background:#fff;font-family:'Quicksand',sans-serif;
+    font-weight:600;font-size:14.5px;color:var(--ink);
+  }
+  .match-row select:focus{outline:2px solid var(--sun-deep);}
+
+  .fill-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px;line-height:1.9;}
+  .fill-line .txt{font-weight:600;font-size:15px;}
+  .fill-line input[type=text]{
+    border:none;border-bottom:3px dotted #b9c3d4;
+    background:transparent;font-family:'Quicksand',sans-serif;
+    font-weight:700;font-size:15px;color:var(--coral-deep);
+    padding:4px 6px;min-width:120px;text-align:center;
+  }
+  .fill-line input[type=text]:focus{outline:none;border-bottom-color:var(--sun-deep);}
+  .word-bank{
+    margin-top:6px;background:#fffaf0;border:2px dashed #ffdb9b;border-radius:14px;
+    padding:10px 14px;font-size:13.5px;color:#8a5a00;font-weight:600;
+  }
+
+  .feedback{
+    margin-top:14px;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;
+    display:none;line-height:1.6;
+  }
+  .q-card.correct .feedback{display:block;background:#e4f7ee;color:#1d7a52;}
+  .q-card.incorrect .feedback{display:block;background:#ffe9e6;color:#b3392a;}
+
+  /* ---------- Submit bar ---------- */
+  .submit-zone{
+    position:sticky;bottom:14px;
+    display:flex;justify-content:center;margin-top:6px;z-index:20;
+  }
+  .btn-submit{
+    background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+    color:#fff;border:none;padding:16px 38px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:19px;font-weight:700;
+    box-shadow:0 10px 22px rgba(232,82,63,.35);cursor:pointer;
+    transition:transform .15s;
+  }
+  .btn-submit:hover{transform:translateY(-2px) scale(1.02);}
+  .btn-submit:active{transform:translateY(0) scale(.98);}
+  .btn-submit:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+
+  /* ---------- Result panel ---------- */
+  .result-panel{
+    background:linear-gradient(160deg,#fff,#fef8ee);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:30px 24px;text-align:center;border-top:6px solid var(--leaf);
+    display:none;
+  }
+  .result-panel.show{display:block;animation:pop .5s;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .result-emoji{font-size:52px;margin-bottom:6px;}
+  .result-score{font-family:'Baloo 2',sans-serif;font-size:46px;color:var(--coral-deep);margin:4px 0;}
+  .result-msg{font-weight:700;font-size:17px;color:var(--ink);margin-bottom:16px;}
+  .btn-retry{
+    background:var(--plum);color:#fff;border:none;padding:12px 28px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:16px;font-weight:700;cursor:pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+  }
+  footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:28px;font-weight:600;}
+
+  .hl-sent{background:#f7f9fc;border:2px solid #eaeff6;border-radius:14px;padding:10px 12px;margin-bottom:10px;line-height:2.1;font-size:15.5px;font-weight:600;}
+  .hl-sent .lab{font-weight:700;color:var(--plum);margin-right:4px;}
+  .tok{display:inline-block;padding:1px 4px;margin:1px 0;border-radius:6px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;}
+  .tok:hover{background:#eef4ff;}
+  .tok.pending{outline:2px dashed var(--sun-deep);background:#fff2d6;}
+  .tok.on{background:#ffe08a;border-radius:0;}
+  .tok.on.first{border-radius:6px 0 0 6px;} .tok.on.last{border-radius:0 6px 6px 0;} .tok.on.first.last{border-radius:6px;}
+  .hl-sent.ok{border-color:var(--leaf);background:#f2fbf7;} .hl-sent.bad{border-color:var(--coral);background:#fff4f3;}
+  .hl-sent .res{display:block;font-size:13.5px;font-weight:700;margin-top:2px;}
+  .hl-sent.ok .res{color:#1d7a52;} .hl-sent.bad .res{color:#b3392a;}
+  .inline-sel{padding:6px 8px;border-radius:10px;border:2px solid #eaeff6;background:#fff;font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:var(--coral-deep);}
+  .stage{display:inline-block;background:#ffe9a6;border:2px solid var(--sun-deep);border-radius:8px;padding:4px 14px;font-family:'Baloo 2',sans-serif;font-weight:700;margin:0 0 12px;}
+  .open-row{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:12px;line-height:1.7;}
+  .open-row.col{flex-direction:column;align-items:stretch;gap:4px;}
+  .open-row .txt{font-weight:600;font-size:15px;}
+  .open-row input.open-in{flex:1;min-width:180px;border:none;border-bottom:3px dotted #b9c3d4;background:transparent;font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:var(--coral-deep);padding:4px 6px;}
+  .open-row textarea.open-in{width:100%;border:2px solid #eaeff6;border-radius:12px;padding:9px 11px;font-family:'Quicksand',sans-serif;font-weight:600;font-size:15px;color:var(--ink);resize:vertical;}
+  .open-in:focus{outline:none;border-color:var(--sun-deep);}
+  .hint{display:none;margin-top:12px;padding:12px 14px;border-radius:14px;background:#eef1fb;color:#4a3f78;font-size:14px;font-weight:600;line-height:1.7;}
+  body.submitted .hint{display:block;}
+  .note-open{font-size:13.5px;color:var(--ink-soft);font-weight:600;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <span class="hero-badge">TỪ VÀ CÂU · LỚP 4 · TUẦN 26</span>
+  <h1>Trạng ngữ chỉ <span>nguyên nhân, mục đích</span></h1>
+  <p class="sub">Em làm lần lượt các bài bên dưới rồi bấm Nộp bài nhé. Bài 1, 2 máy chấm điểm ngay; bài 3, 4, 5 cô sẽ đọc và chấm.</p>
+  <div class="path-icons" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#fff3d6" stroke="#ffab00" stroke-width="1.5"/><path d="M8 13c1 1.2 2.2 1.8 4 1.8s3-.6 4-1.8" stroke="#e8523f" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="10" r="1.1" fill="#2d3142"/><circle cx="15" cy="10" r="1.1" fill="#2d3142"/></svg>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M4 18c3-1 4-6 6-10M20 18c-3-1-4-6-6-10" stroke="#8675a9" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="6.5" r="1.4" fill="#8675a9"/><circle cx="16" cy="6.5" r="1.4" fill="#8675a9"/></svg>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v13M12 16l-2.5 2.5M12 16l2.5 2.5" stroke="#3fb083" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="20" r="1.3" fill="#3fb083"/></svg>
+  </div>
+</div>
+
+
+<div class="name-card">
+  <label for="studentName">✏️ Họ và tên của con là gì?</label>
+  <input type="text" id="studentName" placeholder="Nhập họ và tên của em...">
+  <label for="studentClass" style="margin-top:8px;">🏫 Con học lớp mấy?</label>
+  <input type="text" id="studentClass" placeholder="VD: 4A">
+</div>
+
+
+<div class="progress-wrap">
+  <div class="progress-label"><span>Đường đi của em</span><span id="progress-count">0 / 6 phần</span></div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+    <div class="progress-walker" id="progress-walker">🚶</div>
+  </div>
+</div>
+<div class="wrap">
+<div class="q-card" data-qid="b1"><div class="q-top"><div class="q-num">1</div><span class="q-tag tag-match">Tô trạng ngữ</span></div>
+<p class="q-text">1. Gạch chân dưới trạng ngữ chỉ nguyên nhân hoặc mục đích trong những câu sau:</p>
+<div class="word-bank">👉 Cách làm: bấm vào <b>từ đầu</b> rồi bấm vào <b>từ cuối</b> của trạng ngữ để tô màu cả cụm. Bấm vào cụm đã tô để xoá.</div>
+<div class="hl-group" data-type="hl" id="hlGroup" style="margin-top:12px;"></div>
+<div class="feedback" data-explain="a. Vì thành tích học tập tốt · b. Nhờ sự chăm sóc tận tình của chú bé · c. Bởi tập thể dục đều đặn · d. Tại sương muối · e. Để dụ chuột · g. Nhằm khuyến khích những học sinh nghèo, học giỏi · h. Vì tương lai · i. Nhờ vào sự kiên trì"></div></div>
+<div class="q-card" data-qid="b2"><div class="q-top"><div class="q-num">2</div><span class="q-tag tag-fill">Chọn từ</span></div>
+<p class="q-text">2. Chọn từ ngữ phù hợp để hoàn thành các câu sau:</p>
+<div class="word-bank" style="text-align:center;font-style:italic;">(Nhờ, Để, Vì)</div>
+<div class="sel-group" data-type="sel" style="margin-top:12px;"><div class="fill-line"><span class="txt">a.</span><select class="inline-sel" data-key="b2a" data-correct="Để"><option value="">……</option><option>Nhờ</option><option>Để</option><option>Vì</option></select><span class="txt">giữ gìn đồ dùng học tập, chúng ta cần sắp xếp chúng ngăn nắp.</span></div><div class="fill-line"><span class="txt">b.</span><select class="inline-sel" data-key="b2b" data-correct="Nhờ"><option value="">……</option><option>Nhờ</option><option>Để</option><option>Vì</option></select><span class="txt">mưa, cây lá sạch hoàn toàn bụi bặm.</span></div><div class="fill-line"><span class="txt">c.</span><select class="inline-sel" data-key="b2c" data-correct="Nhờ"><option value="">……</option><option>Nhờ</option><option>Để</option><option>Vì</option></select><span class="txt">khoản tiền tiết kiệm, bà lão đã tự chi trả viện phí.</span></div><div class="fill-line"><span class="txt">d.</span><select class="inline-sel" data-key="b2d" data-correct="Nhờ"><option value="">……</option><option>Nhờ</option><option>Để</option><option>Vì</option></select><span class="txt">bác lao công, sân trường em luôn sạch sẽ.</span></div><div class="fill-line"><span class="txt">e.</span><select class="inline-sel" data-key="b2e" data-correct="Vì"><option value="">……</option><option>Nhờ</option><option>Để</option><option>Vì</option></select><span class="txt">cuộc sống bình yên, bao chiến sĩ đã cống hiến, hi sinh.</span></div><div class="fill-line"><span class="txt">g.</span><select class="inline-sel" data-key="b2g" data-correct="Để"><option value="">……</option><option>Nhờ</option><option>Để</option><option>Vì</option></select><span class="txt">giữ gìn sức khoẻ, mọi người cần tập thể dục đều đặn.</span></div></div>
+<div class="feedback" data-explain="a. Để; b. Nhờ; c. Nhờ; d. Nhờ; e. Vì; g. Để"></div></div>
+<div class="q-card" data-qid="b3-1"><div class="q-top"><div class="q-num">3</div><span class="q-tag ">Tự luận · Cô chấm</span></div>
+<p class="q-text">3. Chơi trò chơi: Thám hiểm tìm trạng ngữ.</p>
+<div class="stage">CHẶNG 1: Thử thách</div>
+<p class="q-text" style="font-weight:600;">Điền trạng ngữ chỉ nguyên nhân thích hợp vào mỗi câu sau:</p>
+<div class="open-group" data-type="open"><div class="open-row"><span class="txt">a.</span><input type="text" class="open-in" data-open="3-C1-a" placeholder="trạng ngữ..."><span class="txt">, cậu bé được rất nhiều bạn quý mến.</span></div><div class="open-row"><span class="txt">b.</span><input type="text" class="open-in" data-open="3-C1-b" placeholder="trạng ngữ..."><span class="txt">, người mẹ đã khóc cạn dòng nước mắt.</span></div><div class="open-row"><span class="txt">c.</span><input type="text" class="open-in" data-open="3-C1-c" placeholder="trạng ngữ..."><span class="txt">, Lan đã hoàn thành bài thi một cách dễ dàng.</span></div><div class="open-row"><span class="txt">d.</span><input type="text" class="open-in" data-open="3-C1-d" placeholder="trạng ngữ..."><span class="txt">, Nam đã quên lời mẹ dặn.</span></div></div>
+<div class="hint"><b>Đáp án mở. Tham khảo:</b><br>a. Nhờ tốt tính, cậu bé được rất nhiều bạn quý mến.<br>b. Vì con, người mẹ đã khóc cạn dòng nước mắt.<br>c. Nhờ ôn tập chăm chỉ, Lan đã hoàn thành bài thi một cách dễ dàng.<br>d. Vì đám bạn lêu lổng, Nam đã quên lời mẹ dặn.</div></div>
+<div class="q-card" data-qid="b3-2"><div class="q-top"><div class="q-num">3</div><span class="q-tag ">Tự luận · Cô chấm</span></div>
+<div class="stage">CHẶNG 2: Chinh phục</div>
+<p class="q-text" style="font-weight:600;">Điền trạng ngữ chỉ mục đích thích hợp vào mỗi câu sau:</p>
+<div class="open-group" data-type="open"><div class="open-row"><span class="txt">a.</span><input type="text" class="open-in" data-open="3-C2-a" placeholder="trạng ngữ..."><span class="txt">, em đã mang sẵn áo mưa trong cặp.</span></div><div class="open-row"><span class="txt">b.</span><input type="text" class="open-in" data-open="3-C2-b" placeholder="trạng ngữ..."><span class="txt">, mẹ đặt đồng hồ báo thức từ 5 giờ sáng.</span></div><div class="open-row"><span class="txt">c.</span><input type="text" class="open-in" data-open="3-C2-c" placeholder="trạng ngữ..."><span class="txt">, chúng em tích cực tham gia cuộc thi vẽ tranh do nhà trường tổ chức.</span></div><div class="open-row"><span class="txt">d.</span><input type="text" class="open-in" data-open="3-C2-d" placeholder="trạng ngữ..."><span class="txt">, bố em đã quét vôi lại bức tường cũ loang lổ.</span></div></div>
+<div class="hint"><b>Đáp án mở. Tham khảo:</b><br>a. Để đề phòng trời mưa, em đã mang sẵn áo mưa trong cặp.<br>b. Để thức dậy đúng giờ, mẹ đặt đồng hồ báo thức từ 5 giờ sáng.<br>c. Nhằm ủng hộ tháng Vì môi trường, chúng em tích cực tham gia cuộc thi vẽ tranh do nhà trường tổ chức.<br>d. Để trang trí cho căn nhà, bố em đã quét vôi lại bức tường cũ loang lổ.</div></div>
+<div class="q-card" data-qid="b4"><div class="q-top"><div class="q-num">4</div><span class="q-tag ">Tự luận · Cô chấm</span></div>
+<p class="q-text">4. Hãy viết tiếp câu bắt đầu với các trạng ngữ sau:</p>
+<div class="open-group" data-type="open"><div class="open-row col"><span class="txt">a. Vì môi trường tương lai,</span><textarea class="open-in" rows="2" data-open="4-a" placeholder="Em viết ở đây..."></textarea></div><div class="open-row col"><span class="txt">b. Để đạt kết quả cao trong học tập,</span><textarea class="open-in" rows="2" data-open="4-b" placeholder="Em viết ở đây..."></textarea></div><div class="open-row col"><span class="txt">c. Vì nắng nóng gay gắt,</span><textarea class="open-in" rows="2" data-open="4-c" placeholder="Em viết ở đây..."></textarea></div><div class="open-row col"><span class="txt">d. Để giữ gìn biển đảo quê hương bình yên,</span><textarea class="open-in" rows="2" data-open="4-d" placeholder="Em viết ở đây..."></textarea></div><div class="open-row col"><span class="txt">e. Nhờ sự tận tình của các y bác sĩ,</span><textarea class="open-in" rows="2" data-open="4-e" placeholder="Em viết ở đây..."></textarea></div><div class="open-row col"><span class="txt">g. Để giữ gìn đồ dùng học tập được bền,</span><textarea class="open-in" rows="2" data-open="4-g" placeholder="Em viết ở đây..."></textarea></div><div class="open-row col"><span class="txt">h. Để đường phố sạch đẹp,</span><textarea class="open-in" rows="2" data-open="4-h" placeholder="Em viết ở đây..."></textarea></div></div>
+<div class="hint"><b>Đáp án mở. Tham khảo:</b><br>a. Vì môi trường tương lai, chúng ta cần hạn chế sử dụng túi ni lông.<br>b. Để đạt kết quả cao trong học tập, chúng ta cần luôn cố gắng.<br>c. Vì nắng nóng gay gắt, đất ruộng nứt nẻ.<br>d. Để giữ gìn biển đảo quê hương bình yên, bao chiến sĩ đã không quản hi sinh xương máu.<br>e. Nhờ sự tận tình của các y bác sĩ, bà ngoại em đã qua khỏi cơn nguy hiểm.<br>g. Để giữ gìn đồ dùng học tập được bền, bạn nên cất chúng vào hộp riêng khi sử dụng xong.<br>h. Để đường phố sạch đẹp, chúng ta không được xả rác bừa bãi.</div></div>
+<div class="q-card" data-qid="b5"><div class="q-top"><div class="q-num">5</div><span class="q-tag ">Tự luận · Cô chấm</span></div>
+<p class="q-text">5. Đặt một câu theo yêu cầu.</p>
+<div class="open-group" data-type="open"><div class="open-row col"><span class="txt">a. Câu có trạng ngữ bắt đầu bằng từ “Vì”:</span><textarea class="open-in" rows="2" data-open="5-a" placeholder="Em viết ở đây..."></textarea></div><div class="open-row col"><span class="txt">b. Câu có trạng ngữ bắt đầu bằng từ “Nhờ”:</span><textarea class="open-in" rows="2" data-open="5-b" placeholder="Em viết ở đây..."></textarea></div><div class="open-row col"><span class="txt">c. Câu có trạng ngữ bắt đầu bằng từ “Để”:</span><textarea class="open-in" rows="2" data-open="5-c" placeholder="Em viết ở đây..."></textarea></div></div>
+<div class="hint"><b>Đáp án mở. HS tự làm.</b><br>Cô sẽ đọc và chấm câu của em.</div></div>
+</div>
+<div class="wrap">
+  <div class="submit-zone"><button class="btn-submit" id="submitBtn">🎉 Nộp bài</button></div>
+  <div class="result-panel" id="resultPanel">
+    <div class="result-emoji" id="resultEmoji">🌤️</div>
+    <div class="result-score" id="resultScore">0 / 14 điểm</div>
+    <div class="result-msg" id="resultMsg"></div>
+    <div class="note-open" style="margin-bottom:14px;">Điểm trên là của bài 1 và bài 2. Bài 3, 4, 5 đã được gửi cho cô chấm.</div>
+    <button class="btn-retry" id="retryBtn">↺ Làm lại</button>
+  </div>
+</div>
+<footer>Vở bài tập nâng cao Từ và câu lớp 4 · Tuần 26 · Chúc em học vui! 🌈</footer>
+<script>
+const B1 = [{"k": "a", "tokens": ["Vì", "thành", "tích", "học", "tập", "tốt,", "Nam", "được", "nhận", "bằng", "khen."], "ans": [0, 5], "text": "Vì thành tích học tập tốt"}, {"k": "b", "tokens": ["Nhờ", "sự", "chăm", "sóc", "tận", "tình", "của", "chú", "bé,", "vết", "thương", "của", "chim", "én", "đã", "lành."], "ans": [0, 8], "text": "Nhờ sự chăm sóc tận tình của chú bé"}, {"k": "c", "tokens": ["Bởi", "tập", "thể", "dục", "đều", "đặn,", "anh", "Ba", "rất", "khoẻ", "mạnh."], "ans": [0, 5], "text": "Bởi tập thể dục đều đặn"}, {"k": "d", "tokens": ["Tại", "sương", "muối,", "vườn", "rau", "nhà", "em", "không", "còn", "xanh", "mơn", "mởn", "nữa."], "ans": [0, 2], "text": "Tại sương muối"}, {"k": "e", "tokens": ["Để", "dụ", "chuột,", "cậu", "bé", "để", "sẵn", "trong", "bẫy", "một", "nắm", "thóc."], "ans": [0, 2], "text": "Để dụ chuột"}, {"k": "g", "tokens": ["Nhằm", "khuyến", "khích", "những", "học", "sinh", "nghèo,", "học", "giỏi,", "nhà", "trường", "đã", "trao", "học", "bổng", "Lê", "Quý", "Đôn", "cho", "các", "bạn."], "ans": [0, 8], "text": "Nhằm khuyến khích những học sinh nghèo, học giỏi"}, {"k": "h", "tokens": ["Vì", "tương", "lai,", "chúng", "ta", "phải", "luôn", "cố", "gắng", "phấn", "đấu."], "ans": [0, 2], "text": "Vì tương lai"}, {"k": "i", "tokens": ["Nhờ", "vào", "sự", "kiên", "trì,", "Bác", "đã", "học", "thành", "thạo", "nhiều", "ngoại", "ngữ."], "ans": [0, 4], "text": "Nhờ vào sự kiên trì"}];
+const qCards = Array.from(document.querySelectorAll('.q-card'));
+const totalGroups = qCards.length;
+
+// ----- Bài 1: tô trạng ngữ -----
+const hlState = B1.map(()=>({spans:[],pending:null}));
+const hlGroup = document.getElementById('hlGroup');
+B1.forEach((it,i)=>{
+  const d=document.createElement('div'); d.className='hl-sent'; d.dataset.i=i;
+  const lab=document.createElement('span'); lab.className='lab'; lab.textContent=it.k+'.'; d.appendChild(lab);
+  it.tokens.forEach((t,j)=>{
+    const s=document.createElement('span'); s.className='tok'; s.textContent=t; s.dataset.j=j;
+    s.addEventListener('click',()=>tokClick(i,j));
+    d.appendChild(s); d.appendChild(document.createTextNode(' '));
+  });
+  const r=document.createElement('span'); r.className='res'; d.appendChild(r);
+  hlGroup.appendChild(d);
+});
+function tokClick(i,j){
+  const st=hlState[i];
+  const hit=st.spans.findIndex(sp=>j>=sp[0]&&j<=sp[1]);
+  if(hit>=0){ st.spans.splice(hit,1); st.pending=null; }
+  else if(st.pending===null){ st.pending=j; }
+  else{
+    const a=Math.min(st.pending,j), b=Math.max(st.pending,j);
+    st.spans=st.spans.filter(sp=>sp[1]<a||sp[0]>b);
+    st.spans.push([a,b]); st.pending=null;
+  }
+  renderHl(i); updateProgress();
+}
+function renderHl(i){
+  const st=hlState[i];
+  const d=hlGroup.children[i];
+  d.querySelectorAll('.tok').forEach(s=>{
+    const j=+s.dataset.j;
+    const sp=st.spans.find(sp=>j>=sp[0]&&j<=sp[1]);
+    s.classList.toggle('on',!!sp);
+    s.classList.toggle('first',!!sp&&sp[0]===j);
+    s.classList.toggle('last',!!sp&&sp[1]===j);
+    s.classList.toggle('pending',st.pending===j);
+  });
+}
+function hlCorrect(i){
+  const sp=hlState[i].spans, a=B1[i].ans;
+  return sp.length===1 && sp[0][0]===a[0] && sp[0][1]===a[1];
+}
+
+function updateProgress(){
+  let answered = 0;
+  qCards.forEach(card=>{ if(isGroupTouched(card)) answered++; });
+  const pct = Math.round((answered/totalGroups)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-walker').style.left = pct+'%';
+  document.getElementById('progress-count').textContent = answered+' / '+totalGroups+' phần';
+}
+function isGroupTouched(card){
+  if(card.querySelector('[data-type="hl"]')) return hlState.some(s=>s.spans.length>0);
+  const sel=card.querySelector('[data-type="sel"]');
+  if(sel) return Array.from(sel.querySelectorAll('select')).some(s=>s.value!=='');
+  const op=card.querySelector('[data-type="open"]');
+  if(op) return Array.from(op.querySelectorAll('.open-in')).some(i=>i.value.trim()!=='');
+  return false;
+}
+qCards.forEach(card=>{
+  card.addEventListener('change', updateProgress);
+  card.addEventListener('input', updateProgress);
+});
+
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  const nameInput = document.getElementById('studentName');
+  if(nameInput.value.trim()===''){
+    nameInput.style.borderColor = 'var(--coral)'; nameInput.focus();
+    nameInput.placeholder = 'Em nhớ điền tên trước khi nộp bài nhé!'; return;
+  }
+  nameInput.style.borderColor = '#eaeff6';
+  const classInput = document.getElementById('studentClass');
+  if(classInput.value.trim()===''){
+    classInput.style.borderColor = 'var(--coral)'; classInput.focus();
+    classInput.placeholder = 'Em nhớ điền lớp trước khi nộp bài nhé!'; return;
+  }
+  classInput.style.borderColor = '#eaeff6';
+
+  let earned = 0, possible = 0;
+  qCards.forEach(card=>{
+    const touched = isGroupTouched(card);
+    let graded=false, groupCorrect=true;
+    if(card.querySelector('[data-type="hl"]')){
+      graded=true;
+      B1.forEach((it,i)=>{
+        possible += 1;
+        hlState[i].pending=null; renderHl(i);
+        const ok=hlCorrect(i);
+        if(ok) earned += 1; else groupCorrect=false;
+        const d=hlGroup.children[i];
+        d.classList.remove('ok','bad'); d.classList.add(ok?'ok':'bad');
+        d.querySelector('.res').textContent = ok ? '✓ Đúng' : '✗ Đáp án: '+it.text;
+      });
+    }
+    const sel=card.querySelector('[data-type="sel"]');
+    if(sel){
+      graded=true;
+      sel.querySelectorAll('select').forEach(s=>{
+        possible += 1;
+        const ok = s.value === s.getAttribute('data-correct');
+        if(ok) earned += 1; else groupCorrect=false;
+        s.style.borderColor = s.value ? (ok ? '#3fb083' : '#ff6b6b') : '#ff6b6b';
+      });
+    }
+    card.classList.remove('answered','correct','incorrect');
+    if(graded){
+      card.classList.add(groupCorrect ? 'correct' : 'incorrect');
+      const fb=card.querySelector('.feedback');
+      if(fb) fb.textContent = (groupCorrect?'🎉 Chính xác! ':'Đáp án: ')+fb.getAttribute('data-explain');
+    } else if(touched){ card.classList.add('answered'); }
+  });
+  document.body.classList.add('submitted');
+  updateProgress();
+
+  // Câu trả lời tự luận (gửi nguyên văn để cô chấm)
+  const tuluanObj = {};
+  document.querySelectorAll('.open-in').forEach(i=>{ tuluanObj['Bài '+i.dataset.open] = i.value.trim(); });
+  const tuluanText = Object.keys(tuluanObj).map(k=>k+': '+(tuluanObj[k]||'(bỏ trống)')).join('\n');
+
+  // Gửi kết quả về Google Sheet của giáo viên
+  try {
+    fetch("https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec", {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        bai: "Từ và câu - Tuần 26",
+        hoten: nameInput.value.trim(),
+        lop: classInput.value.trim(),
+        diem: earned,
+        tongdiem: possible,
+        tuluan: tuluanText
+      })
+    }).catch(()=>{});
+  } catch(e) {}
+
+  const pct = Math.round((earned/possible)*100);
+  const resultPanel = document.getElementById('resultPanel');
+  document.getElementById('resultScore').textContent = earned+' / '+possible+' điểm';
+  let emoji, msg;
+  if(pct >= 90){ emoji='🌞'; msg='Tuyệt vời! Em giỏi quá!'; }
+  else if(pct >= 70){ emoji='🌤️'; msg='Rất tốt! Em đã đi gần hết con đường rồi.'; }
+  else if(pct >= 50){ emoji='⛅'; msg='Khá lắm! Xem lại vài câu để giỏi hơn nữa nhé.'; }
+  else { emoji='🌫️'; msg='Đừng lo, hãy xem lại bài và thử lần nữa nhé!'; }
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultMsg').textContent = nameInput.value.trim()+' ơi, '+msg;
+  resultPanel.classList.add('show');
+  resultPanel.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+document.getElementById('retryBtn').addEventListener('click', ()=>{
+  ['studentName','studentClass'].forEach(id=>{const el=document.getElementById(id); el.value=''; el.style.borderColor='#eaeff6';});
+  document.getElementById('studentName').placeholder='Nhập họ và tên của em...';
+  document.getElementById('studentClass').placeholder='VD: 4A';
+  document.querySelectorAll('.open-in').forEach(i=>{i.value='';});
+  document.querySelectorAll('select').forEach(s=>{s.value='';s.style.borderColor='';});
+  hlState.forEach((s,i)=>{s.spans=[];s.pending=null;renderHl(i);
+    const d=hlGroup.children[i]; d.classList.remove('ok','bad'); d.querySelector('.res').textContent='';});
+  document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('answered','correct','incorrect'));
+  document.body.classList.remove('submitted');
+  document.getElementById('resultPanel').classList.remove('show');
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+updateProgress();
+</script>
+</body>
+</html>

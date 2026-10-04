@@ -144,6 +144,9 @@
 
   @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
   footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:28px;font-weight:600;}
+  .fill-line input[type=text]{max-width:100%;}
+  .q-card{overflow-wrap:anywhere;}
+  @media (max-width:560px){ .fill-line input[type=text]{min-width:0 !important;width:100%;} }
 </style>
 </head>
 <body>
@@ -357,7 +360,7 @@
     <div class="feedback" data-explain="a) Chùa Một Cột (Hà Nội) · b) Tháp Rùa/Hồ Gươm (Hà Nội) · c) Vịnh Hạ Long (Quảng Ninh) · d) Thác Bản Giốc (Cao Bằng) · e) Hang Sơn Đoòng (Quảng Bình) · g) Cửa Ngọ Môn/Kinh thành Huế."></div>
   </div>
 
-  <div style="text-align:center;"><span class="hero-badge" style="border-color:var(--purple-deep);color:var(--purple-deep);">CÂU 7 · NỐI ĐẶC SẢN VỚI ĐỊA PHƯƯƠNG</span></div>
+  <div style="text-align:center;"><span class="hero-badge" style="border-color:var(--purple-deep);color:var(--purple-deep);">CÂU 7 · NỐI ĐẶC SẢN VỚI ĐỊA PHƯƠNG</span></div>
 
   <div class="q-card" data-qid="c7">
     <div class="q-top"><div class="q-num">7</div><span class="q-tag">Nối câu</span></div>
@@ -629,9 +632,13 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
     if(openTa){ isOpenEnded = true; }
 
     card.classList.remove('correct','incorrect','neutral');
-    if(groupTouched){
-      if(isOpenEnded){ card.classList.add('neutral'); }
-      else { card.classList.add(groupCorrect ? 'correct' : 'incorrect'); }
+    const fbBox = card.querySelector('.feedback');
+    if(isOpenEnded){
+      card.classList.add('neutral');
+      if(fbBox) fbBox.textContent = '📝 ' + (fbBox.getAttribute('data-explain')||'');
+    } else {
+      card.classList.add(groupCorrect ? 'correct' : 'incorrect');
+      if(fbBox) fbBox.textContent = (groupCorrect ? '✅ Chính xác! ' : '💡 Đáp án: ') + (fbBox.getAttribute('data-explain')||'');
     }
   });
 
@@ -657,7 +664,7 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
   const resultPanel = document.getElementById('resultPanel');
   document.getElementById('resultScore').textContent = earned+' / '+possible+' điểm';
   let emoji, msg;
-  if(pct >= 90){ emoji='🏆'; msg='xuất sắc, sẵn sàng vào lớp 2 rồi!'; }
+  if(pct >= 90){ emoji='🏆'; msg='xuất sắc, em giỏi quá!'; }
   else if(pct >= 70){ emoji='🌟'; msg='làm rất tốt, cố thêm chút nữa nhé!'; }
   else if(pct >= 50){ emoji='🙂'; msg='khá lắm, xem lại vài bài để giỏi hơn nữa nhé.'; }
   else { emoji='📘'; msg='đừng lo, hãy ôn lại và thử lần nữa nhé!'; }
@@ -679,7 +686,11 @@ document.getElementById('retryBtn').addEventListener('click', ()=>{
   document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('picked','correct-answer'));
   document.querySelectorAll('.tf-row').forEach(r=>r.classList.remove('correct','incorrect'));
   document.querySelectorAll('.match-group select').forEach(s=>{s.value='';s.style.borderColor='';});
-  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('correct','incorrect'));
+  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('correct','incorrect','neutral'));
+  document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+  document.querySelectorAll('textarea').forEach(t=>t.value='');
+  document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
+  document.querySelectorAll('.check-opt').forEach(o=>o.classList.remove('state-correct','state-incorrect'));
   document.getElementById('resultPanel').classList.remove('show');
   updateProgress();
   window.scrollTo({top:0, behavior:'smooth'});

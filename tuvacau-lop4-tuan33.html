@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Từ và câu - Tuần 33: Luyện tập lựa chọn từ ngữ — Tiếng Việt Lớp 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky:#eaf6ff;
+    --sky-deep:#cdeaff;
+    --sun:#ffc93c;
+    --sun-deep:#ffab00;
+    --coral:#ff6b6b;
+    --coral-deep:#e8523f;
+    --leaf:#3fb083;
+    --leaf-deep:#2f9270;
+    --plum:#8675a9;
+    --ink:#2d3142;
+    --ink-soft:#5a5f75;
+    --paper:#ffffff;
+    --paper-line:#e7edf5;
+    --radius:22px;
+    --shadow: 0 10px 26px rgba(45,49,66,0.10);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Quicksand',sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 12% 8%, #fff6da 0%, transparent 45%),
+      radial-gradient(circle at 90% 4%, #ffe1e1 0%, transparent 40%),
+      linear-gradient(180deg, var(--sky) 0%, #f5fbff 60%, #fdf9ef 100%);
+    min-height:100vh;
+    padding-bottom:60px;
+  }
+  h1,h2,h3,.display{font-family:'Baloo 2',sans-serif;}
+
+  /* ---------- Header / hero ---------- */
+  .hero{
+    position:relative;
+    padding:38px 18px 30px;
+    text-align:center;
+    overflow:hidden;
+  }
+  .hero-badge{
+    display:inline-block;
+    background:var(--paper);
+    border:2px dashed var(--sun-deep);
+    color:var(--coral-deep);
+    font-weight:700;
+    font-size:14px;
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:14px;
+    letter-spacing:.5px;
+  }
+  .hero h1{
+    font-size:clamp(28px,6vw,44px);
+    margin:0 0 8px;
+    color:var(--ink);
+    line-height:1.15;
+  }
+  .hero h1 span{color:var(--coral-deep);}
+  .hero p.sub{
+    max-width:520px;
+    margin:0 auto;
+    color:var(--ink-soft);
+    font-weight:600;
+    font-size:16px;
+  }
+  .path-icons{display:flex;justify-content:center;gap:10px;margin-top:18px;}
+  .path-icons svg{width:34px;height:34px;}
+
+  /* ---------- Name card ---------- */
+  .name-card{
+    max-width:400px;margin:22px auto 0;
+    background:var(--paper);border-radius:18px;box-shadow:var(--shadow);
+    padding:16px 20px;border:2px solid #ffe2a8;
+    display:flex;flex-direction:column;gap:6px;
+  }
+  .name-card label{font-weight:700;font-size:14px;color:var(--plum);display:flex;align-items:center;gap:6px;}
+  .name-card input{
+    border:2px solid #eaeff6;border-radius:12px;padding:10px 12px;
+    font-family:'Quicksand',sans-serif;font-weight:700;font-size:16px;color:var(--ink);
+  }
+  .name-card input:focus{outline:none;border-color:var(--sun-deep);}
+
+  /* ---------- Fog progress bar (signature element) ---------- */
+  .progress-wrap{
+    max-width:640px;
+    margin:26px auto 0;
+    padding:0 18px;
+  }
+  .progress-label{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-weight:700;color:var(--ink-soft);font-size:14px;margin-bottom:8px;
+  }
+  #progress-count{color:var(--coral-deep);font-size:16px;}
+  .progress-track{
+    position:relative;
+    height:34px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#dfe9f2,#eef3f8);
+    border:2px solid #d9e3ee;
+    overflow:hidden;
+    box-shadow: inset 0 2px 5px rgba(45,49,66,0.08);
+  }
+  .progress-fill{
+    position:absolute;left:0;top:0;bottom:0;
+    width:0%;
+    background:linear-gradient(90deg, var(--sun) 0%, var(--coral) 100%);
+    border-radius:999px;
+    transition:width .5s cubic-bezier(.4,1.4,.6,1);
+  }
+  .progress-walker{
+    position:absolute;top:50%;
+    transform:translate(-50%,-50%);
+    left:0%;
+    font-size:20px;
+    transition:left .5s cubic-bezier(.4,1.4,.6,1);
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+  }
+
+  /* ---------- Container ---------- */
+  .wrap{max-width:640px;margin:32px auto 0;padding:0 18px;display:flex;flex-direction:column;gap:22px;}
+
+  /* ---------- Story card ---------- */
+  .story-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:26px 24px;
+    position:relative;
+    border-top:6px solid var(--plum);
+  }
+  .story-card h2{
+    margin:0 0 4px;
+    font-size:22px;
+    color:var(--plum);
+    display:flex;align-items:center;gap:8px;
+  }
+  .story-card .story-meta{
+    font-size:13px;color:var(--ink-soft);font-weight:600;margin-bottom:14px;
+  }
+  .story-card p{
+    line-height:1.75;
+    font-size:15.5px;
+    margin:0 0 12px;
+    color:#3a3f52;
+  }
+  .story-card p:first-of-type::first-letter{
+    font-family:'Baloo 2',sans-serif;
+    font-size:44px;
+    color:var(--coral-deep);
+    float:left;
+    line-height:0.8;
+    padding-right:8px;
+    padding-top:4px;
+  }
+  details.story-toggle summary{
+    cursor:pointer;font-weight:700;color:var(--plum);list-style:none;
+    display:flex;align-items:center;gap:6px;font-size:15px;
+  }
+  details.story-toggle summary::-webkit-details-marker{display:none;}
+  details.story-toggle summary .chev{transition:transform .25s;}
+  details.story-toggle[open] summary .chev{transform:rotate(90deg);}
+
+  /* ---------- Question card ---------- */
+  .q-card{
+    background:var(--paper);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:22px 22px 24px;
+    border:2px solid transparent;
+    transition:border-color .25s, transform .2s;
+    scroll-margin-top:20px;
+  }
+  .q-card.answered{border-color:#ffe2a8;}
+  .q-card.correct{border-color:var(--leaf) !important;background:#f2fbf7;}
+  .q-card.incorrect{border-color:var(--coral) !important;background:#fff4f3;}
+
+  .q-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .q-num{
+    width:34px;height:34px;border-radius:50%;
+    background:var(--sun);color:#7a4b00;font-family:'Baloo 2',sans-serif;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;
+    flex:none;
+  }
+  .q-tag{
+    font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;
+    background:#eef1fb;color:var(--plum);letter-spacing:.3px;
+  }
+  .q-tag.tag-fill{background:#fff0e0;color:#b5610a;}
+  .q-tag.tag-match{background:#e4f7ee;color:var(--leaf-deep);}
+  .q-text{font-weight:700;font-size:16px;margin:0 0 14px;color:var(--ink);line-height:1.5;}
+
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;border-radius:14px;
+    background:#f7f9fc;border:2px solid #eaeff6;
+    cursor:pointer;transition:all .15s;font-weight:600;font-size:15px;
+  }
+  .opt:hover{background:#eef4ff;border-color:#c9dcff;}
+  .opt input{accent-color:var(--coral);width:18px;height:18px;flex:none;}
+  .opt.picked{background:#fff2d6;border-color:var(--sun-deep);}
+  .q-card.correct .opt.picked{background:#dcf5e9;border-color:var(--leaf);}
+  .q-card.incorrect .opt.picked{background:#ffe1de;border-color:var(--coral);}
+  .q-card.incorrect .opt.correct-answer{background:#dcf5e9;border-color:var(--leaf);}
+
+  .match-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .match-left{
+    background:#f7f9fc;border:2px solid #eaeff6;border-radius:12px;
+    padding:9px 12px;font-weight:700;min-width:150px;flex:1;
+  }
+  .match-row select{
+    flex:1;min-width:160px;padding:9px 10px;border-radius:12px;
+    border:2px solid #eaeff6;background:#fff;font-family:'Quicksand',sans-serif;
+    font-weight:600;font-size:14.5px;color:var(--ink);
+  }
+  .match-row select:focus{outline:2px solid var(--sun-deep);}
+
+  .fill-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:10px;line-height:1.9;}
+  .fill-line .txt{font-weight:600;font-size:15px;}
+  .fill-line input[type=text]{
+    border:none;border-bottom:3px dotted #b9c3d4;
+    background:transparent;font-family:'Quicksand',sans-serif;
+    font-weight:700;font-size:15px;color:var(--coral-deep);
+    padding:4px 6px;min-width:120px;text-align:center;
+  }
+  .fill-line input[type=text]:focus{outline:none;border-bottom-color:var(--sun-deep);}
+  .word-bank{
+    margin-top:6px;background:#fffaf0;border:2px dashed #ffdb9b;border-radius:14px;
+    padding:10px 14px;font-size:13.5px;color:#8a5a00;font-weight:600;
+  }
+
+  .feedback{
+    margin-top:14px;padding:12px 14px;border-radius:14px;font-size:14px;font-weight:600;
+    display:none;line-height:1.6;
+  }
+  .q-card.correct .feedback{display:block;background:#e4f7ee;color:#1d7a52;}
+  .q-card.incorrect .feedback{display:block;background:#ffe9e6;color:#b3392a;}
+
+  /* ---------- Submit bar ---------- */
+  .submit-zone{
+    position:sticky;bottom:14px;
+    display:flex;justify-content:center;margin-top:6px;z-index:20;
+  }
+  .btn-submit{
+    background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+    color:#fff;border:none;padding:16px 38px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:19px;font-weight:700;
+    box-shadow:0 10px 22px rgba(232,82,63,.35);cursor:pointer;
+    transition:transform .15s;
+  }
+  .btn-submit:hover{transform:translateY(-2px) scale(1.02);}
+  .btn-submit:active{transform:translateY(0) scale(.98);}
+  .btn-submit:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+
+  /* ---------- Result panel ---------- */
+  .result-panel{
+    background:linear-gradient(160deg,#fff,#fef8ee);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:30px 24px;text-align:center;border-top:6px solid var(--leaf);
+    display:none;
+  }
+  .result-panel.show{display:block;animation:pop .5s;}
+  @keyframes pop{from{transform:scale(.9);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .result-emoji{font-size:52px;margin-bottom:6px;}
+  .result-score{font-family:'Baloo 2',sans-serif;font-size:46px;color:var(--coral-deep);margin:4px 0;}
+  .result-msg{font-weight:700;font-size:17px;color:var(--ink);margin-bottom:16px;}
+  .btn-retry{
+    background:var(--plum);color:#fff;border:none;padding:12px 28px;border-radius:999px;
+    font-family:'Baloo 2',sans-serif;font-size:16px;font-weight:700;cursor:pointer;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;animation:none !important;}
+  }
+  footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:28px;font-weight:600;}
+
+  .q-text b,.sent b{font-weight:800;color:var(--ink);}
+  .sent{font-weight:600;font-size:15px;line-height:2.2;margin:0 0 10px;}
+  .sent i{color:var(--plum);font-weight:600;}
+  .sent select,.match-row select{cursor:pointer;}
+  .sent select{padding:5px 8px;border-radius:10px;border:2px solid #eaeff6;background:#fff;
+    font-family:'Quicksand',sans-serif;font-weight:700;font-size:14.5px;color:var(--coral-deep);margin:0 4px;}
+  .sent input[type=text]{border:none;border-bottom:3px dotted #b9c3d4;background:transparent;
+    font-family:'Quicksand',sans-serif;font-weight:700;font-size:15px;color:var(--coral-deep);
+    padding:4px 6px;width:230px;max-width:100%;}
+  .sent input[type=text]:focus{outline:none;border-bottom-color:var(--sun-deep);}
+  .bank-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .chip{background:#fff;border:2px solid #ffdb9b;border-radius:999px;padding:4px 12px;font-weight:700;font-size:14px;color:#8a5a00;}
+  .chip.used{display:none;}
+  textarea.essay{width:100%;min-height:150px;border:2px solid #eaeff6;border-radius:14px;padding:12px;
+    font-family:'Quicksand',sans-serif;font-weight:600;font-size:15px;color:var(--ink);line-height:1.7;resize:vertical;}
+  textarea.essay:focus{outline:none;border-color:var(--sun-deep);}
+  .q-tag.tag-open{background:#f3e9ff;color:#6b4fa0;}
+  .note{font-size:13px;color:var(--ink-soft);font-weight:600;margin:-6px 0 12px;}
+  .q-card.open-done{border-color:#cdbdf0 !important;}
+  .q-card.open-done .feedback{display:block;background:#f3e9ff;color:#4d3780;}
+  .feedback{white-space:pre-line;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-badge">TIẾNG VIỆT · LỚP 4 · TUẦN 33</span>
+  <h1>Từ và câu: <span>Luyện tập lựa chọn từ ngữ</span></h1>
+  <p class="sub">Con làm lần lượt các bài bên dưới nhé. Mỗi bài con làm xong, sương mù sẽ tan dần trên con đường phía trước!</p>
+  <div class="path-icons" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#fff3d6" stroke="#ffab00" stroke-width="1.5"/><path d="M8 13c1 1.2 2.2 1.8 4 1.8s3-.6 4-1.8" stroke="#e8523f" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="10" r="1.1" fill="#2d3142"/><circle cx="15" cy="10" r="1.1" fill="#2d3142"/></svg>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M4 18c3-1 4-6 6-10M20 18c-3-1-4-6-6-10" stroke="#8675a9" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="6.5" r="1.4" fill="#8675a9"/><circle cx="16" cy="6.5" r="1.4" fill="#8675a9"/></svg>
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v13M12 16l-2.5 2.5M12 16l2.5 2.5" stroke="#3fb083" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="20" r="1.3" fill="#3fb083"/></svg>
+  </div>
+</div>
+
+<div class="name-card">
+  <label for="studentName">✏️ Họ và tên của con là gì?</label>
+  <input type="text" id="studentName" placeholder="Nhập họ và tên của em...">
+  <label for="studentClass" style="margin-top:8px;">🏫 Con học lớp mấy?</label>
+  <input type="text" id="studentClass" placeholder="VD: 4A">
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label"><span>Đường đi của em</span><span id="progress-count">0 / 7 bài</span></div>
+  <div class="progress-track">
+    <div class="progress-fill" id="progress-fill"></div>
+    <div class="progress-walker" id="progress-walker">🚶</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="q-card" data-qid="b1">
+    <div class="q-top"><div class="q-num">1</div><span class="q-tag tag-match">Xếp nhóm</span></div>
+    <p class="q-text">Xếp các từ sau vào nhóm thích hợp.</p>
+    <div class="word-bank"><i>trung thành, trung tâm, trung lưu, trung dũng, trung gian, trung thực, trung bình, trung hiếu</i></div><div class="sel-group" data-type="sel" style="margin-top:12px;"><div class="match-row"><div class="match-left">trung thành</div><select data-key="b1_0" data-answers="“trung”: một lòng một dạ, không thay đổi"><option value="">— chọn nhóm —</option><option value="“trung”: ở giữa">“trung”: ở giữa</option><option value="“trung”: một lòng một dạ, không thay đổi">“trung”: một lòng một dạ, không thay đổi</option></select></div><div class="match-row"><div class="match-left">trung tâm</div><select data-key="b1_1" data-answers="“trung”: ở giữa"><option value="">— chọn nhóm —</option><option value="“trung”: ở giữa">“trung”: ở giữa</option><option value="“trung”: một lòng một dạ, không thay đổi">“trung”: một lòng một dạ, không thay đổi</option></select></div><div class="match-row"><div class="match-left">trung lưu</div><select data-key="b1_2" data-answers="“trung”: ở giữa"><option value="">— chọn nhóm —</option><option value="“trung”: ở giữa">“trung”: ở giữa</option><option value="“trung”: một lòng một dạ, không thay đổi">“trung”: một lòng một dạ, không thay đổi</option></select></div><div class="match-row"><div class="match-left">trung dũng</div><select data-key="b1_3" data-answers="“trung”: một lòng một dạ, không thay đổi"><option value="">— chọn nhóm —</option><option value="“trung”: ở giữa">“trung”: ở giữa</option><option value="“trung”: một lòng một dạ, không thay đổi">“trung”: một lòng một dạ, không thay đổi</option></select></div><div class="match-row"><div class="match-left">trung gian</div><select data-key="b1_4" data-answers="“trung”: ở giữa"><option value="">— chọn nhóm —</option><option value="“trung”: ở giữa">“trung”: ở giữa</option><option value="“trung”: một lòng một dạ, không thay đổi">“trung”: một lòng một dạ, không thay đổi</option></select></div><div class="match-row"><div class="match-left">trung thực</div><select data-key="b1_5" data-answers="“trung”: một lòng một dạ, không thay đổi"><option value="">— chọn nhóm —</option><option value="“trung”: ở giữa">“trung”: ở giữa</option><option value="“trung”: một lòng một dạ, không thay đổi">“trung”: một lòng một dạ, không thay đổi</option></select></div><div class="match-row"><div class="match-left">trung bình</div><select data-key="b1_6" data-answers="“trung”: ở giữa"><option value="">— chọn nhóm —</option><option value="“trung”: ở giữa">“trung”: ở giữa</option><option value="“trung”: một lòng một dạ, không thay đổi">“trung”: một lòng một dạ, không thay đổi</option></select></div><div class="match-row"><div class="match-left">trung hiếu</div><select data-key="b1_7" data-answers="“trung”: một lòng một dạ, không thay đổi"><option value="">— chọn nhóm —</option><option value="“trung”: ở giữa">“trung”: ở giữa</option><option value="“trung”: một lòng một dạ, không thay đổi">“trung”: một lòng một dạ, không thay đổi</option></select></div></div>
+    <div class="feedback" data-explain="“trung”: ở giữa: trung tâm, trung lưu, trung gian, trung bình
+“trung”: một lòng một dạ, không thay đổi: trung thành, trung dũng, trung thực, trung hiếu"></div>
+  </div>
+  <div class="q-card" data-qid="b2">
+    <div class="q-top"><div class="q-num">2</div><span class="q-tag tag-fill">Điền từ</span></div>
+    <p class="q-text">Chọn từ trong bài tập 1 phù hợp để điền vào chỗ trống trong các câu sau:</p>
+    <div class="word-bank">Các từ trong bài tập 1 (mỗi từ dùng một lần):<div class="bank-chips"><span class="chip" data-word="trung thành">trung thành</span><span class="chip" data-word="trung tâm">trung tâm</span><span class="chip" data-word="trung lưu">trung lưu</span><span class="chip" data-word="trung dũng">trung dũng</span><span class="chip" data-word="trung gian">trung gian</span><span class="chip" data-word="trung thực">trung thực</span><span class="chip" data-word="trung bình">trung bình</span><span class="chip" data-word="trung hiếu">trung hiếu</span></div></div><div class="sel-group once" data-type="sel" style="margin-top:12px;"><p class="sent">a. Chó là người bạn <select data-key="b2_0" data-answers="trung thành"><option value="">— chọn —</option><option value="trung thành">trung thành</option><option value="trung tâm">trung tâm</option><option value="trung lưu">trung lưu</option><option value="trung dũng">trung dũng</option><option value="trung gian">trung gian</option><option value="trung thực">trung thực</option><option value="trung bình">trung bình</option><option value="trung hiếu">trung hiếu</option></select> của con người.</p><p class="sent">b. Tôi thường phải làm người <select data-key="b2_1" data-answers="trung gian"><option value="">— chọn —</option><option value="trung thành">trung thành</option><option value="trung tâm">trung tâm</option><option value="trung lưu">trung lưu</option><option value="trung dũng">trung dũng</option><option value="trung gian">trung gian</option><option value="trung thực">trung thực</option><option value="trung bình">trung bình</option><option value="trung hiếu">trung hiếu</option></select> để hoà giải mâu thuẫn giữa họ.</p><p class="sent">c. Nằm ở <select data-key="b2_2" data-answers="trung tâm"><option value="">— chọn —</option><option value="trung thành">trung thành</option><option value="trung tâm">trung tâm</option><option value="trung lưu">trung lưu</option><option value="trung dũng">trung dũng</option><option value="trung gian">trung gian</option><option value="trung thực">trung thực</option><option value="trung bình">trung bình</option><option value="trung hiếu">trung hiếu</option></select> của thủ đô, Lăng Bác là một điểm du lịch thu hút nhiều khách nước ngoài.</p><p class="sent">d. Nhân dân ta có truyền thống <select data-key="b2_3" data-answers="trung dũng"><option value="">— chọn —</option><option value="trung thành">trung thành</option><option value="trung tâm">trung tâm</option><option value="trung lưu">trung lưu</option><option value="trung dũng">trung dũng</option><option value="trung gian">trung gian</option><option value="trung thực">trung thực</option><option value="trung bình">trung bình</option><option value="trung hiếu">trung hiếu</option></select>, kiên cường trong các cuộc kháng chiến chống giặc ngoại xâm.</p><p class="sent">e. Vì không ôn tập chăm chỉ nên kết quả thi của cậu ấy chỉ <select data-key="b2_4" data-answers="trung bình"><option value="">— chọn —</option><option value="trung thành">trung thành</option><option value="trung tâm">trung tâm</option><option value="trung lưu">trung lưu</option><option value="trung dũng">trung dũng</option><option value="trung gian">trung gian</option><option value="trung thực">trung thực</option><option value="trung bình">trung bình</option><option value="trung hiếu">trung hiếu</option></select>.</p></div>
+    <div class="feedback" data-explain="a. trung thành
+b. trung gian
+c. trung tâm
+d. trung dũng
+e. trung bình"></div>
+  </div>
+  <div class="q-card" data-qid="b3">
+    <div class="q-top"><div class="q-num">3</div><span class="q-tag tag-match">Nối</span></div>
+    <p class="q-text">Nối các câu với ý nghĩa phù hợp của tiếng “chung” trong các từ in đậm:</p>
+    <div class="sel-group" data-type="sel"><div class="match-row"><div class="match-left" style="font-weight:600;flex-basis:100%;">a. Trận <b>chung kết</b> sẽ diễn ra vào lúc 8 giờ tối nay.</div><select data-key="b3_0" data-answers="“chung” có nghĩa là cuối cùng"><option value="">— chọn nghĩa của tiếng “chung” —</option><option value="“chung” có nghĩa là cuối cùng">“chung” có nghĩa là cuối cùng</option><option value="“chung” có nghĩa là cùng nhau">“chung” có nghĩa là cùng nhau</option><option value="“chung” có nghĩa là một cách khái quát, rộng hơn">“chung” có nghĩa là một cách khái quát, rộng hơn</option></select></div><div class="match-row"><div class="match-left" style="font-weight:600;flex-basis:100%;">b. Nhìn <b>chung</b>, mọi việc đều thuận lợi.</div><select data-key="b3_1" data-answers="“chung” có nghĩa là một cách khái quát, rộng hơn"><option value="">— chọn nghĩa của tiếng “chung” —</option><option value="“chung” có nghĩa là cuối cùng">“chung” có nghĩa là cuối cùng</option><option value="“chung” có nghĩa là cùng nhau">“chung” có nghĩa là cùng nhau</option><option value="“chung” có nghĩa là một cách khái quát, rộng hơn">“chung” có nghĩa là một cách khái quát, rộng hơn</option></select></div><div class="match-row"><div class="match-left" style="font-weight:600;flex-basis:100%;">c. Chị ấy là một người rất <b>chung thuỷ</b>.</div><select data-key="b3_2" data-answers="“chung” có nghĩa là cuối cùng"><option value="">— chọn nghĩa của tiếng “chung” —</option><option value="“chung” có nghĩa là cuối cùng">“chung” có nghĩa là cuối cùng</option><option value="“chung” có nghĩa là cùng nhau">“chung” có nghĩa là cùng nhau</option><option value="“chung” có nghĩa là một cách khái quát, rộng hơn">“chung” có nghĩa là một cách khái quát, rộng hơn</option></select></div><div class="match-row"><div class="match-left" style="font-weight:600;flex-basis:100%;">d. Lớp tôi học <b>chung</b> với các bạn 4A6 thật vui vẻ.</div><select data-key="b3_3" data-answers="“chung” có nghĩa là cùng nhau"><option value="">— chọn nghĩa của tiếng “chung” —</option><option value="“chung” có nghĩa là cuối cùng">“chung” có nghĩa là cuối cùng</option><option value="“chung” có nghĩa là cùng nhau">“chung” có nghĩa là cùng nhau</option><option value="“chung” có nghĩa là một cách khái quát, rộng hơn">“chung” có nghĩa là một cách khái quát, rộng hơn</option></select></div><div class="match-row"><div class="match-left" style="font-weight:600;flex-basis:100%;">e. Cả nước <b>chung tay</b> hỗ trợ, giúp đỡ người khó khăn trong đại dịch covid.</div><select data-key="b3_4" data-answers="“chung” có nghĩa là cùng nhau"><option value="">— chọn nghĩa của tiếng “chung” —</option><option value="“chung” có nghĩa là cuối cùng">“chung” có nghĩa là cuối cùng</option><option value="“chung” có nghĩa là cùng nhau">“chung” có nghĩa là cùng nhau</option><option value="“chung” có nghĩa là một cách khái quát, rộng hơn">“chung” có nghĩa là một cách khái quát, rộng hơn</option></select></div><div class="match-row"><div class="match-left" style="font-weight:600;flex-basis:100%;">g. Các em thiếu nhi nói riêng và nhân dân Việt Nam <b>nói chung</b> rất yêu kính Bác Hồ.</div><select data-key="b3_5" data-answers="“chung” có nghĩa là một cách khái quát, rộng hơn"><option value="">— chọn nghĩa của tiếng “chung” —</option><option value="“chung” có nghĩa là cuối cùng">“chung” có nghĩa là cuối cùng</option><option value="“chung” có nghĩa là cùng nhau">“chung” có nghĩa là cùng nhau</option><option value="“chung” có nghĩa là một cách khái quát, rộng hơn">“chung” có nghĩa là một cách khái quát, rộng hơn</option></select></div></div>
+    <div class="feedback" data-explain="“chung” có nghĩa là cuối cùng: a, c
+“chung” có nghĩa là cùng nhau: d, e
+“chung” có nghĩa là một cách khái quát, rộng hơn: b, g"></div>
+  </div>
+  <div class="q-card" data-qid="b4">
+    <div class="q-top"><div class="q-num">4</div><span class="q-tag tag-fill">Chọn từ</span></div>
+    <p class="q-text">Chọn từ phù hợp trong ngoặc đơn để điền vào chỗ trống trong các câu sau:</p>
+    <div class="sel-group" data-type="sel"><p class="sent">a. Từng làn gió heo may <select data-key="b4_0" data-answers="se lạnh"><option value="">— chọn —</option><option value="se lạnh">se lạnh</option><option value="lành lạnh">lành lạnh</option><option value="lạnh lẽo">lạnh lẽo</option></select> làm cho ta cảm nhận được rõ mùa thu đang về.<br><i>(se lạnh, lành lạnh, lạnh lẽo)</i></p><p class="sent">b. Thế là mùa đông <select data-key="b4_1" data-answers="rét mướt"><option value="">— chọn —</option><option value="rét căm căm">rét căm căm</option><option value="ren rét">ren rét</option><option value="rét mướt">rét mướt</option></select> lại đến.<br><i>(rét căm căm, ren rét, rét mướt)</i></p><p class="sent">c. Chú chim sâu <select data-key="b4_2" data-answers="sà xuống"><option value="">— chọn —</option><option value="đậu xuống">đậu xuống</option><option value="sà xuống">sà xuống</option><option value="nhảy xuống">nhảy xuống</option></select> vườn rau.<br><i>(đậu xuống, sà xuống, nhảy xuống)</i></p><p class="sent">d. Cô bé nhìn tôi, đôi mắt sáng long lanh, miệng <select data-key="b4_3" data-answers="nở"><option value="">— chọn —</option><option value="nở">nở</option><option value="mở">mở</option><option value="bật">bật</option></select> nụ cười tựa đoá hoa chúm chím.<br><i>(nở, mở, bật)</i></p></div>
+    <div class="feedback" data-explain="Tham khảo: a. se lạnh; b. rét mướt; c. sà xuống; d. nở"></div>
+  </div>
+  <div class="q-card" data-qid="b5">
+    <div class="q-top"><div class="q-num">5</div><span class="q-tag tag-fill">Chọn từ</span></div>
+    <p class="q-text">Dựa vào các từ gợi ý trong ngoặc đơn, chọn từ phù hợp để điền vào chỗ trống trong đoạn văn:</p>
+    <div class="sel-group" data-type="sel"><p class="sent">Vừa vào trận, đội 6A đã tấn công liên tục, (1) <i>(uy hiếp, doạ dẫm, bắt nạt)</i> <select data-key="b5_0" data-answers="uy hiếp"><option value="">— chọn —</option><option value="uy hiếp">uy hiếp</option><option value="doạ dẫm">doạ dẫm</option><option value="bắt nạt">bắt nạt</option></select> khung thành 6B hết đợt này đến đợt khác. Kìa, bóng đang ở chân Đông. Hùng (2) <i>(chạy đến, lao ra, nhảy vào)</i> <select data-key="b5_1" data-answers="lao ra|chạy đến"><option value="">— chọn —</option><option value="chạy đến">chạy đến</option><option value="lao ra">lao ra</option><option value="nhảy vào">nhảy vào</option></select> cướp bóng nhưng Đông đã kịp chuyền cho Dũng. Dũng một mình một bóng (3) <i>(đối diện, đối xứng, đối mặt)</i> <select data-key="b5_2" data-answers="đối diện|đối mặt"><option value="">— chọn —</option><option value="đối diện">đối diện</option><option value="đối xứng">đối xứng</option><option value="đối mặt">đối mặt</option></select> với thủ môn. Dũng (4) <i>(đá, sút, hất)</i> <select data-key="b5_3" data-answers="sút"><option value="">— chọn —</option><option value="đá">đá</option><option value="sút">sút</option><option value="hất">hất</option></select> một cú thật mạnh. Thủ môn Ngọc (5) <i>(lao vào, chạy vào, lượn vào)</i> <select data-key="b5_4" data-answers="lao vào"><option value="">— chọn —</option><option value="lao vào">lao vào</option><option value="chạy vào">chạy vào</option><option value="lượn vào">lượn vào</option></select> bắt bóng. Nhưng trượt rồi! Đội 6A đã mở tỉ số, ghi bàn thắng đầu tiên của trận đấu và hi vọng đội 6B sẽ (6) <i>(cướp lại, giành lại, lấy lại)</i> <select data-key="b5_5" data-answers="lấy lại"><option value="">— chọn —</option><option value="cướp lại">cướp lại</option><option value="giành lại">giành lại</option><option value="lấy lại">lấy lại</option></select> danh dự cho đội nhà. Trận đấu càng lúc càng (7) <i>(sôi sục, sôi nổi, sinh sôi)</i> <select data-key="b5_6" data-answers="sôi nổi"><option value="">— chọn —</option><option value="sôi sục">sôi sục</option><option value="sôi nổi">sôi nổi</option><option value="sinh sôi">sinh sôi</option></select> và hào hứng.</p></div>
+    <div class="feedback" data-explain="(1) uy hiếp; (2) lao ra/ chạy đến; (3) đối diện/ đối mặt; (4) sút; (5) lao vào; (6) lấy lại; (7) sôi nổi"></div>
+  </div>
+  <div class="q-card" data-qid="b6">
+    <div class="q-top"><div class="q-num">6</div><span class="q-tag tag-open">Tự luận</span></div>
+    <p class="q-text">Tìm từ ngữ phù hợp để thay thế cho các từ ngữ in đậm trong các câu sao cho câu đúng và hay hơn:</p><p class="note">Bài này thầy cô sẽ chấm sau. Em gõ từ ngữ của mình vào từng chỗ trống nhé.</p>
+    <div class="open-group" data-type="open"><p class="sent">Những ngày giáp Tết, quê hương của em <b>có nhiều thay đổi</b> (1) <input type="text" data-key="b6_0" placeholder="từ ngữ thay thế (1)"> Các con đường trong thôn được <b>treo cờ và hoa</b> (2) <input type="text" data-key="b6_1" placeholder="từ ngữ thay thế (2)"> Xe cộ đi lại <b>nhiều</b> (3) <input type="text" data-key="b6_2" placeholder="từ ngữ thay thế (3)"> hơn những ngày bình thường. Lần đầu tiên, em được theo mẹ đi chợ Tết. Khu chợ nào cũng <b>nhiều người</b> (4) <input type="text" data-key="b6_3" placeholder="từ ngữ thay thế (4)"> Hàng hoá được bày bán <b>rất nhiều</b> (5) <input type="text" data-key="b6_4" placeholder="từ ngữ thay thế (5)"> Người mua, người bán <b>ồn ào</b> (6) <input type="text" data-key="b6_5" placeholder="từ ngữ thay thế (6)"> không kém với thành phố. Không khí vui tươi khiến em cảm thấy thật <b>vui</b> (7) <input type="text" data-key="b6_6" placeholder="từ ngữ thay thế (7)"> </p></div>
+    <div class="feedback" data-explain="Gợi ý:
+(1) khoác lên mình một tấm áo mới tinh
+(2) trang hoàng rợp trời cờ hoa rực rỡ
+(3) tấp nập, dập dìu
+(4) đông đúc, nhộn nhịp
+(5) ngập đường phố
+(6) xôn xao, náo nhiệt
+(7) hào hứng, phấn khích"></div>
+  </div>
+  <div class="q-card" data-qid="b7">
+    <div class="q-top"><div class="q-num">7</div><span class="q-tag tag-open">Tự luận</span></div>
+    <p class="q-text">Viết 1 đoạn văn (4 – 5 câu) miêu tả ngôi nhà của em, gạch chân dưới các từ ngữ mà em cho là giúp cho câu văn được sinh động, gợi tả.</p><p class="note">Khi gõ trên máy, thay cho gạch chân, em đặt các từ ngữ đó trong dấu ngoặc vuông, ví dụ: [xinh xắn]. Bài này thầy cô sẽ chấm sau.</p>
+    <div class="open-group" data-type="open"><textarea class="essay" data-key="b7" placeholder="Em viết đoạn văn vào đây..."></textarea></div>
+    <div class="feedback" data-explain="Bài này em tự làm. Thầy cô sẽ đọc và nhận xét bài viết của em."></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="submit-zone">
+    <button class="btn-submit" id="submitBtn">🎉 Nộp bài</button>
+  </div>
+
+  <div class="result-panel" id="resultPanel">
+    <div class="result-emoji" id="resultEmoji">🌤️</div>
+    <div class="result-score" id="resultScore">0 / 30 điểm</div>
+    <div class="result-msg" id="resultMsg">Sương mù đã tan hết rồi!</div>
+    <button class="btn-retry" id="retryBtn">↺ Làm lại</button>
+  </div>
+</div>
+
+<footer>Vở bài tập nâng cao Từ và câu lớp 4 · Tuần 33 · Chúc em học vui! 🌈</footer>
+
+<script>
+const qCards = Array.from(document.querySelectorAll('.q-card'));
+const totalGroups = qCards.length;
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyvWKGiEadJZC0m2E_ETWm1oGUXTJ7RaNEGJkDT_TiX5UGxaav75rKJ0mN2OV-hQ4s/exec";
+
+function fields(card){ return Array.from(card.querySelectorAll('select, input[type=text], textarea')); }
+function isGroupTouched(card){ return fields(card).some(f=>f.value.trim()!==''); }
+
+function updateProgress(){
+  let answered = 0;
+  qCards.forEach(card=>{ if(isGroupTouched(card)) answered++; });
+  const pct = Math.round((answered/totalGroups)*100);
+  document.getElementById('progress-fill').style.width = pct+'%';
+  document.getElementById('progress-walker').style.left = pct+'%';
+  document.getElementById('progress-count').textContent = answered+' / '+totalGroups+' bài';
+}
+
+// Bài dùng mỗi từ một lần: từ đã chọn bị ẩn khỏi khung và khỏi các ô khác
+function refreshOnce(group){
+  const sels = Array.from(group.querySelectorAll('select'));
+  const used = sels.map(s=>s.value).filter(v=>v!=='');
+  sels.forEach(s=>{
+    Array.from(s.options).forEach(o=>{
+      if(o.value==='') return;
+      const taken = used.includes(o.value) && s.value!==o.value;
+      o.hidden = taken; o.disabled = taken;
+    });
+  });
+  const card = group.closest('.q-card');
+  card.querySelectorAll('.chip').forEach(c=>c.classList.toggle('used', used.includes(c.getAttribute('data-word'))));
+}
+
+qCards.forEach(card=>{
+  card.addEventListener('change', ()=>{
+    const once = card.querySelector('.sel-group.once');
+    if(once) refreshOnce(once);
+    updateProgress();
+  });
+  card.addEventListener('input', updateProgress);
+});
+
+document.getElementById('submitBtn').addEventListener('click', ()=>{
+  const nameInput = document.getElementById('studentName');
+  if(nameInput.value.trim()===''){
+    nameInput.style.borderColor = 'var(--coral)';
+    nameInput.focus();
+    nameInput.placeholder = 'Em nhớ điền tên trước khi nộp bài nhé!';
+    return;
+  }
+  nameInput.style.borderColor = '#eaeff6';
+
+  const classInput = document.getElementById('studentClass');
+  if(classInput.value.trim()===''){
+    classInput.style.borderColor = 'var(--coral)';
+    classInput.focus();
+    classInput.placeholder = 'Em nhớ điền lớp trước khi nộp bài nhé!';
+    return;
+  }
+  classInput.style.borderColor = '#eaeff6';
+
+  let earned = 0, possible = 0;
+  const openAnswers = {};
+
+  qCards.forEach(card=>{
+    const touched = isGroupTouched(card);
+    const fb = card.querySelector('.feedback');
+    card.classList.remove('answered','correct','incorrect','open-done');
+
+    const selGroup = card.querySelector('.sel-group[data-type="sel"]');
+    if(selGroup){
+      const sels = Array.from(selGroup.querySelectorAll('select'));
+      possible += sels.length;
+      let allOk = true;
+      sels.forEach(sel=>{
+        const accepted = (sel.getAttribute('data-answers')||'').split('|');
+        const ok = sel.value!=='' && accepted.includes(sel.value);
+        if(ok) earned += 1; else allOk = false;
+        sel.style.borderColor = sel.value ? (ok ? '#3fb083' : '#ff6b6b') : '#eaeff6';
+      });
+      fb.textContent = 'Đáp án:\n' + fb.getAttribute('data-explain');
+      card.classList.add(allOk ? 'correct' : 'incorrect');
+    }
+
+    const openGroup = card.querySelector('.open-group[data-type="open"]');
+    if(openGroup){
+      openGroup.querySelectorAll('input[type=text], textarea').forEach(f=>{
+        openAnswers[f.getAttribute('data-key')] = f.value.trim();
+      });
+      fb.textContent = fb.getAttribute('data-explain');
+      card.classList.add('open-done');
+    }
+  });
+
+  updateProgress();
+
+  // Gửi kết quả về Google Sheet của giáo viên
+  const tuluanText = [1,2,3,4,5,6,7].map(i=>'Bài 6 ('+i+'): '+(openAnswers['b6_'+(i-1)]||'')).join('\n')
+                   + '\nBài 7: '+(openAnswers['b7']||'');
+  try {
+    fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify({
+        bai: "Từ và câu - Tuần 33",
+        hoten: nameInput.value.trim(),
+        lop: classInput.value.trim(),
+        diem: earned,
+        tongdiem: possible,
+        tuluan: tuluanText,
+        traloi: openAnswers
+      })
+    }).catch(()=>{});
+  } catch(e) {}
+
+  const pct = Math.round((earned/possible)*100);
+  const resultPanel = document.getElementById('resultPanel');
+  document.getElementById('resultScore').textContent = earned+' / '+possible+' điểm';
+  let emoji, msg;
+  if(pct >= 90){ emoji='🌞'; msg='Tuyệt vời! Sương mù tan hết, em giỏi quá!'; }
+  else if(pct >= 70){ emoji='🌤️'; msg='Rất tốt! Em đã đi gần hết con đường rồi.'; }
+  else if(pct >= 50){ emoji='⛅'; msg='Khá lắm! Xem lại vài câu để giỏi hơn nữa nhé.'; }
+  else { emoji='🌫️'; msg='Đừng lo, hãy xem lại bài và thử lần nữa nhé!'; }
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultMsg').textContent = nameInput.value.trim()+' ơi, '+msg+' (Bài 6 và bài 7 thầy cô sẽ chấm sau.)';
+  resultPanel.classList.add('show');
+  resultPanel.scrollIntoView({behavior:'smooth', block:'center'});
+});
+
+document.getElementById('retryBtn').addEventListener('click', ()=>{
+  document.getElementById('studentName').value='';
+  document.getElementById('studentName').style.borderColor='#eaeff6';
+  document.getElementById('studentName').placeholder='Nhập họ và tên của em...';
+  document.getElementById('studentClass').value='';
+  document.getElementById('studentClass').style.borderColor='#eaeff6';
+  document.getElementById('studentClass').placeholder='VD: 4A';
+  document.querySelectorAll('.q-card input[type=text], .q-card textarea').forEach(i=>{i.value='';});
+  document.querySelectorAll('select').forEach(s=>{s.value='';s.style.borderColor='';});
+  document.querySelectorAll('.sel-group.once').forEach(refreshOnce);
+  document.querySelectorAll('.q-card').forEach(c=>{c.classList.remove('answered','correct','incorrect','open-done');c.querySelector('.feedback').textContent='';});
+  document.getElementById('resultPanel').classList.remove('show');
+  updateProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+});
+
+updateProgress();
+</script>
+</body>
+</html>

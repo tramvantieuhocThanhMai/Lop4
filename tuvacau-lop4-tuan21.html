@@ -389,6 +389,7 @@ document.getElementById('submitBtn').addEventListener('click',()=>{
   card.querySelectorAll('textarea').forEach(a=>{tl.push(a.value.trim());});
   card.querySelectorAll('.sugg').forEach(s=>s.classList.add('show'));
   card.classList.remove('answered','correct','incorrect');
+  const fb=card.querySelector('.feedback');if(fb&&fb.dataset.explain)fb.textContent=(card.querySelector('textarea')?'📝 ':'Đáp án: ')+fb.dataset.explain;
   if(!card.querySelector('textarea')){if(t)card.classList.add(ok?'correct':'incorrect');}
  });
  updateProgress();
@@ -396,8 +397,8 @@ document.getElementById('submitBtn').addEventListener('click',()=>{
   body:JSON.stringify({bai:"Từ và câu - Tuần 21",hoten:n.value.trim(),lop:k.value.trim(),diem:earned,tongdiem:possible,tuluan:tl.map((x,i)=>'Tranh '+(i+1)+': '+x).join(' || ')})}).catch(()=>{});}catch(e){}
  const pct=Math.round(earned/possible*100);let em,m;
  if(pct>=90){em='🌞';m='Tuyệt vời! Em giỏi quá!';}else if(pct>=70){em='🌤️';m='Rất tốt! Em đã đi gần hết con đường rồi.';}else if(pct>=50){em='⛅';m='Khá lắm! Xem lại vài câu để giỏi hơn nữa nhé.';}else{em='🌫️';m='Đừng lo, hãy xem lại bài và thử lần nữa nhé!';}
- document.getElementById('resultScore').textContent=earned+' / '+possible+' điểm (chưa tính bài 7 tự luận)';
- document.getElementById('resultEmoji').textContent=em;document.getElementById('resultMsg').textContent=n.value.trim()+' ơi, '+m;
+ document.getElementById('resultScore').textContent=earned+' / '+possible+' điểm';
+ document.getElementById('resultEmoji').textContent=em;document.getElementById('resultMsg').textContent=n.value.trim()+' ơi, '+m+' (Chưa tính bài 7 tự luận, cô sẽ chấm riêng.)';
  const r=document.getElementById('resultPanel');r.classList.add('show');r.scrollIntoView({behavior:'smooth',block:'center'});});
 document.getElementById('retryBtn').addEventListener('click',()=>location.reload());
 updateProgress();

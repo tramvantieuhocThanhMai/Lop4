@@ -144,6 +144,9 @@
 
   @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important;}}
   footer{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:28px;font-weight:600;}
+  .fill-line input[type=text]{max-width:100%;}
+  .q-card{overflow-wrap:anywhere;}
+  @media (max-width:560px){ .fill-line input[type=text]{min-width:0 !important;width:100%;} }
 </style>
 </head>
 <body>
@@ -372,15 +375,15 @@
   <div class="q-card" data-qid="c6e">
     <div class="q-top"><div class="q-num">6e</div><span class="q-tag tag-fill">Tìm danh từ riêng</span></div>
     <p class="q-text" style="font-style:italic;font-size:14.5px;">Quảng Nam có lụa Phú Bông<br>Có khoai Trà Đoả, có sông Thu Bồn.</p>
-    <div class="fill-line"><span>Chỉ người:</span><input type="text" data-key="p5a" style="min-width:120px;" data-answerset=""></div>
+    <div class="fill-line"><span>Chỉ người:</span><input type="text" data-key="p5a" style="min-width:120px;" data-answerset="" placeholder="Nếu không có, ghi: không có"></div>
     <div class="fill-line"><span>Chỉ địa danh:</span><input type="text" data-key="p5b" style="min-width:300px;" data-answerset="Quảng Nam,Phú Bông,Trà Đoả,Thu Bồn"></div>
     <div class="feedback" data-explain="Câu này không có danh từ riêng chỉ người. Địa danh: Quảng Nam, Phú Bông, Trà Đoả, Thu Bồn."></div>
   </div>
 
   <div class="q-card" data-qid="c6g">
     <div class="q-top"><div class="q-num">6g</div><span class="q-tag tag-fill">Tìm danh từ riêng</span></div>
-    <p class="q-text" style="font-style:italic;font-size:14.5px;">Phồn hoa thứ nhất Long Thành,<br>Phố giăng mắc cửi, đàn quanh bàn cờ.<br>Người về nhớ cảnh ngẩn ngơ,<br>Bút hoa xin chép nên thơ lưu truyền.</p>
-    <div class="fill-line"><span>Chỉ người:</span><input type="text" data-key="p6a" style="min-width:120px;" data-answerset=""></div>
+    <p class="q-text" style="font-style:italic;font-size:14.5px;">Phồn hoa thứ nhất Long Thành,<br>Phố giăng mắc cửi, đường quanh bàn cờ.<br>Người về nhớ cảnh ngẩn ngơ,<br>Bút hoa xin chép nên thơ lưu truyền.</p>
+    <div class="fill-line"><span>Chỉ người:</span><input type="text" data-key="p6a" style="min-width:120px;" data-answerset="" placeholder="Nếu không có, ghi: không có"></div>
     <div class="fill-line"><span>Chỉ địa danh:</span><input type="text" data-key="p6b" style="min-width:160px;" data-answerset="Long Thành"></div>
     <div class="feedback" data-explain="Câu này không có danh từ riêng chỉ người. Địa danh: Long Thành."></div>
   </div>
@@ -494,7 +497,8 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
       possible += 1;
       const expected = normTextList(inp.getAttribute('data-answerset')).sort();
       const given = normTextList(inp.value).sort();
-      const ok = expected.length===given.length && expected.every((v,i)=>v===given[i]);
+      let ok = expected.length===given.length && expected.every((v,i)=>v===given[i]);
+      if(expected.length===0){ ok = given.length===0 || (given.length===1 && ['không có','không','ko có','0'].includes(given[0])); }
       if(ok) earned += 1; else groupCorrect = false;
       inp.style.color = inp.value.trim()==='' ? '#c8ceda' : (ok ? '#1d7a52' : '#e35b4d');
       inp.style.borderBottomColor = inp.value.trim()==='' ? '#c3cfe0' : (ok ? '#3fc17d' : '#ff7a6e');
@@ -633,9 +637,13 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
     if(openTa){ isOpenEnded = true; }
 
     card.classList.remove('correct','incorrect','neutral');
-    if(groupTouched){
-      if(isOpenEnded){ card.classList.add('neutral'); }
-      else { card.classList.add(groupCorrect ? 'correct' : 'incorrect'); }
+    const fbBox = card.querySelector('.feedback');
+    if(isOpenEnded){
+      card.classList.add('neutral');
+      if(fbBox) fbBox.textContent = '📝 ' + (fbBox.getAttribute('data-explain')||'');
+    } else {
+      card.classList.add(groupCorrect ? 'correct' : 'incorrect');
+      if(fbBox) fbBox.textContent = (groupCorrect ? '✅ Chính xác! ' : '💡 Đáp án: ') + (fbBox.getAttribute('data-explain')||'');
     }
   });
 
@@ -661,7 +669,7 @@ document.getElementById('submitBtn').addEventListener('click', ()=>{
   const resultPanel = document.getElementById('resultPanel');
   document.getElementById('resultScore').textContent = earned+' / '+possible+' điểm';
   let emoji, msg;
-  if(pct >= 90){ emoji='🏆'; msg='xuất sắc, sẵn sàng vào lớp 2 rồi!'; }
+  if(pct >= 90){ emoji='🏆'; msg='xuất sắc, em giỏi quá!'; }
   else if(pct >= 70){ emoji='🌟'; msg='làm rất tốt, cố thêm chút nữa nhé!'; }
   else if(pct >= 50){ emoji='🙂'; msg='khá lắm, xem lại vài bài để giỏi hơn nữa nhé.'; }
   else { emoji='📘'; msg='đừng lo, hãy ôn lại và thử lần nữa nhé!'; }
@@ -683,7 +691,11 @@ document.getElementById('retryBtn').addEventListener('click', ()=>{
   document.querySelectorAll('.tf-btn').forEach(b=>b.classList.remove('picked','correct-answer'));
   document.querySelectorAll('.tf-row').forEach(r=>r.classList.remove('correct','incorrect'));
   document.querySelectorAll('.match-group select').forEach(s=>{s.value='';s.style.borderColor='';});
-  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('correct','incorrect'));
+  document.querySelectorAll('.q-card').forEach(c=>c.classList.remove('correct','incorrect','neutral'));
+  document.querySelectorAll('.feedback').forEach(f=>f.textContent='');
+  document.querySelectorAll('textarea').forEach(t=>t.value='');
+  document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false);
+  document.querySelectorAll('.check-opt').forEach(o=>o.classList.remove('state-correct','state-incorrect'));
   document.getElementById('resultPanel').classList.remove('show');
   updateProgress();
   window.scrollTo({top:0, behavior:'smooth'});
